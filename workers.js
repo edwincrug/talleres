@@ -9,7 +9,7 @@ var Workers = function(config){
 	
 	console.log('Inicia conexión');
 
-	var app = new expressServer({connection: conf.connectionString});
+	var app = new expressServer({parameters : conf });
 
 	this.server = http.createServer(app.expressServer);
 
