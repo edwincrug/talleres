@@ -25,4 +25,12 @@ registrationModule.controller('cotizacionController', function($scope, alertFact
         }, function (error){
         });
 	}
+
+    $scope.BusquedaPieza = function(){
+        cotizacionRepository.busquedaPieza.then(function(result){
+            $scope.pieza = result.data;
+        }, function(error){
+
+        });
+    }
 });

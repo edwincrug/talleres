@@ -37,4 +37,23 @@ Cotizacion.prototype.get = function(callback){
     });
 };
 
+Cotizacion.prototype.buscar = function(callback){
+    
+    var self = this.connection;
+    this.connection.connect(function(err) {
+      // Stored Procedure 
+      var request = new sql.Request(self);
+      //request.input('idTaller', sql.Int, params);
+      // request.output('output_parameter', sql.VarChar(50));
+      request.execute('SEL_BUSQUEDA_COTIZACION_SP', function(err, recordsets, returnValue) {
+        if(recordsets != null){
+          callback(err, recordsets[0]);
+        }
+        else{
+          console.log('Error al obtener las piezas  : ' + params + ' mensaje: ' + err);
+        }
+      });
+    });
+};
+
 module.exports = Cotizacion;

@@ -8,6 +8,12 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 url: searchUrl + 'see',
                 method: "GET"
             });
+        },
+        busquedaPieza: function(){
+        	return $http:({
+        		url: searchUrl + 'buscar',
+        		method: "GET"
+        	});
         }
     };
 });
