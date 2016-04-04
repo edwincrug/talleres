@@ -10,8 +10,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute"])
 
     /*change the routes*/
     $routeProvider.when('/', {
-        templateUrl: 'AngularJS/Templates/example.html',//example 1
-        controller: 'exampleController'
+         templateUrl: 'AngularJS/Templates/example.html',
+         controller: 'exampleController'
+    });
+
+    $routeProvider.when('/tallerCita', {
         templateUrl: 'AngularJS/Templates/tallerCita.html',
         controller: 'citaController'
     });
