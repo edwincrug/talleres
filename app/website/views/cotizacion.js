@@ -17,6 +17,7 @@ Cotizacion.prototype.see = function(res, object){
         res.write(JSON.stringify(object.result));
         res.end("");
     }
+} 
 
 }
 

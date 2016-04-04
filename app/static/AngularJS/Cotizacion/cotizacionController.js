@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('cotizacionController', function($scope, alertFactory){
+registrationModule.controller('cotizacionController', function($scope, alertFactory, cotizacionRepository){
 	$scope.init = function(){
 	}
     
@@ -16,8 +16,13 @@ registrationModule.controller('cotizacionController', function($scope, alertFact
 	}
     
     $scope.Detalle = function(){
+         $('#cotizacionDetalle').modal('show');
 	}
     
     $scope.Maestro = function(){
+        cotizacionRepository.get().then(function(result){
+            $scope.cotizaciones = result.data;
+        }, function (error){
+        });
 	}
 });
