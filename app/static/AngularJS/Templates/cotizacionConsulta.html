@@ -1,0 +1,76 @@
+<div ng-init="init()">
+    <h3>Cotizaciones</h3>
+    </br>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-8">
+            <button class="btn btn-primary" type="button" ng-click="Maestro()">Nueva Cotización</button>
+        </div>
+    </div>
+    </br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+                <input type="text" class="form-control" placeholder="Buscar Cotizaciones...">
+            </div>
+            <!-- /input-group -->
+        </div>
+    </div>
+    <!-- /.row -->
+    </br>
+    </br>
+    </br>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Estatus</th>
+                    <th>VIN</th>
+                    <th>Eco</th>
+                    <th>Marca - Modelo</th>
+                    <th>Trabajo</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Cotizó</th>
+                    <th>Detalle</th>
+                    <th>Abrir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cotizacion in cotizaciones">
+                    <td>{{ cotizacion.estatus }}</td>
+                    <td>{{cotizacion.vin}}</td>
+                    <td>{{cotizacion.numEconomico}}</td>
+                    <td>{{cotizacion.marca}}</td>
+                    <td>{{cotizacion.descripcion}}</td>
+                    <td>{{ cotizacion.fechaInicio }}</td>
+                    <td>{{ cotizacion.nombreCompleto }}</td>
+                    <td>
+                        <button class="btn btn-primary" type="button" id="btnEnviar">
+                            <span class="glyphicon glyphicon-hand-left" aria-hidden="true" data-toggle="modal" ng-click="Detalle()"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="cotizacionDetalle" class="modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalle</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,9 +1,13 @@
-var searchUrl = global_settings.urlCORS + '/api/flotillaApi/';
+var searchUrl = global_settings.urlCORS + '/api/cotizacion/';
 
 registrationModule.factory('cotizacionRepository', function ($http) {
     return {
-        getFlotilla: function (factura, vin) {
-            return $http.get(searchUrl + '1|' + factura + '|' + vin);
+        get: function () {
+            // return $http.post(loginUrl + '1|' + rol + '|' + nombre + '|' + email + '|' + password);
+            return $http({
+                url: searchUrl + 'see',
+                method: "GET"
+            });
         }
     };
 });
