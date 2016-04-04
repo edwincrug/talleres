@@ -1,5 +1,5 @@
 var sql = require('mssql'),
-    config = {};
+config = {};
 
 var Cita = function(config){
   //Inicializamos el objeto config
@@ -20,14 +20,15 @@ var Cita = function(config){
 
 //Funciones
 Cita.prototype.get = function(params,callback){
-    
+    var moment = require('moment');
+    var responseDate = moment(params).format('YYYY-MM-DD HH:mm Z');
+    var date = new Date(responseDate);   
     var self = this.connection;
     this.connection.connect(function(err) {
       // Stored Procedure 
-      var request = new sql.Request(self);
-      request.input('idTaller', sql.Int, params);
-      // request.output('output_parameter', sql.VarChar(50));
-      request.execute('SEL_CITA_SP', function(err, recordsets, returnValue) {
+      var request = new sql.Request(self);         
+      request.input('fecha', sql.DateTime, date);
+      request.execute('SEL_CITA_TALLER_SP', function(err, recordsets, returnValue) {
         if(recordsets != null){
           callback(err, recordsets[0]);
         }

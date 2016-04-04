@@ -1,0 +1,43 @@
+<div ng-init="init()">
+	<h1>CITAS</h1>
+	<div id="contenedor">
+        <form class="form-inline" role="form">
+        <div class="form-group" style="padding-left: 1090px;">
+			<label for="exampleInputEmail1">Fecha:</label>
+			<input type="date" ng-model="fecha" class="form-control" 
+			id="fecha" placeholder="dd/mm/yyyy" ng-change="Busqueda(fecha)">
+		</div>
+        </form>
+        <div class="row tablaBusqueda tablaAlign">
+          <table class="table table-condensed"> 
+            <thead> 
+                <tr> 
+                    <th>VIN</th> 
+                    <th>Eco</th>                        
+                    <th>Marca-Modelo</th>
+                    <th>Trabajo</th>   
+                    <th>Fecha</th>                    
+                    <th>Agendó</th> 
+                    <th>Cotizar</th>
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng-repeat="cita in listaCitas"> 
+                    <td>{{cita.VIN}}</td> 
+                    <td>{{ cita.Eco }}</td> 
+                    <td>{{ cita.Marca }}</td>
+                    <td>{{ cita.Trabajo }}</td>  
+                    <td>{{ cita.Fecha }} </td>
+                    <td>{{ cita.Agendo }} </td>
+                    <td>
+                      <button class="btn btn-primary" type="button" 
+                      	id="btnCotizar">
+                        <span aria-hidden="true" ng-click="Cotizar(cita)"></span>
+                      </button>
+                    </td>
+                </tr>                
+            </tbody> 
+        </table> 
+        </div>                 
+    </div>
+</div>

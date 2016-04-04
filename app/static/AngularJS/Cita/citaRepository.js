@@ -1,9 +1,12 @@
-var searchUrl = global_settings.urlCORS + '/api/flotillaApi/';
+var citaUrl = global_settings.urlCORS + '/api/cita/';
 
 registrationModule.factory('citaRepository', function ($http) {
     return {
-        getFlotilla: function (factura, vin) {
-            return $http.get(searchUrl + '1|' + factura + '|' + vin);
+        getCitaTaller: function (fecha) {
+        	return $http({
+                url: citaUrl + 'see/' + fecha,
+                method: "GET"
+            });
         }
     };
 });
