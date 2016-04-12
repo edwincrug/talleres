@@ -7,16 +7,6 @@
 // -- =============================================
 registrationModule.controller('citaController', function($scope, $rootScope, alertFactory,citaRepository){
 	$scope.init = function(){
-		/*citaRepository.getCitaTaller('20160328').then(function(cita){			
-			if(cita.data.length > 0){
-				$scope.listaCitas = cita.data;				
-	    		alertFactory.success('Datos de citas cargados.');
-			} else{		
-	    		alertFactory.info('No hay citas en la fecha seleccionada.');
-			}			
-		},function(error){
-	        alert("error");
-	    });*/
 	}
 
 	$scope.Busqueda = function(fecha){

@@ -19,6 +19,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute"])
         controller: 'citaController'
     });
 
+     $routeProvider.when('/cotizacionNueva', {
+        templateUrl: 'AngularJS/Templates/cotizacionNueva.html',
+        controller: 'cotizacionController'
+    });
+
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false

@@ -1,4 +1,104 @@
-<div ng-init="init()"> 
-	<h1>{{hello}}</h1>
-	 <button type="button" class="btn btn-primary" ng-click="sayHello()">Say Hello</button>
+<div ng-init="init()">
+	<h1>Nueva Cotización</h1>
+    <div>
+	<form id="upload" enctype="multipart/form-data" ng-submit="uploadFile(image)">
+		<p><input class="form-control" type="file" file-model="image" name="image" /></p>
+		<p><input type="submit" class="btn btn-primary" value="Upload" /></p>
+		<div ng-show="uploaded" class="bg-success">Uploaded {{uploadedImage}}</div>
+	</form>
 </div>
+	<div id="contenedor" style="padding-left: 20px;">
+        <form class="form-inline" role="form">
+        <div class="ui-widget">
+			<label for="exampleInputEmail1">Pieza:</label>
+			<input type="text" ng-model="pieza" class="form-control"
+			id="piezaTxt" placeholder="servicio/paquete/refacción" style="width: 220px;" >
+			<button class="btn btn-primary" type="button" ng-click="buscarPieza()"> Buscar
+	        </button>       
+		</div>		 
+        </form>       	
+        <div class="row tablaBusqueda tablaAlign">
+          <table class="table table-striped"> 
+            <thead> 	
+                <tr> 
+                	<th>ID</th> 
+                    <th>No.Parte</th>                        
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Tipo Elemento</th> 
+                    <th>Agregar</th>                    
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng-repeat="piezas in listaPiezas">
+                	<td>{{ piezas.idItem }}</td> 
+                    <td>{{ piezas.numeroParte }}</td> 
+                    <td>{{ piezas.descripcion }}</td>
+                    <td>{{ piezas.precio }}</td>
+                    <td>{{ piezas.idTipoElemento }}</td>
+                    <td>
+                      <button class="btn btn-primary" type="button" 
+                      	id="btnCotizar" ng-click="cotizacion(piezas)">+
+                      </button>
+                    </td>
+                </tr>                
+            </tbody> 
+        </table> 
+        </div>
+		</br>
+        </br>
+		</br>
+        <div class="row tablaBusqueda tablaAlign">
+          <table class="table table-striped"> 
+            <thead> 
+                <tr> 
+                	<th>ID</th> 
+                    <th>No.Parte</th>                        
+                    <th>Descripción</th>
+                    <th>Cantidad</th>  
+                    <th>Precio Unitario</th>
+                    <th>Importe</th>                    
+                    <th>Quitar</th>
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng-repeat="piezas in arrayItem">
+                	<td>{{piezas.idItem }}</td> 
+                    <td>{{piezas.numeroParte}}</td> 
+                    <td>{{piezas.descripcion}}</td>
+                    <td>{{piezas.cantidad}}</td>
+                    <td>{{piezas.precio}}</td>
+                    <td>{{piezas.importe}}</td>                    
+                    <td>
+                      <button class="btn btn-primary" type="button" 
+                      	id="btnCotizar" ng-click="quitarPieza(piezas)">-
+                      </button>
+                    </td>
+                </tr>                
+            </tbody> 
+        </table> 
+        </div>
+        <form class="form-inline" role="form">
+	        <div style="padding-left: 980px;">
+		        <label for="total" class="col-md-2 control-label">Total:</label> 
+		        <input type="text" ng-model="total" id="total" class="form-control" style="width: 140px;" readonly="true">    
+	        </div>
+        </form>
+    </div>
+</div>
+</br>
+</br>
+<div>
+ <form class="form-horizontal" role="form">
+  <div class="form-group" style="padding-left: 835px;">
+    <label for="facturaL" class="col-md-3 control-label">Observaciones:</label>
+    <div class="col-md-2">
+      <input type="text" class="form-control" ng-model="observaciones">
+    </div>
+          <button type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)">Enviar Autorización
+      </button>
+  </div>
+  </div>
+</form>
+</div>
+
