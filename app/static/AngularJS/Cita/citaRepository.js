@@ -4,7 +4,7 @@ registrationModule.factory('citaRepository', function ($http) {
     return {
         getCitaTaller: function (fecha) {
         	return $http({
-                url: citaUrl + 'see/' + fecha,
+                url: citaUrl + 'buscaCita/' + fecha,
                 method: "GET"
             });
         },

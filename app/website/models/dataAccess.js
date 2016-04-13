@@ -28,8 +28,7 @@ DataAccess.prototype.get = function(stored,params,callback){
       var dataType = null;
       if(params.type === 1){
         dataType = sql.Int;
-      }
-      else if(params.type === 2){
+      }else if(params.type === 2){
         dataType = sql.Decimal(18, 2);
       }else if(params.type === 3){
         dataType = sql.VarChar(8000);

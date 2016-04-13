@@ -17,8 +17,7 @@ Cita.prototype.post_save = function(req,res,next){
 
 }
 
-Cita.prototype.get_see_data = function(req,res,next){
-	//var moment = require('moment');
+Cita.prototype.get_buscaCita_data = function(req,res,next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
@@ -27,14 +26,15 @@ Cita.prototype.get_see_data = function(req,res,next){
 	var self = this;
 
 	//Asigno a params el valor de mis variables
-	params = req.params.data;
-	var responseDate = moment(params).format('YYYY-MM-DD HH:mm Z');
-    var date = new Date(responseDate); 
-    date.setHours(12);
-    params = date;
+	var responseDate = moment(req.params.data).format('YYYY-MM-DD HH:mm Z');
+    var fecha = new Date(responseDate); 
+    fecha.setHours(12);
+
+    params.name = 'fecha';
+    params.value = fecha;    
 	params.type = 4;
 
-	this.model.get('SEL_CITA_TALLER_SP',params,function(error,result){
+	this.model.get( 'SEL_CITA_TALLER_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;

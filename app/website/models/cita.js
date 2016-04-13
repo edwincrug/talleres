@@ -19,7 +19,7 @@ var Cita = function(config){
 
 
 //Funciones
-Cita.prototype.get = function(params,callback){
+/*Cita.prototype.get = function(params,callback){
     var moment = require('moment');
     var responseDate = moment(params).format('YYYY-MM-DD HH:mm Z');
     var date = new Date(responseDate); 
@@ -39,6 +39,6 @@ Cita.prototype.get = function(params,callback){
       });
 
     });
-};
+};*/
 
 module.exports = Cita; 
