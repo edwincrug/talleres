@@ -6,6 +6,7 @@
 // -- Fecha: 
 // -- =============================================
 registrationModule.controller('citaController', function($scope, $rootScope, alertFactory,citaRepository){
+	$scope.message = 'Buscando...';
 	$scope.init = function(){
 	}
 
@@ -14,23 +15,26 @@ registrationModule.controller('citaController', function($scope, $rootScope, ale
 			alertFactory.info('Seleccione una fecha');
 		} else {
 			var dia = fecha.getDate();
+			if(dia < 9){
+				dia = ''+'0'+dia 
+			}
 			var mes = fecha.getMonth()+1;
 			if(mes < 9){
 				mes = ''+'0'+mes 
 			}
 			var anio = fecha.getFullYear();
 			var date = anio +''+ mes +''+ dia;
-			citaRepository.getCitaTaller(date).then(function(cita){			
+			$scope.promise = citaRepository.getCitaTaller(date).then(function(cita){			
 				if(cita.data.length > 0){
 					$scope.listaCitas = cita.data;				
 		    		alertFactory.success('Datos de citas cargados.');
 				} else{		
+					$scope.listaCitas = '';
 		    		alertFactory.info('No hay citas en la fecha seleccionada.');
 				}			
 			},function(error){
 		        alert("error");
 		    });	
-		}
-				
+		}				
 	}
 });

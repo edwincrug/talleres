@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute"])
+var registrationModule = angular.module("registrationModule", ["ngRoute", "cgBusy"])
 .config(function ($routeProvider, $locationProvider) {
 
     /*change the routes*/

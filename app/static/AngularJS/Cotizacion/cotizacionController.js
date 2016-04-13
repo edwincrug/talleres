@@ -17,6 +17,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.importe = 0; 
     $scope.idUsuario = 1;
     $scope.idCita = 14;
+    $scope.message = 'Buscando...';
     $scope.init = function(){
         GetItems();
         exist = false;        
@@ -43,7 +44,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         if(valor == '' || valor == null){
             alertFactory.info("Seleccione una pieza");
         } else{
-               cotizacionRepository.buscarPieza(valor).then(function(result){
+               $scope.promise = cotizacionRepository.buscarPieza(valor).then(function(result){
                 $scope.listaPiezas = result.data;             
             }, function (error){
             }); 
@@ -71,7 +72,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         if($scope.arrayItem.length != 0){
             if(existsItem(pieza) == true){
                 $scope.arrayItem.forEach(function(item, i){
-                    if(pieza.idItem == item.idItem){
+                    if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento){
                         $scope.arrayItem[i].cantidad = item.cantidad+1;
                         $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)                        
                         $scope.importe = $scope.arrayItem[i].importe;                    
@@ -103,7 +104,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     var existsItem = function(pieza){
         $scope.arrayItem.forEach(function(item){
-            if(item.idItem == pieza.idItem)
+            if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento)
                 exist = true;
         });
         return exist;
@@ -123,7 +124,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     $scope.quitarPieza = function(pieza){
         $scope.arrayItem.forEach(function(item,i){
-            if(item.idItem == pieza.idItem){
+            if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento){
                 if($scope.arrayItem[i].cantidad > 1){
                     $scope.arrayItem[i].cantidad = item.cantidad - 1;
                     $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)
@@ -138,17 +139,17 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     }
 
     $scope.enviarAutorizacion = function(observaciones){
-        /*cotizacionRepository.insertCotizacionMaestro($scope.idCita, //cambiar a rootScope
+        cotizacionRepository.insertCotizacionMaestro($scope.idCita, //cambiar a rootScope
                                                     $scope.idUsuario,
-                                                    observaciones)*/
-        //.then(function(result){
-           idCotizacion = 42;//result.data[0].idCotizacion;
-           //$scope.arrayItem.forEach(function(item,i){
-               /* cotizacionRepository.insertCotizacionDetalle(idCotizacion,
+                                                    observaciones)
+        .then(function(result){
+           idCotizacion = result.data[0].idCotizacion; //42;
+           $scope.arrayItem.forEach(function(item,i){
+               cotizacionRepository.insertCotizacionDetalle(idCotizacion,
                                                             $scope.arrayItem[i].idTipoElemento,
                                                             $scope.arrayItem[i].idItem,
                                                             $scope.arrayItem[i].precio,
-                                                            $scope.arrayItem[i].cantidad)*/
+                                                            $scope.arrayItem[i].cantidad)
                 for (var i=0; i < $scope.arrayItem.length; i++) {
                      cotizacionRepository.insertCotizacionDetalle(idCotizacion,
                         $scope.arrayItem[i].idTipoElemento,
@@ -163,9 +164,9 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                         alertFactory.success('Cotización realizada correctamente');
                     });
                 }                
-            //});           
-        //}, function (error){
-        //});      
+            });           
+        }, function (error){
+        });      
     }
 
     var limpiaPantalla = function(){

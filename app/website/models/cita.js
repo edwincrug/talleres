@@ -22,7 +22,8 @@ var Cita = function(config){
 Cita.prototype.get = function(params,callback){
     var moment = require('moment');
     var responseDate = moment(params).format('YYYY-MM-DD HH:mm Z');
-    var date = new Date(responseDate);   
+    var date = new Date(responseDate); 
+    date.setHours(12);  
     var self = this.connection;
     this.connection.connect(function(err) {
       // Stored Procedure 

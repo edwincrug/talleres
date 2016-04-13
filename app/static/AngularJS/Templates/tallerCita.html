@@ -8,12 +8,11 @@
 			id="fecha" placeholder="dd/mm/yyyy" ng-change="Busqueda(fecha)">
 		</div>
         </form>
-        <div class="row tablaBusqueda tablaAlign">
-          <table class="table table-condensed"> 
+        <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
+          <table class="table table-striped"> 
             <thead> 
                 <tr> 
-                    <th>VIN</th> 
-                    <th>Eco</th>                        
+                    <th>Num.Economico</th>                        
                     <th>Marca-Modelo</th>
                     <th>Trabajo</th>   
                     <th>Fecha</th>                    
@@ -23,11 +22,10 @@
             </thead> 
             <tbody> 
                 <tr ng-repeat="cita in listaCitas"> 
-                    <td>{{ cita.VIN }}</td> 
                     <td>{{ cita.Eco }}</td> 
                     <td>{{ cita.Marca }}</td>
                     <td>{{ cita.Trabajo }}</td>  
-                    <td>{{ cita.Fecha }} </td>
+                    <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
                     <td>{{ cita.Agendo }} </td>
                     <td>
                       <button class="btn btn-primary" type="button" 
