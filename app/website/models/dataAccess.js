@@ -33,6 +33,8 @@ DataAccess.prototype.get = function(stored,params,callback){
         dataType = sql.Decimal(18, 2);
       }else if(params.type === 3){
         dataType = sql.VarChar(8000);
+      }else if(params.type === 4){
+        dataType = sql.DateTime;
       }
       request.input(params.name, dataType, params.value);
       // request.output('output_parameter', sql.VarChar(50));

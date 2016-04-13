@@ -1,5 +1,6 @@
 var CitaView = require('../views/cita'),
-	CitaModel = require('../models/dataAccess');
+	CitaModel = require('../models/dataAccess'),
+	moment = require('moment');
 
 var Cita = function(conf){
 	this.conf = conf || {};
@@ -17,6 +18,7 @@ Cita.prototype.post_save = function(req,res,next){
 }
 
 Cita.prototype.get_see_data = function(req,res,next){
+	//var moment = require('moment');
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
@@ -26,8 +28,13 @@ Cita.prototype.get_see_data = function(req,res,next){
 
 	//Asigno a params el valor de mis variables
 	params = req.params.data;
+	var responseDate = moment(params).format('YYYY-MM-DD HH:mm Z');
+    var date = new Date(responseDate); 
+    date.setHours(12);
+    params = date;
+	params.type = 4;
 
-	this.model.get(params,function(error,result){
+	this.model.get('SEL_CITA_TALLER_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;

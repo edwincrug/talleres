@@ -4,12 +4,6 @@ var ruta = global_settings.uploadPath;
 
 registrationModule.factory('cotizacionRepository', function ($http) {
     return {
-        get: function () {
-            return $http({
-                url: searchUrl + 'see',
-                method: "GET"
-            });
-        },
         buscarPieza: function(nombrePieza){
         	return $http({
         		url: searchUrl + 'buscarPieza/' + nombrePieza,

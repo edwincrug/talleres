@@ -1,13 +1,12 @@
 <div ng-init="init()">
 	<h1>CITAS</h1>
-	<div id="contenedor">
-        <form class="form-inline" role="form">
-        <div class="form-group" style="padding-left: 1090px;">
-			<label for="exampleInputEmail1">Fecha:</label>
-			<input type="date" ng-model="fecha" class="form-control" 
-			id="fecha" placeholder="dd/mm/yyyy" ng-change="Busqueda(fecha)">
-		</div>
-        </form>
+	<div id="contenedor" class="contenedor">
+        <div class="formGroup form-right" >
+            <div class="inputLabel">
+                <label>Fecha:</label>
+                <input class="rounded" type="date" ng-model="fecha" placeholder="dd/mm/yyyy" ng-change="Busqueda(fecha)"></input>
+            </div>
+        </div>
         <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
           <table class="table table-striped"> 
             <thead> 

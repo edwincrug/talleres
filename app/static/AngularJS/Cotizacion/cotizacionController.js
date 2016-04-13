@@ -22,23 +22,6 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         GetItems();
         exist = false;        
     }
-    
-    $scope.Chat = function(){
-	}
-    
-    $scope.Aprobacion = function(){
-	}
-    
-    $scope.Detalle = function(){
-         $('#cotizacionDetalle').modal('show');
-	}
-    
-    $scope.Maestro = function(){
-        cotizacionRepository.get().then(function(result){
-            $scope.cotizaciones = result.data;            
-        }, function (error){
-        });
-	}
 
     $scope.buscarPieza = function(){
         if(valor == '' || valor == null){
