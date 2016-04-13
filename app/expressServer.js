@@ -27,6 +27,7 @@ var upload = multer({ storage: storage })
 
     // middlewares
     this.expressServer.use(bodyParser.urlencoded({extended: true}))
+    this.expressServer.use(bodyParser.json());
     for (var middleware in middlewares){
       this.expressServer.use(middlewares[middleware]);
     }
@@ -75,7 +76,7 @@ var upload = multer({ storage: storage })
 
     //Servimos el archivo angular
     this.expressServer.get('*', function(req, res){
-      res.sendfile('app/static/index.htm');
+      res.sendfile('app/static/index.html');
     });
   };
 
