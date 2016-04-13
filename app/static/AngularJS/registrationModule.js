@@ -5,10 +5,15 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute"])
+var registrationModule = angular.module("registrationModule", ["ngRoute", "ui.bootstrap","angularUtils.directives.dirPagination"])
 .config(function ($routeProvider, $locationProvider) {
 
     /*change the routes*/
+    $routeProvider.when('/cita', {
+        templateUrl: 'AngularJS/Templates/cita.html',
+        controller: 'citaController'
+    });
+
     $routeProvider.when('/', {
          templateUrl: 'AngularJS/Templates/example.html',
          controller: 'exampleController'
