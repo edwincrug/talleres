@@ -14,34 +14,29 @@
                 <div id="ficha" class="tab-pane fade in active">
                     <div class="panel panel-info">
                         </br>
-                        <div class="panel-heading">Datos de la Unidad</div>
+                        <div class="panel-heading">
+                            <h4>{{ficha[0].marca}} {{ficha[0].modelo}}</h4></div>
                         <div class="panel-body">
-                            <ul class="col-md-8 control-label" style="list-style:none">
-                                <li>
-                                    <label>Vin: {{ficha[0].vin}}</label>
-                                </li>
-                                <li>
-                                    <label>Factura: {{ficha[0].factura}}</label>
-                                </li>
-                                <li>
-                                    <label>Tipo: {{ficha[0].tipo}}</label>
-                                </li>
-                                <li>
-                                    <label>Marca: {{ficha[0].marca}}</label>
-                                </li>
-                                <li>
-                                    <label>Modelo:{{ficha[0].modelo}} </label>
-                                </li>
-                                <li>
-                                    <label>Motor: {{ficha[0].numMotor}}</label>
-                                </li>
-                                <li>
-                                    <label>Color: {{ficha[0].color}}</label>
-                                </li>
-                                <li>
-                                    <label>Eco: {{ficha[0].numEconomico}}</label>
-                                </li>
-                            </ul>
+                            <table class="table table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Número económico</th>
+                                        <th>Número económico cliente</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Motor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ficha[0].numEconomico}}</td>
+                                        <td>{{ficha[0].clienteNumEconomico}}</td>
+                                        <td>{{ficha[0].marca}}</td>
+                                        <td>{{ficha[0].modelo}}</td>
+                                        <td>{{ficha[0].motor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
