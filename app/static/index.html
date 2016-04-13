@@ -1,77 +1,232 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
-        <title>Tittle project</title>
-        <meta name="description" content="description project">
-        <meta name="author" content="name" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Libreria de Google Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900italic' rel='stylesheet' type='text/css'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Tittle project</title>
+    <meta name="description" content="description project">
+    <meta name="author" content="name" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--Hojas de estilos-->
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="css/cita.css">
-        <link rel="stylesheet" type="text/css" href="css/general.css">
-        <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <!-- Libreria de Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900italic' rel='stylesheet' type='text/css'>
 
-        <!--Loading-->
-        <link href="css/toastr.css" rel="stylesheet" />
-        <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-        <link href="css/angular-busy.css" rel="stylesheet" />
+    <!--Hojas de estilos-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/cita.css">
+    <link rel="stylesheet" type="text/css" href="css/general.css">
+    <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <link href="css/chat.css" rel="stylesheet" />
 
+    <!--Loading-->
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <link href="css/angular-busy.css" rel="stylesheet" />
 
-        <!--Librearias JQuery y Bootstrap-->
-        <script src="js/libs/jQuery/jquery-2.1.4.min.js"></script>
-        <script src="js/libs/jQuery/jquery-ui.min.js">
-        </script>       
-        <script src="js/libs/bootstrap/bootstrap.js"></script>
+    <!--Carrusel-->
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
 
-    </head>
-    <body ng-app="registrationModule">
-        <div ng-view></div>
+    <!--Librearias JQuery y Bootstrap-->
+    <script src="js/libs/jQuery/jquery-2.1.4.min.js"></script>
+    <script src="js/libs/jQuery/jquery-ui.min.js">
+    </script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
 
-        <!--Interface de usuario-->
-        <script src="js/libs/toastr/toastr.min.js"></script>
+</head>
 
-        <!-- Librerias Angular-->
-        <script src="js/libs/angular/angular.min.js"></script>
-        <script src="js/libs/angular/angular-route.min.js"></script>
-        <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
-        <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
-        <script src="js/libs/angular/dirPagination.js"></script>
-        <script src="js/libs/angular/angular-local-storage.min.js"></script>
+<body ng-app="registrationModule">
+    <div ng-view></div>
 
-        <!--Funciones Comunes-->
-        <script src="confront.js"></script>
+    <!--Interface de usuario-->
+    <script src="js/libs/toastr/toastr.min.js"></script>
 
-        <!--Angular NG-Grid-->
-        <!--<script src="js/libs/angular/ng-grid.js"></script>-->
+    <!-- Librerias Angular-->
+    <script src="js/libs/angular/angular.min.js"></script>
+    <script src="js/libs/angular/angular-route.min.js"></script>
+    <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
+    <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/libs/angular/dirPagination.js"></script>
+    <script src="js/libs/angular/angular-local-storage.min.js"></script>
 
-        <!--Angular Busy-->
-        <script src="js/libs/angular/angular-busy.js"></script>
+    <!--Funciones Comunes-->
+    <script src="confront.js"></script>
 
-        <!--Librería para realizar querys-->
-        <script src="js/libs/angular/linq.js"></script>
+    <!--Angular NG-Grid-->
+    <!--<script src="js/libs/angular/ng-grid.js"></script>-->
 
-        <!--Librerias de aplicación angular-->
-        <script src="AngularJS/registrationModule.js"></script>
+    <!--Angular Busy-->
+    <script src="js/libs/angular/angular-busy.js"></script>
 
-        <!--librerias de componenetes-->
-        <script src="AngularJS/alertFactory.js"></script>
+    <!--Librería para realizar querys-->
+    <script src="js/libs/angular/linq.js"></script>
 
-        <!--Controllers-->
-        <script src="AngularJS/Example/exampleController.js"></script>
-        <script src="AngularJS/Cita/citaController.js"></script>
-        <script src="AngularJS/Cita/citaRepository.js"></script>
-        <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
-        <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
-        <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
-        <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
+    <!--Librerias de aplicación angular-->
+    <script src="AngularJS/registrationModule.js"></script>
 
-    </body>
+    <!--librerias de componenetes-->
+    <script src="AngularJS/alertFactory.js"></script>
+
+    <!--Controllers-->
+    <script src="AngularJS/Example/exampleController.js"></script>
+    <script src="AngularJS/Cita/citaController.js"></script>
+    <script src="AngularJS/Cita/citaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionController.js"></script>
+
+    <script type="text/javascript" src="js/jssor.slider.min.js"></script>
+    <script>
+        var myVideo = document.getElementById("video1");
+
+        function playPause() {
+            if (myVideo.paused)
+                myVideo.play();
+            else
+                myVideo.pause();
+        }
+
+        jssor_1_slider_init = function () {
+
+            var jssor_1_options = {
+                $AutoPlay: true,
+                //                $AutoPlaySteps: 4,
+                $SlideDuration: 160,
+                $SlideWidth: 400,
+                $SlideSpacing: 3,
+                $Cols: 2,
+                $ArrowNavigatorOptions: {
+                    $Class: $JssorArrowNavigator$,
+                    $Steps: 4
+                },
+                $BulletNavigatorOptions: {
+                    $Class: $JssorBulletNavigator$,
+                    $SpacingX: 1,
+                    $SpacingY: 1
+                }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            //responsive code begin
+            //you can remove responsive code if you don't want the slider scales while window resizing
+            function ScaleSlider() {
+                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                if (refSize) {
+                    refSize = Math.min(refSize, 809);
+                    jssor_1_slider.$ScaleWidth(refSize);
+                } else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            //responsive code end
+        };
+    </script>
+    <style>
+        /* jssor slider bullet navigator skin 03 css */
+        /*
+        .jssorb03 div           (normal)
+        .jssorb03 div:hover     (normal mouseover)
+        .jssorb03 .av           (active)
+        .jssorb03 .av:hover     (active mouseover)
+        .jssorb03 .dn           (mousedown)
+        */
+        
+        .jssorb03 {
+            position: absolute;
+        }
+        
+        .jssorb03 div,
+        .jssorb03 div:hover,
+        .jssorb03 .av {
+            position: absolute;
+            /* size of bullet elment */
+            width: 21px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+            color: white;
+            font-size: 12px;
+            background: url('image/b03.png') no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .jssorb03 div {
+            background-position: -5px -4px;
+        }
+        
+        .jssorb03 div:hover,
+        .jssorb03 .av:hover {
+            background-position: -35px -4px;
+        }
+        
+        .jssorb03 .av {
+            background-position: -65px -4px;
+        }
+        
+        .jssorb03 .dn,
+        .jssorb03 .dn:hover {
+            background-position: -95px -4px;
+        }
+        /* jssor slider arrow navigator skin 03 css */
+        /*
+        .jssora03l                  (normal)
+        .jssora03r                  (normal)
+        .jssora03l:hover            (normal mouseover)
+        .jssora03r:hover            (normal mouseover)
+        .jssora03l.jssora03ldn      (mousedown)
+        .jssora03r.jssora03rdn      (mousedown)
+        */
+        
+        .jssora03l,
+        .jssora03r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            background: url('image/g/a03.png') no-repeat;
+            overflow: hidden;
+        }
+        
+        .jssora03l {
+            background-position: -3px -33px;
+        }
+        
+        .jssora03r {
+            background-position: -63px -33px;
+        }
+        
+        .jssora03l:hover {
+            background-position: -123px -33px;
+        }
+        
+        .jssora03r:hover {
+            background-position: -183px -33px;
+        }
+        
+        .jssora03l.jssora03ldn {
+            background-position: -243px -33px;
+        }
+        
+        .jssora03r.jssora03rdn {
+            background-position: -303px -33px;
+        }
+    </style>
+
+</body>
+
 </html>
