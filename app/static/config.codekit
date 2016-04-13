@@ -35,28 +35,6 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/AngularJS\/Citas\/citasController.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/Citas\/citasController.js",
-		"outputAbbreviatedPath": "\/AngularJS\/Citas\/min\/citasController-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/Citas\/citasRepository.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/Citas\/citasRepository.js",
-		"outputAbbreviatedPath": "\/AngularJS\/Citas\/min\/citasRepository-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/AngularJS\/Clientes\/clientesController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -79,89 +57,23 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/AngularJS\/CotizacionAprobacion\/cotizacionAprobacionController.js": {
+	"\/AngularJS\/Cotizacion\/cotizacionController.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionAprobacion\/cotizacionAprobacionController.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionAprobacion\/min\/cotizacionAprobacionController-min.js",
+		"inputAbbreviatedPath": "\/AngularJS\/Cotizacion\/cotizacionController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/cotizacionController-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/AngularJS\/CotizacionAprobacion\/cotizacionAprobacionRepository.js": {
+	"\/AngularJS\/Cotizacion\/cotizacionRepository.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionAprobacion\/cotizacionAprobacionRepository.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionAprobacion\/min\/cotizacionAprobacionRepository-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionChat\/cotizacionChat.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionChat\/cotizacionChat.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionChat\/min\/cotizacionChat-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionChat\/cotizacionChatRepository.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionChat\/cotizacionChatRepository.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionChat\/min\/cotizacionChatRepository-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionDetalle\/cotizacionDetalleController.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionDetalle\/cotizacionDetalleController.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionDetalle\/min\/cotizacionDetalleController-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionDetalle\/cotizacionDetalleRepository.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionDetalle\/cotizacionDetalleRepository.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionDetalle\/min\/cotizacionDetalleRepository-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionMaestro\/cotizacionMaestroController.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionMaestro\/cotizacionMaestroController.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionMaestro\/min\/cotizacionMaestroController-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/AngularJS\/CotizacionMaestro\/cotizacionMaestroRepository.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/CotizacionMaestro\/cotizacionMaestroRepository.js",
-		"outputAbbreviatedPath": "\/AngularJS\/CotizacionMaestro\/min\/cotizacionMaestroRepository-min.js",
+		"inputAbbreviatedPath": "\/AngularJS\/Cotizacion\/cotizacionRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/cotizacionRepository-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -306,20 +218,20 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/AngularJS\/Templates\/cotizacionAprobacion.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/Templates\/cotizacionAprobacion.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/AngularJS\/Templates\/cotizacionChat.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Templates\/cotizacionChat.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/AngularJS\/Templates\/cotizacionConsulta.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/cotizacionConsulta.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -338,6 +250,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Templates\/cotizacionMaestro.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/AngularJS\/Templates\/cotizacionNueva.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/cotizacionNueva.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -378,11 +299,11 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/AngularJS\/Templates\/talleres.html": {
+	"\/AngularJS\/Templates\/tallerCita.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/AngularJS\/Templates\/talleres.html",
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/tallerCita.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -558,6 +479,24 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/css\/cita.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/cita.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/css\/jquery-ui.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/css\/jquery-ui.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/css\/ng-grid.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -691,6 +630,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/libs\/angular\/dirPagination.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/libs\/angular\/dirPagination.js",
+		"outputAbbreviatedPath": "\/js\/libs\/angular\/min\/dirPagination-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/libs\/angular\/linq.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -801,6 +751,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/libs\/jQuery\/jquery-ui.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/libs\/jQuery\/jquery-ui.js",
+		"outputAbbreviatedPath": "\/js\/libs\/jQuery\/min\/jquery-ui-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/libs\/jQuery\/jquery-ui.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/libs\/jQuery\/jquery-ui.min.js",
+		"outputAbbreviatedPath": "\/js\/libs\/jQuery\/min\/jquery-ui.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/libs\/toastr\/toastr.min.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -811,6 +783,33 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/min\/confront-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/min\/confront-min.js",
+		"outputAbbreviatedPath": "\/min\/min\/confront-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sass\/cita.sass": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 2,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sass\/cita.sass",
+		"outputAbbreviatedPath": "\/css\/cita.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": false
 		}
 	},
 "hooks": [

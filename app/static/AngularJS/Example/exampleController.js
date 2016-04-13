@@ -10,8 +10,9 @@ registrationModule.controller('exampleController', function($scope, alertFactory
 	$scope.init = function(){
 		$scope.hello = "Hello, Angular is ready! XD  :)  :(";
 	}
+	//ñlkñlklk
 
-	//all the logic for the view
+	//all the logic for the v
 	$scope.sayHello = function(){
 		alertFactory.success($scope.hello);
 	}
