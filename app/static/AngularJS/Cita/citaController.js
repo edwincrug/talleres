@@ -16,6 +16,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		//$scope.showFicha = false;
 		//$scope.hasRows = false;
 		$scope.idTaller = 0;
+		$scope.existsTrabajo = false;
 
 		// if(localStorageService.get('datoUnidadFounded') != undefined){
 		// 	getUnidad(localStorageService.get('datoUnidadFounded'));
@@ -61,9 +62,11 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	}
 
 	//obtiene los tabajos de la cita
-	$scope.lookUpTrabajo = function(idCita){
-		citaRepository.getTrabajo(idCita).then(function(trabajo){
+	$scope.lookUpTrabajo = function(cita){
+		citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
 			if(trabajo.data.length > 0){
+				$scope.existsTrabajo = true;
+				$scope.cita = cita;
 				alertFactory.success('Trabajo cargado');
 				//obtiene las cotizaciones(servicios) de la unidad
 				citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function(cotizacion){
@@ -84,6 +87,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			else{
 				alertFactory.info('No se encontraron datos del trabajo');
 				$scope.trabajo = [];
+				$scope.cita = [];
+				$scope.existsTrabajo = false;
 			}
 
 		}, function(error){
