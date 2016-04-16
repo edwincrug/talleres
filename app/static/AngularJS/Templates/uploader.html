@@ -7,8 +7,11 @@
   action    =  "/profile"
   method    =  "post">
   <div>
-      <input type="text" id="idTrabajo" name="idTrabajo" value="idTrabajo" hidden="true" />
-      <input type="text" id="idCotizacion" name="idCotizacion" value="idCotizacion" hidden="true" />
+      <input type="text" id="idTrabajo" name="idTrabajo" hidden="true" />
+      <input type="text" id="idCotizacion" name="idCotizacion" hidden="true" />
+      <input type="text" id="idCita" name="idCita" hidden="true" />
+      <input type="text" id="idUsuario" name="idUsuario" hidden="true" />
+      <input type="text" id="idTipoEvidencia" name="idTipoEvidencia" hidden="true" />
       <div id="wrapper">
       <div id="contenedor">
         <div class="added">
@@ -24,7 +27,6 @@
 </form>
 <script type="text/javascript">
 	$(document).ready(function() {
-
 		var MaxInputs = 8; 
 		var contenedor = $("#contenedor");
 		var AddButton = $("#agregarCampo");
@@ -45,8 +47,8 @@
 
 		$("body").on("click",".eliminar", function(e){ 
 			if( x > 1 ) {
-					$(this).parent('div').remove(); 
-					x--;
+				$(this).parent('div').remove(); 
+				x--;
 			}
 		return false;
 		});

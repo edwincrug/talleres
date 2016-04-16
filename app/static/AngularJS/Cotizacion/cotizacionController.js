@@ -17,10 +17,15 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.total = 0;
     $scope.importe = 0; 
     $scope.idUsuario = 1;
-    $scope.message = 'Buscando...';
+    $scope.message = 'Buscando...';    
+    $scope.citaDatos = localStorageService.get('cita');
+    $scope.eco = $scope.citaDatos.Eco;
+    $scope.marca = $scope.citaDatos.Marca;
+    
     $scope.init = function(){
+        
         GetItems();
-        existItem = false;        
+        exist = false;        
     }
 
     //Busqueda de item (servicio/pieza/refacción)
@@ -28,7 +33,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         if(valor == '' || valor == null){
             alertFactory.info("Seleccione una pieza");
         } else{
-               $scope.promise = cotizacionRepository.buscarPieza(valor).then(function(result){
+                $scope.promise = cotizacionRepository.buscarPieza(valor).then(function(result){
                 $scope.listaPiezas = result.data;             
             }, function (error){
             }); 
@@ -43,7 +48,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             for (var i=0; i < result.data.length; i++) {
                 arrayDescripcion.push(result.data[i].descripcion);
             }
-            $("#piezaTxt").autocomplete({
+            $("#piezaInput").autocomplete({
                 source: arrayDescripcion,
                 select: function(event,ui) {
                     valor = ui.item.label;
@@ -87,6 +92,15 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             exist = false;
         }            
     };
+
+    var existsItem = function(pieza){
+        $scope.arrayItem.forEach(function(item){
+            if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento)
+                exist = true;
+        });
+        return exist;
+    };
+
     var calculaTotal = function(){
         var total = 0;
         $scope.arrayItem.forEach(function(item){
@@ -119,13 +133,12 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     //Envia la cotización para autorización
     $scope.enviarAutorizacion = function(observaciones){
         //$('#buttonEnviar').button('loading');
-        $scope.idCita = localStorageService.get('idCita');
         if(observaciones == null){
             obs = '';
         } else {
             obs = observaciones;
         }
-        cotizacionRepository.insertCotizacionMaestro($scope.idCita,
+        cotizacionRepository.insertCotizacionMaestro($scope.citaDatos.idCita,
                                                     $scope.idUsuario,
                                                     obs)
         .then(function(resultado){
@@ -138,15 +151,22 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                             item.precio,
                                                             item.cantidad)
                 .then(function(result){
-                    document.cookie="idCotizacion="+ $scope.idCotizacion;
-                    document.cookie="idTrabajo="+ $scope.idTrabajo;
                     var x = document.getElementById("uploader");
                     var y = (x.contentWindow || x.contentDocument);
                     if (y.document)
-                    var z = y.document.getElementById("submit2");
-                    z.click();                   
-                    alertFactory.success('Guardando Archivos');
-
+                        var z = y.document.getElementById("submit2");
+                        var idTrabajo = y.document.getElementById("idTrabajo");
+                        var idCotizacion = y.document.getElementById("idCotizacion");
+                        var idCita = y.document.getElementById("idCita");
+                        var idUsuario = y.document.getElementById("idUsuario");
+                        var idTipoEvidencia = y.document.getElementById("idTipoEvidencia");
+                        idTrabajo.value = 10;//$scope.idTrabajo;
+                        idCotizacion.value = 30;//$scope.idCotizacion;
+                        idCita = $scope.citaDatos.idCita;
+                        idUsuario = $scope.idUsuario;
+                        idTipoEvidencia = 1;
+                        z.click();                   
+                        alertFactory.success('Guardando Archivos');
                 },function(error){
                     alertFactory.error('Error');
                 });             
@@ -154,8 +174,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         }, function (error){
             alertFactory.error('Error');
         });
-        // document.cookie="idCotizacion="+ 112;
-        // document.cookie="idTrabajo="+ 8;
+
     };
 
     //Limpiar pantalla

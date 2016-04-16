@@ -6,9 +6,24 @@ middlewares = require('./middlewares/admin'),
 router = require('./website/router'),
 multer  = require('multer');
 var path = require('path');
+var mkdirp = require('mkdirp');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/uploads')
+    var idTrabajo = req.body.idTrabajo;
+    var idCotizacion = req.body.idCotizacion;
+    mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo, function (err) {
+         mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion, function (err) {
+           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif'){
+              mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Multimedia', function (err) {
+                cb(null, __dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Multimedia')
+              });
+           } else{
+              mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Documentos', function (err) {
+                  cb(null, __dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Documentos')
+              });
+           }
+         });
+    });    
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -70,7 +85,7 @@ var upload = multer({ storage: storage })
       // req.file is the `avatar` file 
       // req.body will hold the text fields, if there were any 
       var x = req.files;
-      var idCotizacion = req.body.idCotizacion;
+      post_evidencia()
       res.writeHead(301,{Location: '/AngularJS/Templates/uploader.html?response=1'});
       res.end();
     })

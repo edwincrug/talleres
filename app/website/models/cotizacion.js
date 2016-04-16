@@ -232,4 +232,27 @@ Cotizacion.prototype.aprobacionCotizacion = function (aprobacionObj, callback) {
     });
 };
 
+Cotizacion.prototype.evidencia = function (msgObj, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), msgObj.idCita);
+        request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
+        request.input('idCotizacion', sql.Numeric(18, 0), msgObj.idCotizacion);
+        request.input('nombreArchivo', sql.VarChar(), msgObj.nombreArchivo);
+        request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj.idTipoEvidencia);
+        request.input('tipoArchivo', sql.VarChar(), msgObj.tipoArchivo);
+        request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al insertar evidencia: ' + msgObj + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
+
 module.exports = Cotizacion;

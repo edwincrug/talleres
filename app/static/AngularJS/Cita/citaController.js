@@ -8,6 +8,7 @@
 registrationModule.controller('citaController', function($scope, $rootScope, localStorageService, alertFactory,citaRepository){
 	var cDetalles = [];
 	var cPaquetes = [];
+	$scope.fecha = new Date();
 
 	$scope.message = 'Buscando...';
 
@@ -16,7 +17,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		//$scope.showFicha = false;
 		//$scope.hasRows = false;
 		$scope.idTaller = 0;
-		$scope.existsTrabajo = false;
+		$scope.existsTrabajo = false;		
+		$scope.busquedaCita($scope.fecha);
 
 		// if(localStorageService.get('datoUnidadFounded') != undefined){
 		// 	getUnidad(localStorageService.get('datoUnidadFounded'));
@@ -164,32 +166,28 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		});
 	});
 
-	$scope.Busqueda = function(fecha){
-		if(fecha == null || fecha == ''){
-			alertFactory.info('Seleccione una fecha');
-		} else {
-			var dia = fecha.getDate();
-			if(dia < 9){
-				dia = ''+'0'+dia 
-			}
-			var mes = fecha.getMonth()+1;
-			if(mes < 9){
-				mes = ''+'0'+mes 
-			}
-			var anio = fecha.getFullYear();
-			var date = anio +''+ mes +''+ dia;
-			$scope.promise = citaRepository.getCitaTaller(date).then(function(cita){			
-				if(cita.data.length > 0){
-					$scope.listaCitas = cita.data;				
-		    		alertFactory.success('Datos de citas cargados.');
-				} else{		
-					$scope.listaCitas = '';
-		    		alertFactory.info('No hay citas en la fecha seleccionada.');
-				}			
-			},function(error){
-		        alert("error");
-		    });	
-		}				
+	$scope.busquedaCita = function(fecha){
+		var dia = fecha.getDate();
+		if(dia < 9){
+			dia = ''+'0'+dia 
+		}
+		var mes = fecha.getMonth()+1;
+		if(mes < 9){
+			mes = ''+'0'+mes 
+		}
+		var anio = fecha.getFullYear();
+		var date = anio +''+ mes +''+ dia;
+		$scope.promise = citaRepository.getCitaTaller(fecha).then(function(cita){			
+			if(cita.data.length > 0){
+				$scope.listaCitas = cita.data;			
+	    		alertFactory.success('Datos de citas cargados.');
+			} else{		
+				$scope.listaCitas = '';
+	    		alertFactory.info('No hay citas en la fecha seleccionada.');
+			}			
+		},function(error){
+	        alert("error");
+	    });				
 	}
 
 	//muestra el modal para agendar nueva cita
@@ -272,7 +270,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//Redirige a pagina para nueva cotización
 	$scope.nuevaCotizacion = function(cita){
-		localStorageService.set('idCita', cita.idCita);
+		localStorageService.set('cita', cita);
         location.href = '/cotizacionNueva';
 	}
 });

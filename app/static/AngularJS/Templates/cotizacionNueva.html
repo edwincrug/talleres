@@ -1,12 +1,20 @@
 <script src="../../js/libs/jQuery/jquery-ui.js"></script>
 <div ng-init="init()">
 	<h1>Nueva Cotización</h1>
-	<div id="contenedor" style="padding-left: 20px;">
-        <form class="form-inline" role="form">
+	<div id="contenedor" class="contenedor">
+        <div>
+            <label id="eco">Numero Economico:</label>
+            <label ng-model="eco">{{eco}}</label> 
+            <label id="marca">Marca-Modelo:</label>
+            <label ng-model="marca">{{marca}}</label>
+            
+        </div>
+        <form class="form-inline" role="form">           
         <div class="ui-widget">
+
 			<label for="exampleInputEmail1">Pieza:</label>
 			<input type="text" ng-model="pieza" class="form-control"
-			id="piezaTxt" placeholder="servicio/paquete/refacción" style="width: 220px;" >
+			id="piezaInput" placeholder="Servicio/Paquete/Refacción">
 			<button class="btn btn-primary" type="button" ng-click="buscarPieza()"> Buscar
 	        </button>       
 		</div>		 
@@ -15,21 +23,17 @@
           <table class="table table-striped"> 
             <thead> 	 
                 <tr> 
-                	<th>ID</th> 
                     <th>No.Parte</th>                        
                     <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Tipo Elemento</th> 
                     <th>Agregar</th>                    
                 </tr> 
             </thead> 
             <tbody> 
                 <tr ng-repeat="piezas in listaPiezas">
-                	<td>{{ piezas.idItem }}</td> 
                     <td>{{ piezas.numeroParte }}</td> 
                     <td>{{ piezas.descripcion }}</td>
                     <td>{{ piezas.precio }}</td>
-                    <td>{{ piezas.idTipoElemento }}</td>
                     <td>
                       <button class="btn btn-primary" type="button" 
                       	id="btnCotizar" ng-click="cotizacion(piezas)">+
@@ -46,7 +50,6 @@
           <table class="table table-striped"> 
             <thead> 
                 <tr> 
-                	<th>ID</th> 
                     <th>No.Parte</th>                        
                     <th>Descripción</th>
                     <th>Cantidad</th>  
@@ -57,7 +60,6 @@
             </thead> 
             <tbody> 
                 <tr ng-repeat="piezas in arrayItem">
-                	<td>{{piezas.idItem }}</td> 
                     <td>{{piezas.numeroParte}}</td> 
                     <td>{{piezas.descripcion}}</td>
                     <td>{{piezas.cantidad}}</td>

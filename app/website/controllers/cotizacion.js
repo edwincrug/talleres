@@ -274,5 +274,4 @@ Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
     });
 }
 
-
 module.exports = Cotizacion;
