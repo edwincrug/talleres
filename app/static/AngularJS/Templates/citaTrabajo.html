@@ -42,6 +42,7 @@
 						<thead>
 							<th>Número de cita</th>
 							<th>Taller</th>
+							<th>Trabajo</th>
 							<th>Fecha</th>
 							<th>Agendó</th>
 							<th></th>
@@ -50,9 +51,10 @@
 							<tr dir-paginate="cita in citas | itemsPerPage:5" pagination-id="listaCitas">
 								<td>{{cita.idCita}}</td>
 								<td>{{cita.razonSocial}}</td>
+								<td>{{cita.observacion}}</td>
 								<td>{{cita.fecha | date:"medium"}}</td>
 								<td>{{cita.nombreCompleto}}</td>
-								<td><button type="button" class="btn btn-primary" ng-click="lookUpTrabajo(cita.idCita)">Trabajo</button></td>
+								<td><button type="button" class="btn btn-primary" ng-click="lookUpTrabajo(cita)">Trabajo</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -66,94 +68,117 @@
 					</div>
 				</div>			
 				</br>
-				<div>
-					<table class="table table-condensed table-striped">
-						<thead>
-							<th></th>
-							<th>Número de trabajo</th>
-							<th>Fecha inicio</th>
-							<th>Fecha fin</th>
-							<th>Trabajo</th>
-							<th>Estatus</th>
-						</thead>
-						<tbody ng-repeat="t in trabajo">
-							<tr>
-								<td class="CX"><button type="button">+</button>
-								<td>{{t.trabajo.idTrabajo}}</td>
-								<td>{{t.trabajo.fechaInicio | date:"medium"}}</td>
-								<td>{{t.trabajo.fechaFin}}</td>
-								<td>{{t.trabajo.estatus}}</td>
-								<td>{{t.trabajo.descripcion}}</td>								
-							</tr>
-							<tr class="sub">
-								<td></td>
-								<td colspan="5">
-									<table class="tableData">
-										<thead>
-											<th></th>
-											<th>Número de cotización</th>					
-											<th>Fecha</th>
-											<th>Cotizó</th>
-											<th>Total</th>
-										</thead>
-										<tbody ng-repeat="c in t.trabajo.cotizacion">
-											<tr>
-												<td class="CX"><button type="button">+</button></td>
-												<td>{{c.idCotizacion}}</td>
-												<td>{{c.fecha | date:"medium"}}</td>
-												<td>{{c.total}}</td>
-												<td>{{c.nombreCompleto}}</td>
-											</tr>
-											<tr class="sub">
-												<td></td>
-												<td colspan="5">
-													<table class="tableData">
-														<thead>
-															<th></th>
-															<th>Tipo de artículo</th>
-															<th>Descripción</th>
-															<th>Precio</th>
-															<th>Cantidad</th>
-															<th>Subtotal</th>
-														</thead>
-														<tbody ng-repeat="cd in c.cotizacionDetalle">
-															<tr>	
-																<td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>			
-																<td>{{cd.tipoDescripcion}}</td>
-																<td>{{cd.descripcion}}</td>
-																<td>{{cd.precio}}</td>
-																<td>{{cd.cantidad}}</td>
-																<td>{{cd.subtotal}}</td>
-															</tr>
-															<tr class="sub">
-																<td colspan="3"></td>
-																<td colspan="3">
-																	<table class="tableData">
-																		<thead>
-																			<tr>				
-																				<th>Descripción</th>
-																				<th>Número de parte</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr ng-repeat="p in cd.paquete">
-																				<td>{{p.item}}</td>
-																				<td>{{p.numeroParte}}</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</td>
-											</tr> 
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<div ng-show="existsTrabajo == true" id="borderTop">
+					</br>
+					<div>
+						<div>
+							<label>Número de cita:</label><span> {{cita.idCita}}</span>
+						</div>
+						<div>
+							<label>Taller:</label><span> {{cita.razonSocial}}</span>
+						</div>
+						<div>
+							<label>Trabajo:</label><span> {{cita.observacion}}</span>
+						</div>
+						<div>
+							<label>Fecha:</label><span> {{cita.fecha | date:"medium"}}</span>
+						</div>
+						<div>
+							<label>Agendó:</label><span> {{cita.nombreCompleto}}</span>
+						</div>
+					</div>
+					</br>
+					<div>
+						<table class="table table-condensed table-striped">
+							<thead>
+								<!-- <th></th> -->
+								<!-- <th>Número de cita</th> -->
+								<th>Número de trabajo</th>
+								<th>Fecha inicio</th>
+								<th>Fecha fin</th>
+								<th>Trabajo</th>
+								<th>Estatus</th>
+							</thead>
+							<tbody ng-repeat="t in trabajo">
+								<tr>
+									<!-- <td class="CX"><button type="button">+</button> -->
+									<!-- <td>{{t.trabajo.idCita}}</td> -->
+									<td>{{t.trabajo.idTrabajo}}</td>
+									<td>{{t.trabajo.fechaInicio | date:"medium"}}</td>
+									<td>{{t.trabajo.fechaFin}}</td>
+									<td>{{t.trabajo.estatus}}</td>
+									<td>{{t.trabajo.descripcion}}</td>								
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="5">
+										<table class="tableData">
+											<thead>
+												<th></th>
+												<th>Número de cotización</th>					
+												<th>Fecha</th>
+												<th>Cotizó</th>
+												<th>Total</th>
+											</thead>
+											<tbody ng-repeat="c in t.trabajo.cotizacion">
+												<tr>
+													<td class="CX"><button type="button">+</button></td>
+													<td>{{c.idCotizacion}}</td>
+													<td>{{c.fecha | date:"medium"}}</td>
+													<td>{{c.total}}</td>
+													<td>{{c.nombreCompleto}}</td>
+												</tr>
+												<tr class="sub">
+													<td></td>
+													<td colspan="5">
+														<table class="tableData">
+															<thead>
+																<th></th>
+																<th>Tipo de artículo</th>
+																<th>Descripción</th>
+																<th>Precio</th>
+																<th>Cantidad</th>
+																<th>Subtotal</th>
+															</thead>
+															<tbody ng-repeat="cd in c.cotizacionDetalle">
+																<tr>	
+																	<td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>			
+																	<td>{{cd.tipoDescripcion}}</td>
+																	<td>{{cd.descripcion}}</td>
+																	<td>{{cd.precio}}</td>
+																	<td>{{cd.cantidad}}</td>
+																	<td>{{cd.subtotal}}</td>
+																</tr>
+																<tr class="sub">
+																	<td colspan="3"></td>
+																	<td colspan="3">
+																		<table class="tableData">
+																			<thead>
+																				<tr>				
+																					<th>Descripción</th>
+																					<th>Número de parte</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr ng-repeat="p in cd.paquete">
+																					<td>{{p.item}}</td>
+																					<td>{{p.numeroParte}}</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr> 
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>	       	
 			</tab>	    	      		
 		</tabset>
