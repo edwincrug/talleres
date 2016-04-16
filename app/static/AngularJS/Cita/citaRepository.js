@@ -14,14 +14,30 @@ registrationModule.factory('citaRepository', function ($http) {
         getCita: function(idUnidad){
         	return $http.get(citaUrl+'cita/'+idUnidad);
         },
-        getCotizacion: function(idUnidad){
-        	return $http.get(citaUrl+'cotizacion/'+idUnidad);
+        getTrabajo: function(idCita){
+        	return $http.get(citaUrl+'trabajo/'+idCita);
         },
-        getCotizacionDetalle: function(idCotizacion){
-        	return $http.get(citaUrl+'cotizaciondetalle/'+idCotizacion)
+        getCotizacion: function(idTrabajo){
+        	return $http.get(citaUrl+'cotizacion/'+idTrabajo);
         },
-        getPaquete: function(idCotizacion){
-        	return $http.get(citaUrl+'paquete/'+idCotizacion)
-        }
+        getCotizacionDetalle: function(idTrabajo){
+        	return $http.get(citaUrl+'cotizaciondetalle/'+idTrabajo);
+        },
+        getPaquete: function(idTrabajo){
+        	return $http.get(citaUrl+'paquete/'+idTrabajo);
+        },
+        getTaller: function(datoTaller){
+        	return $http.get(citaUrl+'taller/'+datoTaller);
+        },
+        addCita: function(taller){
+            return $http({
+                url: citaUrl + 'addcita/',
+                method: "POST",
+                data: taller,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
     };
 });

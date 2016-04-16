@@ -49,4 +49,27 @@ DataAccess.prototype.get = function(stored,params,callback){
     });
 };
 
+//método post
+DataAccess.prototype.post = function (aprobacionObj, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idUnidad', sql.Numeric(18, 0), aprobacionObj.idUnidad);
+        request.input('idTaller', sql.Numeric(18, 0), aprobacionObj.idTaller);
+        request.input('fecha', sql.VarChar(20), aprobacionObj.fecha);
+        request.input('observacion', sql.VarChar(250), aprobacionObj.observacion);
+        request.input('idUsuario', sql.Numeric(18, 0), aprobacionObj.idUsuario);
+
+        request.execute('INS_CITA_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = DataAccess; 

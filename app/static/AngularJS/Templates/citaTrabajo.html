@@ -1,0 +1,228 @@
+<div class="contenedor" ng-init="initCita()">
+	<div> 
+		<div>
+			<button type="button" class="btn btn-primary" ng-click="backToCita()"><i class="glyphicon glyphicon-hand-left"></i></button>
+		</div>
+		</br>
+		<tabset>	      	
+			<tab heading="Ficha técnica">
+				</br> 
+				<div>
+					<div class="panel panel-info">
+				      	<div class="panel-heading"><h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
+				        <div class="panel-body">
+				      		<table class="table table-condensed table-striped table-hover"> 
+								<thead> 
+									<tr> 
+										<th>Número económico</th> 
+										<th>Número económico cliente</th>
+										<th>Marca</th>
+										<th>Modelo</th>                        
+										<th>Motor</th>								   
+									</tr> 
+								</thead> 
+								<tbody> 
+									<tr> 
+										<td>{{unidadInfo.numEconomico}}</td> 
+										<td>{{unidadInfo.clienteNumEconomico}}</td>			
+										<td>{{unidadInfo.marca}}</td>
+										<td>{{unidadInfo.modelo}}</td>
+										<td>{{unidadInfo.motor}}</td>
+									</tr>                
+								</tbody> 
+							</table>		
+				        </div>
+				    </div>			
+				</div>	   
+			</tab>
+			<tab heading="Citas">
+				</br>
+				<div>
+					<table class="table table-condensed table-striped">
+						<thead>
+							<th>Número de cita</th>
+							<th>Taller</th>
+							<th>Fecha</th>
+							<th>Agendó</th>
+							<th></th>
+						</thead>
+						<tbody>
+							<tr dir-paginate="cita in citas | itemsPerPage:5" pagination-id="listaCitas">
+								<td>{{cita.idCita}}</td>
+								<td>{{cita.razonSocial}}</td>
+								<td>{{cita.fecha | date:"medium"}}</td>
+								<td>{{cita.nombreCompleto}}</td>
+								<td><button type="button" class="btn btn-primary" ng-click="lookUpTrabajo(cita.idCita)">Trabajo</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="pagination">
+						<dir-pagination-controls
+					       	max-size="5"
+					        direction-links="true"
+					        boundary-links="true"
+					        pagination-id="listaCitas">
+					    </dir-pagination-controls>
+					</div>
+				</div>			
+				</br>
+				<div>
+					<table class="table table-condensed table-striped">
+						<thead>
+							<th></th>
+							<th>Número de trabajo</th>
+							<th>Fecha inicio</th>
+							<th>Fecha fin</th>
+							<th>Trabajo</th>
+							<th>Estatus</th>
+						</thead>
+						<tbody ng-repeat="t in trabajo">
+							<tr>
+								<td class="CX"><button type="button">+</button>
+								<td>{{t.trabajo.idTrabajo}}</td>
+								<td>{{t.trabajo.fechaInicio | date:"medium"}}</td>
+								<td>{{t.trabajo.fechaFin}}</td>
+								<td>{{t.trabajo.estatus}}</td>
+								<td>{{t.trabajo.descripcion}}</td>								
+							</tr>
+							<tr class="sub">
+								<td></td>
+								<td colspan="5">
+									<table class="tableData">
+										<thead>
+											<th></th>
+											<th>Número de cotización</th>					
+											<th>Fecha</th>
+											<th>Cotizó</th>
+											<th>Total</th>
+										</thead>
+										<tbody ng-repeat="c in t.trabajo.cotizacion">
+											<tr>
+												<td class="CX"><button type="button">+</button></td>
+												<td>{{c.idCotizacion}}</td>
+												<td>{{c.fecha | date:"medium"}}</td>
+												<td>{{c.total}}</td>
+												<td>{{c.nombreCompleto}}</td>
+											</tr>
+											<tr class="sub">
+												<td></td>
+												<td colspan="5">
+													<table class="tableData">
+														<thead>
+															<th></th>
+															<th>Tipo de artículo</th>
+															<th>Descripción</th>
+															<th>Precio</th>
+															<th>Cantidad</th>
+															<th>Subtotal</th>
+														</thead>
+														<tbody ng-repeat="cd in c.cotizacionDetalle">
+															<tr>	
+																<td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>			
+																<td>{{cd.tipoDescripcion}}</td>
+																<td>{{cd.descripcion}}</td>
+																<td>{{cd.precio}}</td>
+																<td>{{cd.cantidad}}</td>
+																<td>{{cd.subtotal}}</td>
+															</tr>
+															<tr class="sub">
+																<td colspan="3"></td>
+																<td colspan="3">
+																	<table class="tableData">
+																		<thead>
+																			<tr>				
+																				<th>Descripción</th>
+																				<th>Número de parte</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr ng-repeat="p in cd.paquete">
+																				<td>{{p.item}}</td>
+																				<td>{{p.numeroParte}}</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr> 
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	       	
+			</tab>	    	      		
+		</tabset>
+		<div id="btnAgendar">
+			<button type="button" class="btn btn-success" ng-click="agendarCita()">Agendar cita</button>
+		</div>
+    </div>
+</div>
+<!--Modal nueva cita-->
+<div id="addCita" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="clearInputs()">&times;</button>
+                <h4 class="modal-title">Agendar cita</h4>
+            </div>
+            <div class="modal-body">
+            	<div class="formGroup">
+			    	<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" taller"> 
+			    	<button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)">Buscar</button>
+				</div>
+				</br>
+				<div id="tableTaller">
+					<table class="table table-condensed table-striped">
+						<thead>
+							<th>ID</th>
+							<th>Taller</th>
+							<th>Dirección</th>
+							<th>Seleccionar</th>
+						</thead>
+						<tbody>
+							<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
+								<td>{{taller.idTaller}}</td>
+								<td>{{taller.razonSocial}}</td>
+								<td>{{taller.direccion}}</td>
+								<td><input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)"></input></td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="paginationTaller">
+						<dir-pagination-controls
+					       	max-size="5"
+					        direction-links="true"
+					        boundary-links="true" 
+					        pagination-id="listaTalleres">
+					    </dir-pagination-controls>
+					</div>
+				</div>
+				</br></br>
+				<div class="formGroup">
+					<label for="trabajo">Fecha:</label>
+			    	<input  class="rounded" type="date" ng-model="fechaCita">	
+			    	<label for="trabajo">Hora:</label>
+			    	<input  class="rounded" type="time" ng-model="horaCita">	
+				</div>	
+				</br>
+				<div id="agendarCita">
+					<div class="formGroup">
+						<label for="trabajo">Trabajo a realizar:</label>
+				    	<input  class="rounded" type="text" ng-model="trabajoCita">
+				    	<button type="button" class="btn btn-primary" ng-click="addCita( fechaCita, horaCita, trabajoCita)">Agendar</button>
+					</div>
+				</div>			         
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearInputs()">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

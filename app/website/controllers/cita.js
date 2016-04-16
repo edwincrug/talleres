@@ -17,6 +17,29 @@ Cita.prototype.post_save = function(req,res,next){
 
 }
 
+//obtiene el trabajo de la cita
+Cita.prototype.get_trabajo_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_UNIDAD_TRABAJO',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
 Cita.prototype.get_buscaCita_data = function(req,res,next){
 	//Objeto que almacena la respuesta
 	var object = {};
@@ -76,7 +99,7 @@ Cita.prototype.get_cotizacion_data = function(req, res, next){
 	var self = this;
 
 	//Asigno a params el valor de mis variables
-	params.name = 'idUnidad';
+	params.name = 'idTrabajo';
 	params.value = req.params.data;
 	params.type = 1;
 	
@@ -99,9 +122,9 @@ Cita.prototype.get_cotizaciondetalle_data = function(req, res, next){
 	var self = this;
 
 	//Asigno a params el valor de mis variables
-	params.name = 'idCotizacion';
+	params.name = 'idTrabajo';
 	params.value = req.params.data;
-	params.type = 3;
+	params.type = 1;
 	
 	this.model.get( 'SEL_UNIDAD_COTDETALLE_SP',params,function(error,result){
 		//Callback
@@ -122,9 +145,9 @@ Cita.prototype.get_paquete_data = function(req, res, next){
 	var self = this;
 
 	//Asigno a params el valor de mis variables
-	params.name = 'idCotizacion';
+	params.name = 'idTrabajo';
 	params.value = req.params.data;
-	params.type = 3;
+	params.type = 1;
 	
 	this.model.get( 'SEL_PAQUETE_SP',params,function(error,result){
 		//Callback
@@ -156,6 +179,63 @@ Cita.prototype.get_cita_data = function(req, res, next){
 		
 		self.view.see(res, object);
 	});
+}
+
+//obtiene los talleres
+Cita.prototype.get_taller_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'datoTaller';
+	params.value = req.params.data;
+	params.type = 3;
+	
+	this.model.get( 'SEL_TALLER_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
+//insertar nueva cita para una unidad
+Cita.prototype.post_addcita_data = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    //Asigno a params el valor de mis variables
+    //var fecha = new Date(req.body.fecha);
+
+    //var fecha = moment(req.body.fecha).format();
+
+    //var fecha = new Date(req.body.fecha);
+
+    //Asigno a params el valor de mis variables
+    var msgObj = {
+        idUnidad: req.body.idUnidad,
+        idTaller: req.body.idTaller,
+        fecha: req.body.fecha,
+        observacion: req.body.observacion,
+        idUsuario: req.body.idUsuario
+    }
+
+    this.model.post(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
 }
 
 Cita.prototype.get_add = function(req,res,next){
