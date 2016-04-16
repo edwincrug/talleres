@@ -270,4 +270,9 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		 $scope.idTaller = idTaller;
 	}
 
+	//Redirige a pagina para nueva cotización
+	$scope.nuevaCotizacion = function(cita){
+		localStorageService.set('idCita', cita.idCita);
+        location.href = '/cotizacionNueva';
+	}
 });

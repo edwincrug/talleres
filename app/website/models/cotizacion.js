@@ -109,12 +109,6 @@ Cotizacion.prototype.cotizacionDetalle = function (msgObj, callback) {
     });
 };
 
-Cotizacion.prototype.uploadFile = function (req, res) {
-    // We are able to access req.files.file thanks to 
-    // the multiparty middleware
-    var file = req.file.file;
-}
-
 Cotizacion.prototype.buscar = function (callback) {
 
     var self = this.connection;

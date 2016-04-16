@@ -66,11 +66,12 @@ var upload = multer({ storage: storage })
      res.sendfile('app/static/success.htm');
     });
 
-    this.expressServer.post('/profile', upload.single('avatar'), function (req, res, next) {
+    this.expressServer.post('/profile', upload.any(), function (req, res, next) {
       // req.file is the `avatar` file 
       // req.body will hold the text fields, if there were any 
-      var x = req.file;
-      res.writeHead(301,{Location: '/success'});
+      var x = req.files;
+      var idCotizacion = req.body.idCotizacion;
+      res.writeHead(301,{Location: '/AngularJS/Templates/uploader.html?response=1'});
       res.end();
     })
 

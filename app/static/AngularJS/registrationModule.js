@@ -5,8 +5,8 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute", "LocalStorageModule",
-        "ui.bootstrap", "angularUtils.directives.dirPagination", "cgBusy"])
+var registrationModule = angular.module("registrationModule", ["ngRoute","LocalStorageModule",
+        "ui.bootstrap", "angularUtils.directives.dirPagination","cgBusy"])
     .config(function ($routeProvider, $locationProvider) {
 
         /*change the routes*/
@@ -14,7 +14,7 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl: 'AngularJS/Templates/login.html',
             controller: 'loginController'
         });
-        
+
         $routeProvider.when('/cita', {
             templateUrl: 'AngularJS/Templates/cita.html',
             controller: 'citaController'

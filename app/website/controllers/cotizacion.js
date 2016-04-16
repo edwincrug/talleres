@@ -125,28 +125,6 @@ Cotizacion.prototype.post_cotizacionDetalle = function (req, res, next) {
     });
 }
 
-//Método para subir archivos
-Cotizacion.prototype.post_uploadFile = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
-    //Referencia a la clase para callback
-    var self = this;
-
-    var file = {
-        file: req.body.file
-    }
-
-    this.model.uploadFile(file, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.uploadFile(res, object);
-    });
-}
-
 Cotizacion.prototype.get_buscar = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};

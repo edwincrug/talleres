@@ -74,7 +74,7 @@ Cotizacion.prototype.cotizacionMaestro = function (res, object) {
     }
 }
 
-Cotizacion.prototype.post_cotizacionDetalle = function (res, object) {
+Cotizacion.prototype.cotizacionDetalle = function (res, object) {
     //Estándar de implementación de errores
     if (object.error) {
         logError(object.error, res);
