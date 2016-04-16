@@ -231,7 +231,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			citaRepository.addCita(taller).then(function(cita){
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
-				$('#addCita').modal('hide');
+				//$('#addCita').modal('hide');
+				location.href = '/cita';
 			},function(error){
 				alertFactory.error("Error al insertar la cita");
 			});

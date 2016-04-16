@@ -198,7 +198,7 @@
             </div>
             <div class="modal-body">
             	<div class="formGroup">
-			    	<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" taller"> 
+			    	<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" Buscar taller"> 
 			    	<button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)">Buscar</button>
 				</div>
 				</br>
@@ -233,20 +233,20 @@
 					<label for="trabajo">Fecha:</label>
 			    	<input  class="rounded" type="date" ng-model="fechaCita">	
 			    	<label for="trabajo">Hora:</label>
-			    	<input  class="rounded" type="time" ng-model="horaCita">	
+			    	<input  class="rounded" type="time" ng-model="horaCita">
 				</div>	
 				</br>
-				<div id="agendarCita">
+				<div >
 					<div class="formGroup">
 						<label for="trabajo">Trabajo a realizar:</label>
-				    	<input  class="rounded" type="text" ng-model="trabajoCita">
+				    	<textarea rows="2" cols="40" ng-model="trabajoCita"></textarea>	
 				    	<button type="button" class="btn btn-primary" ng-click="addCita( fechaCita, horaCita, trabajoCita)">Agendar</button>
 					</div>
 				</div>			         
             </div>
-            <div class="modal-footer">
+           <!--  <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearInputs()">Cerrar</button>
-            </div>
+            </div> -->
         </div>
 
     </div>
