@@ -10,6 +10,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
     .config(function ($routeProvider, $locationProvider) {
 
         /*change the routes*/
+        $routeProvider.when('/', {
+            templateUrl: 'AngularJS/Templates/login.html',
+            controller: 'loginController'
+        });
+        
         $routeProvider.when('/cita', {
             templateUrl: 'AngularJS/Templates/cita.html',
             controller: 'citaController'
@@ -20,10 +25,10 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             controller: 'citaController'
         });
 
-        $routeProvider.when('/', {
-            templateUrl: 'AngularJS/Templates/example.html',
-            controller: 'exampleController'
-        });
+        // $routeProvider.when('/', {
+        //     templateUrl: 'AngularJS/Templates/example.html',
+        //     controller: 'exampleController'
+        // });
 
         $routeProvider.when('/tallerCita', {
             templateUrl: 'AngularJS/Templates/tallerCita.html',
