@@ -254,5 +254,22 @@ Cotizacion.prototype.evidencia = function (msgObj, callback) {
     });
 };
 
+Cotizacion.prototype.evidenciasByCotizacion = function (params, callback) {
+
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCotizacion', sql.Numeric(18, 0), params);
+        request.execute('SEL_EVIDENCIAS_BY_COTIZACION_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener las evidencias: ' + err);
+            }
+        });
+    });
+};
+
 
 module.exports = Cotizacion;
