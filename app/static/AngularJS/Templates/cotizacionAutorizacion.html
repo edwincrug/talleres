@@ -64,7 +64,7 @@
                                             <td>{{t.trabajo.fechaInicio | date:"medium"}}</td>
                                             <td>{{t.trabajo.fechaFin}}</td>
                                             <td>{{t.trabajo.estatus}}</td>
-                                            <td>{{t.trabajo.descripcion}}</td>                              
+                                            <td>{{t.trabajo.descripcion}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -72,14 +72,16 @@
                                                 <table class="tableData">
                                                     <thead>
                                                         <th></th>
-                                                        <th>Número de cotización</th>                   
+                                                        <th>Número de cotización</th>
                                                         <th>Fecha</th>
                                                         <th>Cotizó</th>
                                                         <th>Total</th>
                                                     </thead>
                                                     <tbody ng-repeat="c in t.trabajo.cotizacion">
                                                         <tr>
-                                                            <td class="CX"><button type="button">+</button></td>
+                                                            <td class="CX">
+                                                                <button type="button">+</button>
+                                                            </td>
                                                             <td>{{c.idCotizacion}}</td>
                                                             <td>{{c.fecha | date:"medium"}}</td>
                                                             <td>{{c.total}}</td>
@@ -98,8 +100,10 @@
                                                                         <th>Subtotal</th>
                                                                     </thead>
                                                                     <tbody ng-repeat="cd in c.cotizacionDetalle">
-                                                                        <tr>    
-                                                                            <td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>         
+                                                                        <tr>
+                                                                            <td class="CX">
+                                                                                <button ng-if="cd.idTipoElemento == 1" type="button">+</button>
+                                                                            </td>
                                                                             <td>{{cd.tipoDescripcion}}</td>
                                                                             <td>{{cd.descripcion}}</td>
                                                                             <td>{{cd.precio}}</td>
@@ -111,7 +115,7 @@
                                                                             <td colspan="3">
                                                                                 <table class="tableData">
                                                                                     <thead>
-                                                                                        <tr>                
+                                                                                        <tr>
                                                                                             <th>Descripción</th>
                                                                                             <th>Número de parte</th>
                                                                                         </tr>
@@ -128,7 +132,7 @@
                                                                     </tbody>
                                                                 </table>
                                                             </td>
-                                                        </tr> 
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </td>
@@ -139,13 +143,21 @@
                         </div>
                     </div>
                 </div>
-                <div id="documentos" class="tab-pane fade">
+               <!-- <div id="documentos" class="tab-pane fade">
                     <h3>Menu 2</h3>
                     <p>Some content in menu 2.</p>
-                </div>
+                </div>-->
                 <div id="evidencia" class="tab-pane fade">
-                    <h3>EVIDENCIA</h3>
-                    
+                    </br>
+                    <div style="border:1">
+                        <carousel interval="setInterval">
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
+                                <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.valor}}{{slide.tipoArchivo}}">
+                            </slide>
+                        </carousel>
+                    </div>
+
 
                 </div>
             </div>
@@ -198,4 +210,3 @@
         <!-- /video-inner -->
     </div>
     <!-- /container -->
-

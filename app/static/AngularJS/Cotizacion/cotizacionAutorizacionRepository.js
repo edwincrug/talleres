@@ -14,7 +14,7 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 mensaje: msg,
                 idCita: cita
             };
-            
+
             return $http({
                 url: searchUrl + 'message',
                 method: "POST",
@@ -30,7 +30,7 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 method: "GET"
             });
         },
-       getCotizacionByTrabajo: function (idCita) {
+        getCotizacionByTrabajo: function (idCita) {
             return $http({
                 url: searchUrl + 'cotizacionByTrabajo/' + idCita,
                 method: "GET"
@@ -38,10 +38,10 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
         },
         putCotizacionAprobacion: function (cotizacion, usuario) {
             var aprobacionObj = {
-                cotizacion : cotizacion,
+                cotizacion: cotizacion,
                 usuario: usuario
             };
-            
+
             return $http({
                 url: searchUrl + 'cotizacionAprobacion',
                 method: "POST",
@@ -49,6 +49,12 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 headers: {
                     'Content-Type': 'application/json'
                 }
+            });
+        },
+        getEvidenciasByCotizacion: function (idCotizacion) {
+            return $http({
+                url: searchUrl + 'evidenciasByCotizacion/' + idCotizacion,
+                method: "GET"
             });
         }
     };
