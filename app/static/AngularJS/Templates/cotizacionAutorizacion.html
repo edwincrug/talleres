@@ -153,7 +153,7 @@
                         <carousel interval="setInterval">
                             <slide ng-repeat="slide in slides" active="slide.active">
                                 <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
-                                <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.valor}}{{slide.tipoArchivo}}">
+                                <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/File{{slide.tipoArchivo}}">
                             </slide>
                         </carousel>
                     </div>

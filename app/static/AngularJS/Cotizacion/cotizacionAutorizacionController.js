@@ -3,6 +3,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     var cDetalles = [];
     var cPaquetes = [];
     var idCita = localStorageService.get('cita');
+    var idCotizacion = localStorageService.get('cotizacion');
     $scope.setInterval = 5000;
 
     $scope.init = function () {
@@ -146,7 +147,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     });
 
     $scope.cargaEvidencias = function () {
-        cotizacionAutorizacionRepository.getEvidenciasByCotizacion(73).then(function (result) {
+        cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
             $scope.slides = result.data;
         }, function (error) {});
     }
