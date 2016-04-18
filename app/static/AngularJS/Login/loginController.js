@@ -10,7 +10,7 @@ registrationModule.controller('loginController', function($scope, $rootScope){
 	$scope.login = function(user, password){
 		if(vuser == user &&  vpassword == password)
 		{
-			location.href = '/#cita';
+			location.href = '/cita';
 			$rootScope.sesion = 1;
 		}
 	}

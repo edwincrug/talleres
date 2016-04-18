@@ -195,9 +195,12 @@
         </br>
         </br>
         <div class="row">
-            <div class="col-md-offset-7 col-md-5">
+            <div ng-hide="estado==2" class="col-md-offset-7 col-md-5">
                 <button type="button" class="btn btn-primary" ng-click="Autorizar()">Aprobar</button>
                  <button type="button" class="btn btn-danger" ng-click="Rechazar()">Rechazar</button>
+            </div>
+            <div ng-hide="estado==1" class="col-md-offset-7 col-md-5">
+                <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
             </div>
         </div>
     </div>

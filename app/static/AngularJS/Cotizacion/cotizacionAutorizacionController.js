@@ -4,6 +4,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     var cPaquetes = [];
     var idCita = localStorageService.get('cita');
     var idCotizacion = localStorageService.get('cotizacion');
+    $scope.estado = localStorageService.get('estado');
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
 
@@ -170,5 +171,10 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         }, function (error) {
 
         });
+    }
+
+    $scope.nuevaCotizacion = function(){
+        localStorageService.set('cita',localStorageService.get('objTrabajo'));
+        location.href = '/cotizacionNueva';
     }
 });

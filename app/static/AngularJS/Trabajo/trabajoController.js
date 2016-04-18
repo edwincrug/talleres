@@ -27,4 +27,12 @@ registrationModule.controller('trabajoController', function($scope, localStorage
 			alertFactory.error("Error al cargar trabajos");
 		});
 	}
+
+	$scope.aprobacion = function(trabajo){
+		localStorageService.set('cita', trabajo.idCita);
+    	localStorageService.set('cotizacion', trabajo.idCotizacion);
+    	localStorageService.set('estado', 2);
+    	localStorageService.set('objTrabajo', trabajo);
+		location.href = '/cotizacionAutorizacion';
+	}
 });

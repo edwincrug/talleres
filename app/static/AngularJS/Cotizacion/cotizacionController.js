@@ -21,8 +21,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idUsuario = 1;
     $scope.message = 'Buscando...';    
     $scope.citaDatos = localStorageService.get('cita');
-    $scope.eco = $scope.citaDatos.Eco;
-    $scope.marca = $scope.citaDatos.Marca;
+    $scope.numEconomico = $scope.citaDatos.numEconomico;
+    $scope.modeloMarca = $scope.citaDatos.modeloMarca;
 
     $scope.init = function(){
         

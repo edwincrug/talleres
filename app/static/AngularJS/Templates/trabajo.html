@@ -18,8 +18,18 @@
 				<td>{{t.modeloMarca}}</td>
 				<td>{{t.trabajo}}</td>
 				<td>{{t.estatus}}</td>
-				<td>{{t.fechaInicio | date:"medium"}}</td>
-				<td>{{t.fechaFin | date:"medium"}}</td>
+				<td>{{t.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
+				<td>{{t.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
+				<td>
+                      <button class="btn btn-info" type="button" 
+                      	id="btnCotizar" ng-click="aprobacion(t)">Ver
+                      </button>
+                </td>
+                <td>
+                      <button class="btn btn-primary" type="button" 
+                      	id="btnCotizar">Autorizar
+                      </button>
+                </td>
 			</tr>
 		</tbody>
 	</table>
