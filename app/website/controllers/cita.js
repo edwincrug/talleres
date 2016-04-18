@@ -49,13 +49,13 @@ Cita.prototype.get_buscaCita_data = function(req,res,next){
 	var self = this;
 
 	//Asigno a params el valor de mis variables
-	var responseDate = moment(req.params.data).format('YYYY-MM-DD HH:mm Z');
+	/*var responseDate = moment(req.params.data).format('YYYY-MM-DD HH:mm Z');
     var fecha = new Date(responseDate); 
-    fecha.setHours(12);
+    fecha.setHours(12);*/
 
     params.name = 'fecha';
-    params.value = fecha;    
-	params.type = 4;
+    params.value = req.params.data;    
+	params.type = 3;
 
 	this.model.get( 'SEL_CITA_TALLER_SP',params,function(error,result){
 		//Callback

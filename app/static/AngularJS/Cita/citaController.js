@@ -181,8 +181,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			mes = ''+'0'+mes 
 		}
 		var anio = fecha.getFullYear();
-		var date = anio +''+ mes +''+ dia;
-		$scope.promise = citaRepository.getCitaTaller(fecha).then(function(cita){			
+		var date = anio +'-'+ mes +'-'+ dia;
+		$scope.promise = citaRepository.getCitaTaller(date).then(function(cita){			
 			if(cita.data.length > 0){
 				$scope.listaCitas = cita.data;			
 	    		alertFactory.success('Datos de citas cargados.');

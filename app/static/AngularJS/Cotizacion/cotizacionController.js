@@ -14,6 +14,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var existItem = null;
     var idCotizacion = 0;
     var obs = '';
+    var ext = '';
+    var type = '';
     $scope.total = 0;
     $scope.importe = 0; 
     $scope.idUsuario = 1;
@@ -21,9 +23,6 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.citaDatos = localStorageService.get('cita');
     $scope.eco = $scope.citaDatos.Eco;
     $scope.marca = $scope.citaDatos.Marca;
-    $scope.nombreArchivo = 'File';
-    $scope.idTipoEvidencia = 4;
-    $scope.tipoArchivo = '.jpg';
 
     $scope.init = function(){
         
@@ -156,35 +155,38 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                             item.cantidad)
                 .then(function(result){
                     alertFactory.success('Guardando Cotización Detalle');
+                    var x = document.getElementById("uploader");
+                    var y = (x.contentWindow || x.contentDocument);
+                    if (y.document)
+                    var z = y.document.getElementById("submit2");
+                    var idTrabajo = y.document.getElementById("idTrabajo");
+                    var idCotizacion = y.document.getElementById("idCotizacion");
+                    var idCita = y.document.getElementById("idCita");
+                    var idUsuario = y.document.getElementById("idUsuario");
+                    var idTipoEvidencia = y.document.getElementById("idTipoEvidencia");
+                    var files = y.document.getElementById("files");
+                    var nameFile = y.document.getElementById("fileDoc");
+                    $scope.nombreArchivo = nameFile.value;
+                    $scope.tipoArchivo = ObtenerExtArchivo(nameFile.value);
+                    $scope.idTipoEvidencia = ObtenerTipoEvidencia($scope.tipoArchivo);
+                    idTrabajo.value = $scope.idTrabajo;
+                    idCotizacion.value = $scope.idCotizacion;
+                    idCita = $scope.citaDatos.idCita;
+                    idUsuario = $scope.idUsuario;
+                    z.click();
+                    alertFactory.success('Guardando Evidencia');
                     cotizacionRepository.insertEvidencia($scope.citaDatos.idCita,
                                                         $scope.idUsuario,
                                                         $scope.idCotizacion,
                                                         $scope.nombreArchivo,
                                                         $scope.idTipoEvidencia,
                                                         $scope.tipoArchivo)
-                    .then(function(result){
-                        alertFactory.success('Guardando Evidencia');
-                        var x = document.getElementById("uploader");
-                        var y = (x.contentWindow || x.contentDocument);
-                        if (y.document)
-                        var z = y.document.getElementById("submit2");
-                        var idTrabajo = y.document.getElementById("idTrabajo");
-                        var idCotizacion = y.document.getElementById("idCotizacion");
-                        var idCita = y.document.getElementById("idCita");
-                        var idUsuario = y.document.getElementById("idUsuario");
-                        var idTipoEvidencia = y.document.getElementById("idTipoEvidencia");
-                        idTrabajo.value = $scope.idTrabajo;
-                        idCotizacion.value = $scope.idCotizacion;
-                        idCita = $scope.citaDatos.idCita;
-                        idUsuario = $scope.idUsuario;
-                        idTipoEvidencia = 1;
-                        z.click();                   
-                        alertFactory.success('Guardando Archivos');
+                    .then(function(result){ 
+                        alertFactory.success('Cotizacion guardada correctamente');  
                         location.href = '/cotizacionConsulta';
                     },function(error){
-                    alertFactory.error('Error');
-                    });
-                    
+                        alertFactory.error('Error');
+                    });                                         
                 },function(error){
                     alertFactory.error('Error');
                 });             
@@ -205,6 +207,24 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     $scope.FinishSave = function(){
         //$('#buttonEnviar').button('reset');
-        alertFactory.success('Cotizacion guardada correctamente');
+        alertFactory.success('Guardando Archivos');
+    }
+
+    //Método para obtener la extension del archivo
+    var ObtenerExtArchivo = function(file){
+        $scope.file = file;
+        var res = $scope.file.substring($scope.file.length-4, $scope.file.length)
+        return res;
+    }
+
+    var ObtenerTipoEvidencia = function(ext){
+        if(ext == '.jpg'){
+            type = 4;
+        } else if(ext == '.png'){
+            type = 4;
+        } else if(ext == '.pdf'){
+            type = 1;
+        }
+        return type;
     }
 });
