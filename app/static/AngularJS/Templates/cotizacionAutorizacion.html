@@ -155,7 +155,7 @@
                            <div ng-if="alerta == 1" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
                             <slide ng-repeat="slide in slides" active="slide.active">                               
                                 <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
-                                <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/File{{slide.tipoArchivo}}">
+                                <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}">
                             </slide>
                         </carousel>
                     </div>
