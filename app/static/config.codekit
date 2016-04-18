@@ -1002,6 +1002,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/image\/profile\/logoASE.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 15371,
+		"inputAbbreviatedPath": "\/image\/profile\/logoASE.png",
+		"outputAbbreviatedPath": "\/image\/profile\/logoASE.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
