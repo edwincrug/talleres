@@ -56,6 +56,21 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 url: searchUrl + 'evidenciasByCotizacion/' + idCotizacion,
                 method: "GET"
             });
+        },
+        putCotizacionRechazo: function (cotizacion, usuario) {
+            var rechazoObj = {
+                cotizacion: cotizacion,
+                usuario: usuario
+            };
+
+            return $http({
+                url: searchUrl + 'cotizacionRechazo',
+                method: "POST",
+                data: rechazoObj,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

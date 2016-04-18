@@ -322,4 +322,28 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.post_cotizacionRechazo = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    var rechazoObj = {
+        idCotizacion: req.body.cotizacion,
+        idUsuario: req.body.usuario
+    };
+
+    //Asigno a params el valor de mis variables
+
+    this.model.rechazoCotizacion(rechazoObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.rechazoCotizacion(res, object);
+    });
+}
+
 module.exports = Cotizacion;

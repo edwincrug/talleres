@@ -5,6 +5,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     var idCita = localStorageService.get('cita');
     var idCotizacion = localStorageService.get('cotizacion');
     $scope.setInterval = 5000;
+    $scope.message = "Obteniendo información ...";
 
     $scope.init = function () {
         $scope.cargaFicha();
@@ -15,16 +16,17 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.cargaChat = function () {
-
-        cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
-            $scope.chat = result.data;
-        }, function (error) {});
+        $scope.promise =
+            cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
+                $scope.chat = result.data;
+            }, function (error) {});
     }
 
     $scope.cargaFicha = function () {
-        cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
-            $scope.ficha = result.data;
-        }, function (error) {});
+        $scope.promise =
+            cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
+                $scope.ficha = result.data;
+            }, function (error) {});
     }
 
     $scope.EnviarComentario = function (message) {
@@ -35,17 +37,18 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.getCotizacionByTrabajo = function () {
-        cotizacionAutorizacionRepository.getCotizacionByTrabajo(idCita).then(function (result) {
-                $scope.cotizacionesByTrabajo = result.data;
-            },
-            function (error) {});
+        $scope.promise =
+            cotizacionAutorizacionRepository.getCotizacionByTrabajo(idCita).then(function (result) {
+                    $scope.cotizacionesByTrabajo = result.data;
+                },
+                function (error) {});
     }
 
     $scope.Autorizar = function () {
         cotizacionAutorizacionRepository.putCotizacionAprobacion(4, 1).then(function (result) {
             if (result.data.length > 0) {
                 alertFactory.success('Cotización Autorizada correctamente');
-                location.href= '/trabajo';
+                location.href = '/trabajo';
             }
         }, function (error) {
 
@@ -59,35 +62,36 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     //obtiene los tabajos de la cita
     $scope.lookUpTrabajo = function (idCita) {
-        citaRepository.getTrabajo(idCita).then(function (trabajo) {
-            if (trabajo.data.length > 0) {
-                $scope.existsTrabajo = true;
-                //$scope.cita = cita;
-                alertFactory.success('Trabajo cargado');
-                //obtiene las cotizaciones(servicios) de la unidad
-                citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function (cotizacion) {
-                    if (cotizacion.data.length > 0) {
-                        citaRepository.getCotizacionDetalle(trabajo.data[0].idTrabajo).then(function (cotizacionDetalle) {
-                            citaRepository.getPaquete(trabajo.data[0].idTrabajo).then(function (cotPaquete) {
-                                getCotizacionDetallePaquete(trabajo.data, cotizacion.data, cotizacionDetalle.data, cotPaquete.data);
+        $scope.promise =
+            citaRepository.getTrabajo(idCita).then(function (trabajo) {
+                if (trabajo.data.length > 0) {
+                    $scope.existsTrabajo = true;
+                    //$scope.cita = cita;
+                    alertFactory.success('Trabajo cargado');
+                    //obtiene las cotizaciones(servicios) de la unidad
+                    citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function (cotizacion) {
+                        if (cotizacion.data.length > 0) {
+                            citaRepository.getCotizacionDetalle(trabajo.data[0].idTrabajo).then(function (cotizacionDetalle) {
+                                citaRepository.getPaquete(trabajo.data[0].idTrabajo).then(function (cotPaquete) {
+                                    getCotizacionDetallePaquete(trabajo.data, cotizacion.data, cotizacionDetalle.data, cotPaquete.data);
+                                });
                             });
-                        });
-                    } else {
-                        alertFactory.info('No se encontraron cotizaciones');
-                    }
-                }, function (error) {
-                    alertFactory('Error al obtener las cotizaciones');
-                });
-            } else {
-                alertFactory.info('No se encontraron datos del trabajo');
-                $scope.trabajo = [];
-                //$scope.cita = [];
-                //$scope.existsTrabajo = false;
-            }
+                        } else {
+                            alertFactory.info('No se encontraron cotizaciones');
+                        }
+                    }, function (error) {
+                        alertFactory('Error al obtener las cotizaciones');
+                    });
+                } else {
+                    alertFactory.info('No se encontraron datos del trabajo');
+                    $scope.trabajo = [];
+                    //$scope.cita = [];
+                    //$scope.existsTrabajo = false;
+                }
 
-        }, function (error) {
-            alertFactory.error("Error al obtener datos del trabajo");
-        })
+            }, function (error) {
+                alertFactory.error("Error al obtener datos del trabajo");
+            })
     };
 
     //Obtiene la lista de trabajo/cotizaciones/detalle/paquete por unidad
@@ -147,8 +151,24 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     });
 
     $scope.cargaEvidencias = function () {
-        cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
-            $scope.slides = result.data;
-        }, function (error) {});
+        $scope.promise =
+            cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
+                if (result.data.length > 0) {
+                    $scope.slides = result.data;
+                } else {
+                    $scope.alerta = 1;
+                }
+            }, function (error) {});
+    }
+
+    $scope.Rechazar = function () {
+        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, 1).then(function (result) {
+            if (result.data.length > 0) {
+                alertFactory.success('Cotización Rechazada correctamente');
+                location.href = '/trabajo';
+            }
+        }, function (error) {
+
+        });
     }
 });

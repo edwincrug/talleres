@@ -1,7 +1,8 @@
 <div ng-init="init()" class="contenedor">
     <h3>Cotización</h3></br>
     </br>
-    <div class="row">
+    <div class="row" cg-busy="{promise:promise,message:message, minDuration: minDuration,
+   delay:delay}">
         <div class="col-md-7">
             <ul class="nav nav-tabs" id="myTabs">
                 <li role="presentation" class="active"><a href="#ficha">Ficha Técnica</a></li>
@@ -151,7 +152,8 @@
                     </br>
                     <div style="border:1">
                         <carousel interval="setInterval">
-                            <slide ng-repeat="slide in slides" active="slide.active">
+                           <div ng-if="alerta == 1" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
+                            <slide ng-repeat="slide in slides" active="slide.active">                               
                                 <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
                                 <img class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/File{{slide.tipoArchivo}}">
                             </slide>
@@ -194,8 +196,8 @@
         </br>
         <div class="row">
             <div class="col-md-offset-7 col-md-5">
-                <button type="button" class="btn btn-success">Actualizar</button>
                 <button type="button" class="btn btn-primary" ng-click="Autorizar()">Aprobar</button>
+                 <button type="button" class="btn btn-danger" ng-click="Rechazar()">Rechazar</button>
             </div>
         </div>
     </div>

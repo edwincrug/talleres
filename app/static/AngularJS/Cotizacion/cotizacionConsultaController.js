@@ -65,5 +65,9 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         location.href = '/cotizacionAutorizacion';
 
     }
+    
+    $scope.Nueva = function(){
+        location.href= "/cotizacionNueva";
+    }
 
 });

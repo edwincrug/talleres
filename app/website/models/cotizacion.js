@@ -271,5 +271,23 @@ Cotizacion.prototype.evidenciasByCotizacion = function (params, callback) {
     });
 };
 
+Cotizacion.prototype.rechazoCotizacion = function (rechazoObj, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCotizacion', sql.Numeric(18, 0), rechazoObj.idCotizacion);
+        request.input('idUsuario', sql.Numeric(18, 0), rechazoObj.idUsuario);
+        request.execute('INS_RECHAZO_COTIZACION_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al rechazar la cotización: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 
 module.exports = Cotizacion;
