@@ -25,7 +25,6 @@
             <thead>
                 <tr>
                     <th>Estatus</th>
-                    <th>VIN</th>
                     <th>Eco</th>
                     <th>Marca - Modelo</th>
                     <th>Trabajo</th>
@@ -38,11 +37,10 @@
             <tbody>
                 <tr ng-repeat="cotizacion in cotizaciones | filter: cotizacion">
                     <td>{{ cotizacion.estatus }}</td>
-                    <td>{{cotizacion.vin}}</td>
                     <td>{{cotizacion.numEconomico}}</td>
                     <td>{{cotizacion.marca}}</td>
-                    <td>{{cotizacion.descripcion}}</td>
-                    <td>{{ cotizacion.fechaInicio }}</td>
+                    <td>{{cotizacion.observaciones}}</td>
+                    <td>{{ cotizacion.fecha | date: 'short'}}</td>
                     <td>{{ cotizacion.nombreCompleto }}</td>
                     <td>
                         <button class="btn btn-primary" type="button" id="btnEnviar">

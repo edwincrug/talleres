@@ -44,6 +44,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         cotizacionAutorizacionRepository.putCotizacionAprobacion(4, 1).then(function (result) {
             if (result.data.length > 0) {
                 alertFactory.success('Cotización Autorizada correctamente');
+                location.href= '/trabajo';
             }
         }, function (error) {
 

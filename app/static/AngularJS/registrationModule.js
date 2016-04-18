@@ -49,6 +49,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
             templateUrl: 'AngularJS/Templates/cotizacionAutorizacion.html',
             controller: 'cotizacionAutorizacionController'
         });
+        
+        $routeProvider.when('/trabajo', {
+            templateUrl: 'AngularJS/Templates/trabajo.html',
+            controller: 'trabajoController'
+        });
 
         $locationProvider.html5Mode({
             enabled: true,
