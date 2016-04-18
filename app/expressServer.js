@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
     var idCotizacion = req.body.idCotizacion;
     mkdirp(__dirname + '/static/uploads/files/' + idTrabajo, function (err) {
          mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion, function (err) {
-           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif'){
+           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg'){
               mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
                 cb(null, __dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
               });
