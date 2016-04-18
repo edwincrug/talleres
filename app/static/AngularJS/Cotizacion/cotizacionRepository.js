@@ -47,24 +47,24 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
-        }/*,
-        saveFile: function(file) {
-            var fd = new FormData();
-            fd.append('image', file);
-            $http.post(ruta, fd, {
-                transformRequest: angular.identity,
+        },
+        insertEvidencia: function(idCita,idUsuario,idCotizacion,nombreArchivo,idTipoEvidencia, tipoArchivo){
+            var msgObj = {
+                idCita: idCita,  
+                idUsuario: idUsuario,
+                idCotizacion: idCotizacion,
+                nombreArchivo: nombreArchivo,
+                idTipoEvidencia: idTipoEvidencia,
+                tipoArchivo: tipoArchivo
+            }
+            return $http({
+                url: searchUrl + 'evidencia',
+                method: "POST",
+                data: msgObj,
                 headers: {
-                    'Content-Type': undefined},
-                    enctype: 'multipart/form-data'
-            });  
-        },*/,
-        saveFile: function(file) {
-          return $http({
-              url: searchUrl + 'uploadFile',
-              method: "POST",
-             // Any data needed to be submitted along with the files
-              file: file
-          }); 
+                'Content-Type': 'application/json'
+                }
+            });
         }  
     };
 });

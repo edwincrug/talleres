@@ -21,7 +21,10 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.citaDatos = localStorageService.get('cita');
     $scope.eco = $scope.citaDatos.Eco;
     $scope.marca = $scope.citaDatos.Marca;
-    
+    $scope.nombreArchivo = 'File';
+    $scope.idTipoEvidencia = 4;
+    $scope.tipoArchivo = '.jpg';
+
     $scope.init = function(){
         
         GetItems();
@@ -142,6 +145,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                     $scope.idUsuario,
                                                     obs)
         .then(function(resultado){
+           alertFactory.success('Guardando Cotización Maestro');
            $scope.idCotizacion = resultado.data[0].idCotizacion;
            $scope.idTrabajo = resultado.data[0].idTrabajo;
            $scope.arrayItem.forEach(function(item,i){
@@ -151,9 +155,18 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                             item.precio,
                                                             item.cantidad)
                 .then(function(result){
-                    var x = document.getElementById("uploader");
-                    var y = (x.contentWindow || x.contentDocument);
-                    if (y.document)
+                    alertFactory.success('Guardando Cotización Detalle');
+                    cotizacionRepository.insertEvidencia($scope.citaDatos.idCita,
+                                                        $scope.idUsuario,
+                                                        $scope.idCotizacion,
+                                                        $scope.nombreArchivo,
+                                                        $scope.idTipoEvidencia,
+                                                        $scope.tipoArchivo)
+                    .then(function(result){
+                        alertFactory.success('Guardando Evidencia');
+                        var x = document.getElementById("uploader");
+                        var y = (x.contentWindow || x.contentDocument);
+                        if (y.document)
                         var z = y.document.getElementById("submit2");
                         var idTrabajo = y.document.getElementById("idTrabajo");
                         var idCotizacion = y.document.getElementById("idCotizacion");
@@ -167,6 +180,11 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                         idTipoEvidencia = 1;
                         z.click();                   
                         alertFactory.success('Guardando Archivos');
+                        location.href = '/cotizacionConsulta';
+                    },function(error){
+                    alertFactory.error('Error');
+                    });
+                    
                 },function(error){
                     alertFactory.error('Error');
                 });             

@@ -11,15 +11,15 @@ var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     var idTrabajo = req.body.idTrabajo;
     var idCotizacion = req.body.idCotizacion;
-    mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo, function (err) {
-         mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion, function (err) {
+    mkdirp(__dirname + '/static/uploads/files/' + idTrabajo, function (err) {
+         mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion, function (err) {
            if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif'){
-              mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Multimedia', function (err) {
-                cb(null, __dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Multimedia')
+              mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
+                cb(null, __dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
               });
            } else{
-              mkdirp(__dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Documentos', function (err) {
-                  cb(null, __dirname + '/static/uploads/Files/' + idTrabajo + '/' + idCotizacion + '/Documentos')
+              mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos', function (err) {
+                  cb(null, __dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos')
               });
            }
          });

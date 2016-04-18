@@ -294,4 +294,32 @@ Cotizacion.prototype.get_evidenciasByCotizacion_data = function (req, res, next)
     });
 }
 
+//Método para insertar evidencia
+Cotizacion.prototype.post_evidencia = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    //Asigno a params el valor de mis variables
+    var msgObj = {
+        idCita: req.body.idCita,  
+        idUsuario: req.body.idUsuario,
+        idCotizacion: req.body.idCotizacion,
+        nombreArchivo: req.body.nombreArchivo,
+        idTipoEvidencia: req.body.idTipoEvidencia,
+        tipoArchivo: req.body.tipoArchivo
+    }
+
+    this.model.evidencia(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.evidencia(res, object);
+    });
+}
+
 module.exports = Cotizacion;
