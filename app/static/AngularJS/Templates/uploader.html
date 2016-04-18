@@ -9,10 +9,6 @@
   <div>
       <input type="text" id="idTrabajo" name="idTrabajo" hidden="true" />
       <input type="text" id="idCotizacion" name="idCotizacion" hidden="true" />
-      <input type="text" id="idCita" name="idCita" hidden="true" />
-      <input type="text" id="idUsuario" name="idUsuario" hidden="true" />
-      <input type="text" id="idTipoEvidencia" name="idTipoEvidencia" hidden="true" />
-      <input type="text" id="file" name="file" hidden="true" />
       <div id="wrapper">
       <div id="contenedor">
         <div class="added">
@@ -24,7 +20,7 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-info" type="submit" id="submit2" name="submit2">Cargar</button>
+  <button class="btn btn-info" type="submit" id="submit2" name="submit2"></button>
 </form>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -40,7 +36,7 @@
 			if(x <= MaxInputs)
 			{
 				FieldCount++; 
-				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" id="fileDoc_'+ FieldCount +'" name="avatar"></span><a href="#" class="eliminar">X</a></div>');
+				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" id="fileDoc" name="avatar"></span><a href="#" class="eliminar">X</a></div>');
 				x++;
 			}
 		return false;
