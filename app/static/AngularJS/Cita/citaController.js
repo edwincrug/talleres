@@ -33,11 +33,13 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//obtiene la unidad mediante el dato buscado
 	var getUnidad = function(datoUnidad){
-		citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
+		$('#btnBuscar').button('loading');
+		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
 				// localStorageService.set('datoUnidadFounded', datoUnidad);
 				alertFactory.success('Datos encontrados');
+				$('#btnBuscar').button('reset');
 			}
 			else{
 				alertFactory.info('No se encontraron datos');
@@ -50,7 +52,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	//obtiene las citas de la unidad
 	var getCita = function(idUnidad){
 		//obtiene todas las citas de la unidad
-		citaRepository.getCita(idUnidad).then(function(cita){
+		$scope.promise = citaRepository.getCita(idUnidad).then(function(cita){
 			$scope.citas = cita.data;
 			if(cita.data.length > 0){
 				alertFactory.success('Datos encontrados');
@@ -65,13 +67,13 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//obtiene los tabajos de la cita
 	$scope.lookUpTrabajo = function(cita){
-		citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
+		$scope.promise = citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
 			if(trabajo.data.length > 0){
 				$scope.existsTrabajo = true;
 				$scope.cita = cita;
 				alertFactory.success('Trabajo cargado');
 				//obtiene las cotizaciones(servicios) de la unidad
-				citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function(cotizacion){
+				$scope.promise = citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function(cotizacion){
 					if(cotizacion.data.length > 0){
 						citaRepository.getCotizacionDetalle(trabajo.data[0].idTrabajo).then(function(cotizacionDetalle){
 							citaRepository.getPaquete(trabajo.data[0].idTrabajo).then(function(cotPaquete){
@@ -199,7 +201,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     //obitiene los talleres con su especialidad
     $scope.lookUpTaller = function(datoTaller){
     	if(datoTaller !== '' && datoTaller !== undefined){
-			citaRepository.getTaller(datoTaller).then(function(taller){
+			$scope.promise = citaRepository.getTaller(datoTaller).then(function(taller){
 	    		$scope.talleres = taller.data;
 	    		if(taller.data.length > 0){
 	    			alertFactory.success('Datos encontrados');

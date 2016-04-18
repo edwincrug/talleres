@@ -85,7 +85,6 @@ var upload = multer({ storage: storage })
       // req.file is the `avatar` file 
       // req.body will hold the text fields, if there were any 
       var x = req.files;
-      post_evidencia()
       res.writeHead(301,{Location: '/AngularJS/Templates/uploader.html?response=1'});
       res.end();
     })

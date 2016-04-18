@@ -160,8 +160,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                         var idCita = y.document.getElementById("idCita");
                         var idUsuario = y.document.getElementById("idUsuario");
                         var idTipoEvidencia = y.document.getElementById("idTipoEvidencia");
-                        idTrabajo.value = 10;//$scope.idTrabajo;
-                        idCotizacion.value = 30;//$scope.idCotizacion;
+                        idTrabajo.value = $scope.idTrabajo;
+                        idCotizacion.value = $scope.idCotizacion;
                         idCita = $scope.citaDatos.idCita;
                         idUsuario = $scope.idUsuario;
                         idTipoEvidencia = 1;

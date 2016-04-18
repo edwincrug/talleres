@@ -3,11 +3,11 @@
 		<div class="formGroup">
 			<!-- <label for="datosUnidad">Datos de la unidad:</label> -->
 	    	<input  class="rounded" type="text" placeholder="Buscar unidad" ng-model="datoUnidad">
-	    	<button busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)">Buscar</button>
+	    	<button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)">Buscar</button>
 		</div>
     	</br>
     	<div id="tablaUnidad">
-    		<table class="table table-condensed table-striped table-hover"> 
+    		<table class="table table-condensed table-striped table-hover" cg-busy="{promise:promise,message:message}"> 
 				<thead> 
 					<tr> 
 						<th>Número económico</th> 

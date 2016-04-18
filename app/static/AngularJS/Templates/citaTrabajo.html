@@ -11,7 +11,7 @@
 					<div class="panel panel-info">
 				      	<div class="panel-heading"><h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
 				        <div class="panel-body">
-				      		<table class="table table-condensed table-striped table-hover"> 
+				      		<table class="table table-condensed table-striped table-hover" cg-busy="{promise:promise,message:message}"> 
 								<thead> 
 									<tr> 
 										<th>Número económico</th> 
@@ -38,7 +38,7 @@
 			<tab heading="Citas">
 				</br>
 				<div>
-					<table class="table table-condensed table-striped">
+					<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
 						<thead>
 							<th>Número de cita</th>
 							<th>Taller</th>
@@ -89,7 +89,7 @@
 					</div>
 					</br>
 					<div>
-						<table class="table table-condensed table-striped">
+						<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
 							<thead>
 								<!-- <th></th> -->
 								<!-- <th>Número de cita</th> -->
@@ -203,7 +203,7 @@
 				</div>
 				</br>
 				<div id="tableTaller">
-					<table class="table table-condensed table-striped">
+					<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
 						<thead>
 							<th>ID</th>
 							<th>Taller</th>
