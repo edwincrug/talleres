@@ -232,7 +232,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
 				//$('#addCita').modal('hide');
-				location.href = '/cita';
+				location.href = '/tallerCita';
 			},function(error){
 				alertFactory.error("Error al insertar la cita");
 			});
@@ -247,7 +247,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	    var year = date.getFullYear();
 	    var month = date.getMonth() + 1; // Jan is 0, dec is 11
-	    var day = date.getDay();
+	    var day = date.getDate();
 	    var dateString = '' + year + '-' + month + '-' + day;
 	    var combined = dateString+' '+timeString;
 	    //var combined = new Date(dateString + ' ' + timeString);
