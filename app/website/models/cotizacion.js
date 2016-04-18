@@ -30,7 +30,7 @@ Cotizacion.prototype.get = function (callback) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
             } else {
-                console.log('Error al obtener las cotizaciones: ' + params + ' mensaje: ' + err);
+                console.log('Error al obtener las cotizaciones: ' + err);
             }
         });
     });

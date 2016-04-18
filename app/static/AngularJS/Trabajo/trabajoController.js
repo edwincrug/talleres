@@ -5,10 +5,13 @@
 // -- Modificó: Vladimir Juárez Juárez
 // -- Fecha: 10/04/2016
 // -- =============================================
-registrationModule.controller('trabajoController', function($scope, alertFactory, trabajoRepository){
+registrationModule.controller('trabajoController', function($scope, localStorageService, alertFactory, trabajoRepository){
 	//this is the first method executed in the view
+    
+    var idUnidad = localStorageService.get('unidad');
+    
 	$scope.init = function(){	
-		getTrabajo(1);
+		getTrabajo(idUnidad);
 	}
 
 	var getTrabajo = function(idUnidad){
