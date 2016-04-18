@@ -9,7 +9,7 @@ registrationModule.controller('loginController', function($scope){
 	$scope.login = function(user, password){
 		if(vuser == user &&  vpassword == password)
 		{
-			location.href = '/cita';
+			location.href = '/#cita';
 		}
 	}
 });

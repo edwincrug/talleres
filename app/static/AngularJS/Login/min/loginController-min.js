@@ -1,0 +1,1 @@
+registrationModule.controller("loginController",function(n){var i="admin",o="12345admin";n.init=function(){},n.login=function(n,t){i==n&&o==t&&(location.href="/#cita")}});

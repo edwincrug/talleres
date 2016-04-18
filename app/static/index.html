@@ -15,6 +15,7 @@
     <!--Hojas de estilos-->
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/cita.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
@@ -38,6 +39,21 @@
 </head>
 
 <body ng-app="registrationModule">
+    <div id="header">
+        <img id="logo" src="image/profile/logoASE.png">
+            
+        </img>
+        <div id="title">
+            
+        </div>
+        <nav id="menu">
+            <a href="/#cita" tooltip="Agendar una cita">Nueva Cita</a> |
+            <a href="/#nuevaCotizacion" tooltip="Crear una nueva cotización">Cotizar</a> |
+            <a href="/#menu" tooltip="Aprobar una cotización">Aprobación</a> |
+            <a href="/#menu" tooltip="Consultar trabajos">Trabajo</a> |
+            <a href="/#menu">Reportes</a> 
+        </nav>
+    </div>
     <div ng-view></div>
 
     <!--Interface de usuario-->
