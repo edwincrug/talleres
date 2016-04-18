@@ -1,9 +1,9 @@
-var searchUrl = global_settings.urlCORS + '/api/flotillaApi/';
+var trabajoUrl = global_settings.urlCORS + '/api/cita/';
 
 registrationModule.factory('trabajoRepository', function ($http) {
     return {
-        getFlotilla: function (factura, vin) {
-            return $http.get(searchUrl + '1|' + factura + '|' + vin);
+        getTrabajo: function (idUnidad) {
+            return $http.get(trabajoUrl +'unidadtrabajo/'+ idUnidad);
         }
     };
 });
