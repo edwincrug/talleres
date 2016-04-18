@@ -8,8 +8,6 @@
 registrationModule.controller('citaController', function($scope, $rootScope, localStorageService, alertFactory,citaRepository){
 	var cDetalles = [];
 	var cPaquetes = [];
-	$scope.fecha = new Date();
-
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
@@ -17,8 +15,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		//$scope.showFicha = false;
 		//$scope.hasRows = false;
 		$scope.idTaller = 0;
-		$scope.existsTrabajo = false;		
-		$scope.busquedaCita($scope.fecha);
+		$scope.existsTrabajo = false;	
 
 		// if(localStorageService.get('datoUnidadFounded') != undefined){
 		// 	getUnidad(localStorageService.get('datoUnidadFounded'));
@@ -29,6 +26,12 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.initCita = function(){
 		$scope.unidadInfo = localStorageService.get('unidad');
 		getCita($scope.unidadInfo.idUnidad);
+	}
+
+	//init de la pantalla tallerCita
+	$scope.initTallerCita = function(){
+		$scope.fecha = new Date();
+		$scope.busquedaCita($scope.fecha);
 	}
 
 	//obtiene la unidad mediante el dato buscado
