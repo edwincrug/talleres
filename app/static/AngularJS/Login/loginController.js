@@ -1,6 +1,7 @@
-registrationModule.controller('loginController', function($scope){
+registrationModule.controller('loginController', function($scope, $rootScope){
 	var vuser = 'admin'
 	var vpassword = '12345admin';
+	$rootScope.sesion = 0;
 
 	$scope.init = function(){
 
@@ -10,6 +11,7 @@ registrationModule.controller('loginController', function($scope){
 		if(vuser == user &&  vpassword == password)
 		{
 			location.href = '/#cita';
+			$rootScope.sesion = 1;
 		}
 	}
 });
