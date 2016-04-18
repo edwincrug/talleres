@@ -7,6 +7,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.estado = localStorageService.get('estado');
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
+    $scope.chat=[];
+
 
     $scope.init = function () {
         $scope.cargaFicha();
@@ -30,9 +32,10 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             }, function (error) {});
     }
 
-    $scope.EnviarComentario = function (message) {
-        cotizacionAutorizacionRepository.putMessage(3, message, 7).then(function (result) {
+    $scope.EnviarComentario = function (comentarios) {
+        cotizacionAutorizacionRepository.putMessage(3, comentarios, idCita).then(function (result) {
                 $scope.algo = result.data;
+                $scope.cargaChat();
             },
             function (error) {});
     }
