@@ -16,6 +16,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var obs = '';
     var ext = '';
     var type = '';
+    var idTrabajo = 0;
+    var idCotizacion = 0;
     $scope.total = 0;
     $scope.importe = 0; 
     $scope.idUsuario = 1;
@@ -159,11 +161,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
                     if (contentForm.document)
                     var btnSubmit = contentForm.document.getElementById("submit2");                
-                    var elements = contentForm.document.getElementById("uploadForm").elements; 
-                    var idTrabajo = contentForm.document.getElementById("idTrabajo");
-                    var idCotizacion = contentForm.document.getElementById("idCotizacion");
-                    idTrabajo.value = $scope.idTrabajo;
-                    idCotizacion.value = $scope.idCotizacion;
+                    var elements = contentForm.document.getElementById("uploadForm").elements;
                     for(var i = 0; i < elements.length; i++)
                     {
                         if(elements[i].value != ""){
@@ -184,7 +182,11 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                             });
                         }                        
                     }
-                    //Submit en botón del Form para subir los archivos          
+                    //Submit en botón del Form para subir los archivos
+                    idTrabajo = contentForm.document.getElementById("idTrabajo");
+                    idCotizacion = contentForm.document.getElementById("idCotizacion");
+                    idTrabajo.value = $scope.idTrabajo;
+                    idCotizacion.value = $scope.idCotizacion;         
                     btnSubmit.click();                                                            
                 },function(error){
                     alertFactory.error('Error');
