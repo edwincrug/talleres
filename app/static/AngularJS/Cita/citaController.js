@@ -36,7 +36,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//obtiene la unidad mediante el dato buscado
 	var getUnidad = function(datoUnidad){
-		$('#btnBuscar').button('loading');
+		$('#btnBuscar').button('Buscando...');
 		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
@@ -46,9 +46,11 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			}
 			else{
 				alertFactory.info('No se encontraron datos');
+				$('#btnBuscar').button('reset');
 			}
 		}, function(error){
 			alertFactory.error('Error al obtener los datos');
+			$('#btnBuscar').button('reset');
 		});
 	}
 

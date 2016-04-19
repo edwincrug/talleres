@@ -155,13 +155,13 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                             item.cantidad)
                 .then(function(result){
                     alertFactory.success('Guardando Cotización Detalle');
-                    var x = document.getElementById("uploader");
-                    var y = (x.contentWindow || x.contentDocument);
-                    if (y.document)
-                    var z = y.document.getElementById("submit2");                
-                    var elements = y.document.getElementById("uploadForm").elements; 
-                    var idTrabajo = y.document.getElementById("idTrabajo");
-                    var idCotizacion = y.document.getElementById("idCotizacion");
+                    var formArchivos = document.getElementById("uploader");
+                    var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+                    if (contentForm.document)
+                    var btnSubmit = contentForm.document.getElementById("submit2");                
+                    var elements = contentForm.document.getElementById("uploadForm").elements; 
+                    var idTrabajo = contentForm.document.getElementById("idTrabajo");
+                    var idCotizacion = contentForm.document.getElementById("idCotizacion");
                     idTrabajo.value = $scope.idTrabajo;
                     idCotizacion.value = $scope.idCotizacion;
                     for(var i = 0; i < elements.length; i++)
@@ -183,8 +183,9 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                 alertFactory.error('Error');
                             });
                         }                        
-                    }                     
-                    z.click();                                                            
+                    }
+                    //Submit en botón del Form para subir los archivos          
+                    btnSubmit.click();                                                            
                 },function(error){
                     alertFactory.error('Error');
                 });             
@@ -194,15 +195,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         });
     };
 
-    //Limpiar pantalla
-    var limpiaPantalla = function(){
-        $scope.total = 0;
-        $scope.arrayItem = [];
-        $scope.pieza = '';
-        $scope.listaPiezas = '';
-    };
-
-    //Termina de guardar la información
+    //Termina de guardar la información de los archivos
     $scope.FinishSave = function(){
         //$('#buttonEnviar').button('reset');
         alertFactory.success('Guardando Archivos');
