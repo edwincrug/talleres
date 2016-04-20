@@ -238,6 +238,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 				$scope.clearInputs();
 				//$('#addCita').modal('hide');
 				location.href = '/tallerCita';
+				localStorageService.set('idTaller', $scope.idTaller);
 			},function(error){
 				alertFactory.error("Error al insertar la cita");
 			});
