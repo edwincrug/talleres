@@ -2,7 +2,7 @@
 // -- Author:      Uriel Godínez Martínez
 // -- Create date: 28/03/2016
 // -- Description: Cotizacion Controller
-// -- Modificó: 
+// -- Modificó: Mario Mejía
 // -- Fecha: 
 // -- =============================================
 registrationModule.controller('cotizacionController', function($scope, $rootScope, alertFactory, localStorageService,cotizacionRepository){
@@ -25,42 +25,28 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.citaDatos = localStorageService.get('cita');
     $scope.numEconomico = $scope.citaDatos.numEconomico;
     $scope.modeloMarca = $scope.citaDatos.modeloMarca;
+    $scope.trabajo = $scope.citaDatos.trabajo;
 
     $scope.init = function(){
-        
-        GetItems();
-        exist = false;        
+        exist = false; 
+        var formArchivos2 = document.getElementById("uploader");
+        var contentForm2 = (formArchivos2.contentWindow || formArchivos2.contentDocument);
+        if (contentForm2.document)
+        var btnSubmit = contentForm2.document.getElementById("submit2");     
     }
 
     //Busqueda de item (servicio/pieza/refacción)
-    $scope.buscarPieza = function(){
-        if(valor == '' || valor == null){
-            alertFactory.info("Seleccione una pieza");
+    $scope.buscarPieza = function(pieza){
+        if(pieza == '' || pieza == null){
+            alertFactory.info("Ingrese un dato para búsqueda");
         } else{
-                $scope.promise = cotizacionRepository.buscarPieza(valor).then(function(result){
+                $scope.promise = cotizacionRepository.buscarPieza(pieza).then(function(result){
                 $scope.listaPiezas = result.data;             
             }, function (error){
             }); 
         }
-        valor = '';    
+        pieza = '';    
     }
-
-    //Obtiene los items para la busqueda
-    var GetItems = function(){
-        cotizacionRepository.buscarItems().then(function(result){
-            $scope.listaItems = result.data;
-            for (var i=0; i < result.data.length; i++) {
-                arrayDescripcion.push(result.data[i].descripcion);
-            }
-            $("#piezaInput").autocomplete({
-                source: arrayDescripcion,
-                select: function(event,ui) {
-                    valor = ui.item.label;
-                }
-            });
-        }, function (error){
-        });
-    };
 
     //Calculo de la cotización
     $scope.cotizacion = function(pieza){

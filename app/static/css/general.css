@@ -43,3 +43,7 @@ input.rounded:focus {
   outline: 0;
   -webkit-appearance: none;
 }
+
+input.rounded.inputwidth {
+  width: 300px;
+}
