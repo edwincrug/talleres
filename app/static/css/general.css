@@ -44,6 +44,6 @@ input.rounded:focus {
   -webkit-appearance: none;
 }
 
-input.rounded.inputwidth {
+input.rounded.inputWidth {
   width: 300px;
 }
