@@ -226,19 +226,19 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     //inserta una nueva cita
     $scope.addCita = function(fechaCita, horaCita, trabajo){
     	if(fechaCita !== undefined && horaCita !== undefined && trabajo !== undefined && $scope.idTaller > 0){
-    		var taller = {};
-			taller.idUnidad = localStorageService.get('unidad').idUnidad;
-			taller.idTaller = $scope.idTaller;
-			taller.fecha = combineDateAndTime(fechaCita, horaCita);
-			taller.observacion = trabajo;
-			taller.idUsuario = 2;
+    		var citaTaller = {};
+			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
+			citaTaller.idTaller = $scope.idTaller;
+			citaTaller.fecha = combineDateAndTime(fechaCita, horaCita);
+			citaTaller.observacion = trabajo;
+			citaTaller.idUsuario = 2;
 			
-			citaRepository.addCita(taller).then(function(cita){
+			citaRepository.addCita(citaTaller).then(function(cita){
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
 				//$('#addCita').modal('hide');
 				location.href = '/tallerCita';
-				localStorageService.set('idTaller', $scope.idTaller);
+				localStorageService.set('objCita', citaTaller);
 			},function(error){
 				alertFactory.error("Error al insertar la cita");
 			});
