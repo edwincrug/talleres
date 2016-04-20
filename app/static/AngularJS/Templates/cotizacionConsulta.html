@@ -1,18 +1,16 @@
 <div ng-init="init()" class="contenedor">
     <h3>Cotizaciones</h3>
     </br>
-<!--     <div class="row">
+    <!--     <div class="row">
         <div class="col-lg-4">
             <button class="btn btn-sm btn-primary" type="button" ng-click="Nueva()">Nueva Cotización</button>
         </div>
     </div> -->
     </br>
     </br>
-    <form class="form-inline" role="form">
-        <div class="input-group">
-            <input type="text" class="form-control onlyRounded" placeholder="Buscar Cotizaciones..." ng-model="cotizacion">
-        </div>
-    </form>
+    <div class="formGroup">
+        <input class="rounded inputWidth" type="text" placeholder="Buscar Cotizaciones" ng-model="cotizacion">
+    </div>
     <div class="row">
 
     </div>
@@ -25,11 +23,13 @@
    delay:delay}">
             <thead>
                 <tr>
-                    <th>Estatus</th>
-                    <th>Eco</th>
-                    <th>Marca - Modelo</th>
-                    <th>Trabajo</th>
                     <th>Fecha Ingreso</th>
+                    <th>Número de Aprobación</th>
+                    <th>Eco</th>
+                    <th>Marca - Modelo</th>                                       
+                    <th>Trabajo</th>
+                    <th>Estatus</th> 
+                    <th>Observaciones</th> 
                     <th>Cotizó</th>
                     <th>Detalle</th>
                     <th>Abrir</th>
@@ -37,11 +37,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="cotizacion in cotizaciones | filter: cotizacion">
-                    <td>{{ cotizacion.estatus }}</td>
+                    <td>{{ cotizacion.fecha | date: 'short'}}</td>
                     <td>{{cotizacion.numEconomico}}</td>
                     <td>{{cotizacion.marca}}</td>
+                    <td>{{ cotizacion.estatus }}</td>                    
                     <td>{{cotizacion.observaciones}}</td>
-                    <td>{{ cotizacion.fecha | date: 'short'}}</td>
                     <td>{{ cotizacion.nombreCompleto }}</td>
                     <td>
                         <button class="btn btn-primary" type="button" id="btnEnviar">
