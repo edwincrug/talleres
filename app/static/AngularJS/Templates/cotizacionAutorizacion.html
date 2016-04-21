@@ -196,8 +196,9 @@
         </br>
         <div class="row">
             <div ng-hide="estado==2" class="col-md-offset-7 col-md-5">
-                <button type="button" class="btn btn-primary" ng-click="Autorizar()">Aprobar</button>
+                <button type="button" class="btn btn-success" ng-click="Autorizar()">Aprobar</button>
                  <button type="button" class="btn btn-danger" ng-click="Rechazar()">Rechazar</button>
+                 <button type="button" class="btn btn-primary glyphicon glyphicon-paperclip" ng-click="Adjuntar()"></button>
             </div>
             <div ng-hide="estado==1" class="col-md-offset-7 col-md-5">
                 <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
@@ -215,3 +216,21 @@
         <!-- /video-inner -->
     </div>
     <!-- /container -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Adjuntar Archivo</h4>
+          </div>
+          <div class="modal-body">
+            <div>
+                <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

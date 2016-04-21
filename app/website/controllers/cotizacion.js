@@ -35,7 +35,7 @@ Cotizacion.prototype.get_see = function (req, res, next) {
 }
 
 //Método para la búsqueda de piezas nueva cotización
-Cotizacion.prototype.get_buscarPieza_data = function (req, res, next) {
+Cotizacion.prototype.post_buscarPieza = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -44,32 +44,17 @@ Cotizacion.prototype.get_buscarPieza_data = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var msgObj = {
+        idTaller: req.body.idTaller,
+        nombrePieza: req.body.nombrePieza
+    }
 
-    this.model.buscarPieza(params, function (error, result) {
+    this.model.buscarPieza(msgObj, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
         self.view.buscarPieza(res, object);
-    });
-}
-
-//Método para la búsqueda de las descripciones de los items en nueva cotización
-Cotizacion.prototype.get_buscarItems = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
-    //Referencia a la clase para callback
-    var self = this;
-
-    this.model.buscarItems(function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.buscarItems(res, object);
     });
 }
 
@@ -86,7 +71,8 @@ Cotizacion.prototype.post_cotizacionMaestro_data = function (req, res, next) {
     var msgObj = {
         idCita: req.body.idCita,
         idUsuario: req.body.idUsuario,
-        observaciones: req.body.observaciones
+        observaciones: req.body.observaciones,
+        idUnidad: req.body.idUnidad
     }
 
     this.model.cotizacionMaestro(msgObj, function (error, result) {

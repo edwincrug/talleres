@@ -18,11 +18,14 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var type = '';
     var idTrabajo = 0;
     var idCotizacion = 0;
+    var idTaller = 0;
+    var idUnidad = 0;
     $scope.total = 0;
     $scope.importe = 0; 
     $scope.idUsuario = 1;
     $scope.message = 'Buscando...';    
-    $scope.citaDatos = localStorageService.get('cita');
+    $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita
+    $scope.objCita = localStorageService.get('objCita');//Objeto de la pagina de cita
     $scope.numEconomico = $scope.citaDatos.numEconomico;
     $scope.modeloMarca = $scope.citaDatos.modeloMarca;
     $scope.trabajo = $scope.citaDatos.trabajo;
@@ -40,7 +43,12 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         if(pieza == '' || pieza == null){
             alertFactory.info("Ingrese un dato para búsqueda");
         } else{
-                $scope.promise = cotizacionRepository.buscarPieza(pieza).then(function(result){
+                if($scope.objCita == null){
+                    idTaller = $scope.citaDatos.idTaller;
+                } else{
+                    idTaller = $scope.objCita.idTaller;
+                }
+                $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
                 $scope.listaPiezas = result.data;             
             }, function (error){
             }); 
@@ -63,7 +71,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 exist = false;
             }
             else{
-                 $scope.arrayItem.push({idItem: pieza.idItem,
+                 $scope.arrayItem.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
                                        numeroParte:pieza.numeroParte,descripcion:pieza.descripcion,
                                        precio:pieza.precio, cantidad:1, importe:pieza.precio*1, idTipoElemento:pieza.idTipoElemento});                
                  $scope.total = parseInt($scope.importe) + parseInt(pieza.precio*1)
@@ -73,7 +81,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             }
         }
         else{
-            $scope.arrayItem.push({idItem: pieza.idItem,
+            $scope.arrayItem.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
                                    numeroParte:pieza.numeroParte,descripcion:pieza.descripcion,
                                    precio:pieza.precio, cantidad:1, importe:pieza.precio*1,idTipoElemento:pieza.idTipoElemento});
             $scope.total = parseInt($scope.importe) + parseInt(pieza.precio*1)
@@ -128,9 +136,15 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         } else {
             obs = observaciones;
         }
+        if($scope.objCita == null){
+            idUnidad = $scope.citaDatos.idUnidad;
+        }else{
+            idUnidad = $scope.objCita.idUnidad;
+        }
         cotizacionRepository.insertCotizacionMaestro($scope.citaDatos.idCita,
                                                     $scope.idUsuario,
-                                                    obs)
+                                                    obs,
+                                                    idUnidad)
         .then(function(resultado){
            alertFactory.success('Guardando Cotización Maestro');
            $scope.idCotizacion = resultado.data[0].idCotizacion;
@@ -190,7 +204,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         location.href = '/cotizacionConsulta';
     }
 
-    //Método para obtener la extension del archivo
+    //Método para obtener la extensión del archivo
     var obtenerExtArchivo = function(file){
         $scope.file = file;
         var res = $scope.file.substring($scope.file.length-4, $scope.file.length)

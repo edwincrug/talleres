@@ -36,12 +36,13 @@ Cotizacion.prototype.get = function (callback) {
     });
 };
 
-Cotizacion.prototype.buscarPieza = function (params, callback) {
+Cotizacion.prototype.buscarPieza = function (msgObj, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('nombrePieza', sql.VarChar(50), params);
+        request.input('idTaller', sql.Numeric(18, 0), msgObj.idTaller);
+        request.input('nombrePieza', sql.VarChar(50), msgObj.nombrePieza);
         request.execute('SEL_BUSQUEDA_PIEZA_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
@@ -49,23 +50,6 @@ Cotizacion.prototype.buscarPieza = function (params, callback) {
                 console.log('Error al obtener las piezas: ' + params + ' mensaje: ' + err);
             }
         });
-
-    });
-};
-
-Cotizacion.prototype.buscarItems = function (callback) {
-    var self = this.connection;
-    this.connection.connect(function (err) {
-        // Stored Procedure 
-        var request = new sql.Request(self);
-        request.execute('SEL_BUSCAR_ITEM_SP', function (err, recordsets, returnValue) {
-            if (recordsets != null) {
-                callback(err, recordsets[0]);
-            } else {
-                console.log('Error al obtener los items: ' + params + ' mensaje: ' + err);
-            }
-        });
-
     });
 };
 
@@ -74,9 +58,10 @@ Cotizacion.prototype.cotizacionMaestro = function (msgObj, callback) {
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('idCita', sql.Decimal(18, 0), msgObj.idCita);
-        request.input('idUsuario', sql.Decimal(18, 0), msgObj.idUsuario);
+        request.input('idCita', sql.Numeric(18, 0), msgObj.idCita);
+        request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
         request.input('observaciones', sql.VarChar(300), msgObj.observaciones);
+        request.input('idUnidad', sql.Numeric(18, 0), msgObj.idUnidad);
         request.execute('INS_COTIZACION_MAESTRO_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);

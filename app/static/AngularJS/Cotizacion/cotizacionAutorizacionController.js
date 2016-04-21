@@ -180,4 +180,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         localStorageService.set('cita',localStorageService.get('objTrabajo'));
         location.href = '/cotizacionNueva';
     }
+
+    $scope.Adjuntar = function(){
+        $('#modal').modal('show');
+    }
 });

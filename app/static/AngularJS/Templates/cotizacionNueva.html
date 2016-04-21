@@ -4,25 +4,26 @@
         <div>
             <div>
                 <label>Trabajo:</label>
-                <label ng-model="trabajo">{{trabajo}}</label>
+                <span>{{trabajo}}</span>
             </div> 
             <div>
                 <label>Número Economico:</label>
-                <label ng-model="numEconomico">{{numEconomico}}</label>
+                <span>{{numEconomico}}</span>
             </div>
             <div>
                 <label>Marca-Modelo:</label>
-                <label ng-model="modeloMarca">{{modeloMarca}}</label>
+                <span>{{modeloMarca}}</span>
             </div>      
 		</div>	 
         <div class="formGroup">
             <input  class="rounded inputWidth" type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza">
-            <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="buscarPieza(pieza)">Buscar</button>
+            <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="buscarPieza(pieza)"></button>
         </div>       	
         <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
           <table class="table table-striped"> 
             <thead> 	 
                 <tr> 
+                    <th>No.Partida</th>
                     <th>No.Parte</th>                        
                     <th>Descripción</th>
                     <th>Precio</th>
@@ -31,12 +32,13 @@
             </thead> 
             <tbody> 
                 <tr ng-repeat="piezas in listaPiezas">
+                    <td>{{ piezas.numeroPartida }}</td> 
                     <td>{{ piezas.numeroParte }}</td> 
                     <td>{{ piezas.descripcion }}</td>
                     <td>{{ piezas.precio }}</td>
                     <td>
-                      <button class="btn btn-primary" type="button" 
-                      	id="btnCotizar" ng-click="cotizacion(piezas)">+
+                      <button class="btn btn-success glyphicon glyphicon-plus" type="button" 
+                      	id="btnCotizar" ng-click="cotizacion(piezas)">
                       </button>
                     </td>
                 </tr>                
@@ -50,24 +52,25 @@
           <table class="table table-striped"> 
             <thead> 
                 <tr> 
+                    <th>No.Partida</th>
                     <th>No.Parte</th>                        
                     <th>Descripción</th>
                     <th>Cantidad</th>  
                     <th>Precio Unitario</th>
-                    <th>Importe</th>                    
-                    <th>Quitar</th>
+                    <th>Importe</th> 
                 </tr> 
             </thead> 
             <tbody> 
                 <tr ng-repeat="piezas in arrayItem">
+                    <td>{{piezas.numeroPartida }}</td> 
                     <td>{{piezas.numeroParte}}</td> 
                     <td>{{piezas.descripcion}}</td>
                     <td>{{piezas.cantidad}}</td>
                     <td>{{piezas.precio}}</td>
                     <td>{{piezas.importe}}</td>                    
                     <td>
-                      <button class="btn btn-primary" type="button" 
-                      	id="btnCotizar" ng-click="quitarPieza(piezas)">-
+                      <button class="btn btn-danger glyphicon glyphicon-remove" type="button" 
+                      	id="btnCotizar" ng-click="quitarPieza(piezas)">
                       </button>
                     </td>
                 </tr>                

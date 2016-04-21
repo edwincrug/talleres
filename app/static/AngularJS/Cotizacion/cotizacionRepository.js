@@ -4,23 +4,26 @@ var ruta = global_settings.uploadPath;
 
 registrationModule.factory('cotizacionRepository', function ($http) {
     return {
-        buscarPieza: function(nombrePieza){
-        	return $http({
-        		url: searchUrl + 'buscarPieza/' + nombrePieza,
-        		method: "GET"
-        	});
-        },
-        buscarItems: function(){
+        buscarPieza: function(idTaller,nombrePieza){
+            var msgObj = {
+                idTaller: idTaller,
+                nombrePieza: nombrePieza
+            }
             return $http({
-                url: searchUrl + 'buscarItems',
-                method: "GET"
+                url: searchUrl + 'buscarPieza',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
             });
-        },       
-        insertCotizacionMaestro: function(idCita,idUsuario,observaciones){
+        },   
+        insertCotizacionMaestro: function(idCita,idUsuario,observaciones,idUnidad){
             var msgObj = {
                 idCita: idCita,  
                 idUsuario: idUsuario,
-                observaciones: observaciones
+                observaciones: observaciones,
+                idUnidad: idUnidad
             }
             return $http({
                 url: searchUrl + 'cotizacionMaestro',
