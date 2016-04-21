@@ -23,13 +23,13 @@
    delay:delay}">
             <thead>
                 <tr>
-                    <th>Fecha Ingreso</th>
+                    <th>Fecha</th>
                     <th>Número de Aprobación</th>
                     <th>Eco</th>
-                    <th>Marca - Modelo</th>                                       
+                    <th>Marca - Modelo</th>
                     <th>Trabajo</th>
-                    <th>Estatus</th> 
-                    <th>Observaciones</th> 
+                    <th>Estatus</th>
+                    <th>Observaciones</th>
                     <th>Cotizó</th>
                     <th>Detalle</th>
                     <th>Abrir</th>
@@ -37,20 +37,22 @@
             </thead>
             <tbody>
                 <tr ng-repeat="cotizacion in cotizaciones | filter: cotizacion">
-                    <td>{{ cotizacion.fecha | date: 'short'}}</td>
+                    <td>{{ cotizacion.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{cotizacion.numeroCotizacion}}</td>
                     <td>{{cotizacion.numEconomico}}</td>
                     <td>{{cotizacion.marca}}</td>
-                    <td>{{ cotizacion.estatus }}</td>                    
+                    <td>{{cotizacion.trabajo}}</td>
+                    <td>{{ cotizacion.estatus }}</td>
                     <td>{{cotizacion.observaciones}}</td>
                     <td>{{ cotizacion.nombreCompleto }}</td>
                     <td>
-                        <button class="btn btn-primary" type="button" id="btnEnviar">
-                            <span class="glyphicon glyphicon-hand-left" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion)"></span>
+                        <button class="btn btn-info" type="button" id="btnEnviar">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion)"></span>
                         </button>
                     </td>
                     <td>
                         <button class="btn btn-primary" type="button" id="btnEnviar">
-                            <span class="glyphicon glyphicon-hand-left" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad)"></span>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad)"></span>
                         </button>
                     </td>
                 </tr>

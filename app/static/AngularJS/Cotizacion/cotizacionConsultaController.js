@@ -13,15 +13,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         $scope.Maestro();
     }
 
-    $scope.hola = function () {
-        alert("hola");
-    }
-    $scope.Chat = function () {}
-
-    $scope.Aprobacion = function () {}
-
     $scope.Detalle = function (idCotizacion) {
-
         cotizacionConsultaRepository.getDetail(idCotizacion).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;
@@ -36,8 +28,6 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
             } else {
                 alertFactory.info('No se pudo obtener el detalle de esta cotización.');
             }
-
-
         }, function (error) {
             alertFactory.info('No se pudo obtener el detalle de esta cotización.');
         });
@@ -47,16 +37,14 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
     $scope.Maestro = function () {
         $scope.promise =
             cotizacionConsultaRepository.get().then(function (result) {
-                $scope.cotizaciones = result.data;
-            }, function (error) {});
-    }
-
-    $scope.BusquedaPieza = function () {
-        cotizacionConsultaRepository.busquedaPieza.then(function (result) {
-            $scope.pieza = result.data;
-        }, function (error) {
-
-        });
+                if (result.data.length > 0) {
+                    $scope.cotizaciones = result.data;
+                } else {
+                    alertFactory.info('No se encontraron cotizaciones.');
+                }
+            }, function (error) {
+                alertFactory.error('No se encontraron cotizaciones, inténtelo más tarde.');
+            });
     }
 
     $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1) {
@@ -65,11 +53,10 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         localStorageService.set('unidad', idUnidad1);
         localStorageService.set('estado', 1);
         location.href = '/cotizacionAutorizacion';
-
     }
-    
-    $scope.Nueva = function(){
-        location.href= "/cotizacionNueva";
+
+    $scope.Nueva = function () {
+        location.href = "/cotizacionNueva";
     }
 
 });
