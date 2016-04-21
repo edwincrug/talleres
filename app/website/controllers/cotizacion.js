@@ -131,7 +131,7 @@ Cotizacion.prototype.get_buscar = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_detail_data = function (req, res, next) {
+Cotizacion.prototype.post_detail = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -140,9 +140,21 @@ Cotizacion.prototype.get_detail_data = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    params = req.params.data;
+   /* params = req.params.data;
 
     this.model.detail(params, function (error, result) {
+        object.error = error;
+        object.result = result;
+
+        self.view.detail(res, object);
+    });*/
+
+    var objCotizacion = {
+        idCotizacion: req.body.idCotizacion,
+        idTaller: req.body.idTaller
+    };
+
+    this.model.detail(objCotizacion, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;

@@ -112,12 +112,13 @@ Cotizacion.prototype.buscar = function (callback) {
     });
 };
 
-Cotizacion.prototype.detail = function (params, callback) {
+Cotizacion.prototype.detail = function (objCotizacion, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('COTIZACION', sql.Numeric(18, 0), params);
+        request.input('idCotizacion', sql.Numeric(18, 0), objCotizacion.idCotizacion);
+        request.input('idTaller', sql.Numeric(18, 0), objCotizacion.idTaller);
         request.execute('SEL_COTIZACION_DETALLE_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);

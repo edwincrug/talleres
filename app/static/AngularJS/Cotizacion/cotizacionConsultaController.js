@@ -13,8 +13,8 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         $scope.Maestro();
     }
 
-    $scope.Detalle = function (idCotizacion) {
-        cotizacionConsultaRepository.getDetail(idCotizacion).then(function (result) {
+    $scope.Detalle = function (idCotizacion, idTaller) {
+        cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;
                 $scope.nombrePaquete = result.data[0].NOMBRE;

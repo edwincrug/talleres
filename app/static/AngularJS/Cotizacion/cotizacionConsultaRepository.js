@@ -15,12 +15,24 @@ registrationModule.factory('cotizacionConsultaRepository', function ($http) {
         		method: "GET"
         	});
         },
-        getDetail: function (idCotizacion) {
-            // return $http.post(loginUrl + '1|' + rol + '|' + nombre + '|' + email + '|' + password);
+        getDetail: function (idCotizacion, idTaller) {
+            var objCotizacion = {
+                idCotizacion: idCotizacion,
+                idTaller: idTaller
+            };
+            
             return $http({
+                url: searchUrl + 'detail',
+                method: "POST",
+                data: objCotizacion,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });            
+            /*return $http({
                 url: searchUrl + 'detail/' + idCotizacion,
-                method: "GET"
-            });
+                method: "POST"
+            });*/
         }
     };
 });

@@ -47,12 +47,12 @@
                     <td>{{ cotizacion.nombreCompleto }}</td>
                     <td>
                         <button class="btn btn-info" type="button" id="btnEnviar">
-                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion)"></span>
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion, cotizacion.idTaller)"></span>
                         </button>
                     </td>
                     <td>
                         <button class="btn btn-primary" type="button" id="btnEnviar">
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad)"></span>
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad)"></span>
                         </button>
                     </td>
                 </tr>
@@ -80,8 +80,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="articulo in articulos">
-                            <td>{{ articulo.ITEM }}</td>
-                            <td>{{articulo.PRECIO}}</td>
+                            <td>{{ articulo.numeroPartida }}</td>
+                            <td>{{articulo.item}}</td>
+                            <td>{{ articulo.precio }}</td>
                         </tr>
                     </tbody>
                 </table>
