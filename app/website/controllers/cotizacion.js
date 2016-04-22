@@ -258,7 +258,8 @@ Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
 
     var aprobacionObj = {
         idCotizacion: req.body.cotizacion,
-        idUsuario: req.body.usuario
+        idUsuario: req.body.usuario,
+        comentarios: req.body.comentarios
     };
 
     //Asigno a params el valor de mis variables
@@ -330,7 +331,8 @@ Cotizacion.prototype.post_cotizacionRechazo = function (req, res, next) {
 
     var rechazoObj = {
         idCotizacion: req.body.cotizacion,
-        idUsuario: req.body.usuario
+        idUsuario: req.body.usuario,
+        comentarios: req.body.comentarios
     };
 
     //Asigno a params el valor de mis variables

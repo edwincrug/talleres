@@ -8,6 +8,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
     $scope.chat=[];
+    $scope.descripcion =  localStorageService.get('desc');
 
 
     $scope.init = function () {
@@ -48,8 +49,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 function (error) {});
     }
 
-    $scope.Autorizar = function () {
-        cotizacionAutorizacionRepository.putCotizacionAprobacion(4, 1).then(function (result) {
+    $scope.Autorizar = function (comentario) {
+        cotizacionAutorizacionRepository.putCotizacionAprobacion(idCotizacion, 1, comentario).then(function (result) {
             if (result.data.length > 0) {
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
@@ -165,8 +166,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             }, function (error) {});
     }
 
-    $scope.Rechazar = function () {
-        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, 1).then(function (result) {
+    $scope.Rechazar = function (comentario) {
+        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, 1, comentario).then(function (result) {
             if (result.data.length > 0) {
                 alertFactory.success('Cotización Rechazada correctamente');
                 location.href = '/trabajo';
@@ -183,5 +184,12 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     $scope.Adjuntar = function(){
         $('#modal').modal('show');
+    }
+    
+    $scope.Editar = function(){
+        var objEditCotizacion = {
+            idCotizacion: idCotizacion,
+            idTaller: 1
+        };
     }
 });

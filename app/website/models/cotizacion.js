@@ -207,6 +207,7 @@ Cotizacion.prototype.aprobacionCotizacion = function (aprobacionObj, callback) {
         var request = new sql.Request(self);
         request.input('idCotizacion', sql.Numeric(18, 0), aprobacionObj.idCotizacion);
         request.input('idUsuario', sql.Numeric(18, 0), aprobacionObj.idUsuario);
+        request.input('comentarios', sql.VarChar(300), aprobacionObj.comentarios);
         request.execute('INS_AUTORIZACION_COTIZACION_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
@@ -264,6 +265,7 @@ Cotizacion.prototype.rechazoCotizacion = function (rechazoObj, callback) {
         var request = new sql.Request(self);
         request.input('idCotizacion', sql.Numeric(18, 0), rechazoObj.idCotizacion);
         request.input('idUsuario', sql.Numeric(18, 0), rechazoObj.idUsuario);
+        request.input('comentarios', sql.VarChar(300), rechazoObj.comentarios);
         request.execute('INS_RECHAZO_COTIZACION_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);

@@ -17,10 +17,9 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;
-                $scope.nombrePaquete = result.data[0].NOMBRE;
                 $scope.articulos = result.data;
                 for (var i = 0; i < result.data.length; i++) {
-                    $scope.total += result.data[i].PRECIO;
+                    $scope.total += (result.data[i].precio * result.data[i].cantidad)
                 }
 
                 $('#cotizacionDetalle').modal('show');
@@ -47,11 +46,12 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
             });
     }
 
-    $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1) {
+    $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1, numeroCotizacion) {
         localStorageService.set('cita', idCita1);
         localStorageService.set('cotizacion', idCotizacion1);
         localStorageService.set('unidad', idUnidad1);
         localStorageService.set('estado', 1);
+        localStorageService.set('desc', numeroCotizacion)
         location.href = '/cotizacionAutorizacion';
     }
 
