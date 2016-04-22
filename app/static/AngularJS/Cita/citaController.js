@@ -11,21 +11,20 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
-		//$scope.showTables = {};
-		//$scope.showFicha = false;
-		//$scope.hasRows = false;
 		$scope.idTaller = 0;
-		$scope.existsTrabajo = false;	
-
-		// if(localStorageService.get('datoUnidadFounded') != undefined){
-		// 	getUnidad(localStorageService.get('datoUnidadFounded'));
-		// }
+		$scope.habilitaBtnBuscar = true;
+		$scope.existsTrabajo = false;
 	}
 
 	//init de la pantalla citaTrabajo
 	$scope.initCita = function(){
 		$scope.unidadInfo = localStorageService.get('unidad');
 		getCita($scope.unidadInfo.idUnidad);
+	}
+
+	//init de la pantalla  nuevaCita
+	$scope.initNuevaCita = function(){
+		
 	}
 
 	//init de la pantalla tallerCita
@@ -74,7 +73,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.lookUpTrabajo = function(cita){
 		$scope.promise = citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
 			if(trabajo.data.length > 0){
-				$scope.existsTrabajo = true;
+				$scope.slideDown();
 				$scope.cita = cita;
 				alertFactory.success('Trabajo cargado');
 				//obtiene las cotizaciones(servicios) de la unidad
@@ -197,13 +196,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	    });				
 	}
 
-	//muestra el modal para agendar nueva cita
-    $scope.agendarCita = function(){
-        $('#addCita').modal('show');
-        $scope.talleres = [];
-    }
-
-    //obitiene los talleres con su especialidad
+    //obtiene los talleres con su especialidad
     $scope.lookUpTaller = function(datoTaller){
     	if(datoTaller !== '' && datoTaller !== undefined){
 			$scope.promise = citaRepository.getTaller(datoTaller).then(function(taller){
@@ -227,6 +220,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     $scope.addCita = function(fechaCita, horaCita, trabajo){
     	if(fechaCita !== undefined && horaCita !== undefined && trabajo !== undefined && $scope.idTaller > 0){
     		var citaTaller = {};
+    		citaTaller.idCita = 0;
 			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
 			citaTaller.idTaller = $scope.idTaller;
 			citaTaller.fecha = combineDateAndTime(fechaCita, horaCita);
@@ -234,6 +228,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			citaTaller.idUsuario = 2;
 			
 			citaRepository.addCita(citaTaller).then(function(cita){
+				citaTaller.idCita = cita.data[0].idCita;
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
 				//$('#addCita').modal('hide');
@@ -248,6 +243,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     	}
     }
 
+    //combina la fecha y hora en una cadena
     var combineDateAndTime = function(date, time){
 	    timeString = time.getHours() + ':' + time.getMinutes() + ':00';
 
@@ -280,5 +276,35 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.nuevaCotizacion = function(cita){
 		localStorageService.set('cita', cita);
         location.href = '/cotizacionNueva';
+	}
+
+	//despliega el div de las tablas
+	$scope.slideDown = function()
+	{
+	    $("#borderTop").slideDown(2000);
+	}
+
+	//contrae el div de las tablas
+	$scope.slideUp = function(){
+		$("#borderTop").slideUp(3000);
+	}
+
+	//habilita el botón de buscar
+	$scope.habilitaBuscar = function(datoUnidad){
+		if(datoUnidad.length >=4){
+			$scope.habilitaBtnBuscar = false;
+		}else{
+			$scope.habilitaBtnBuscar = true;
+		}
+	}
+
+	//va a la pantalla de nueva cita
+	$scope.goNewCita = function(){
+		location.href = '/nuevacita';
+	}
+
+	//va a la pantalla de cotizacion
+	$scope.goToCotizacion = function(){
+		location.href = 'cotizacionNueva';
 	}
 });
