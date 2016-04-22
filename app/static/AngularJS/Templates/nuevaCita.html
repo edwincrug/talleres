@@ -1,0 +1,66 @@
+<div class="contenedor" ng-init="initNuevaCita()">
+	<div class="formGroup">
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="tdFicha">
+						<div id="divNuevaCita">
+							<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" Datos del taller"> 
+			    			<button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)" data-toggle="tooltip" tooltip="Buscar taller" tooltip-placement="right"><span class="glyphicon glyphicon-search"></span></button>
+			    			</br></br>
+							<div id="tableTaller">
+								<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
+									<thead>
+										<th>Taller</th>
+										<th>Dirección</th>
+										<th>Número de TAR</th>
+										<th>Seleccionar</th>
+									</thead>
+									<tbody>
+										<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
+											<td>{{taller.razonSocial}}</td>		
+											<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
+											<td>{{taller.idTAR}}</td>
+											<td><input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)"></input></td>
+										</tr>
+									</tbody>
+								</table>
+								<div id="paginationTaller">
+									<dir-pagination-controls
+								       	max-size="5"
+								        direction-links="true"
+								        boundary-links="true" 
+								        pagination-id="listaTalleres">
+								    </dir-pagination-controls>
+								</div>
+							</div>
+							</br></br>
+							<div>
+								<button type="button" class="btn btn-primary" ng-click="goToCotizacion()" data-toggle="tooltip" tooltip="Simular cotización" tooltip-placement="top-right"><span class="glyphicon glyphicon-usd"></span></button>
+							</div>
+							<div class="formGroup">
+								<label for="trabajo">Fecha:</label>
+						    	<input id="datepicker" class="rounded" type="date" ng-model="fechaCita">	
+						    	<label for="trabajo">Hora:</label>
+						    	<input  class="rounded" type="time" ng-model="horaCita">
+							</div>	
+							</br>
+							<div>
+								<label for="trabajo">Trabajo a realizar:</label>
+						    	<textarea rows="2" cols="40" ng-model="trabajoCita"></textarea>	
+						    	<button type="button" class="btn btn-primary" ng-click="addCita( fechaCita, horaCita, trabajoCita)" data-toggle="tooltip" tooltip="Agendar cita" tooltip-placement="top-right"><span class="glyphicon glyphicon-calendar"></span></button>		
+							</div>	
+						</div>
+					</td>
+					<td id="tdMapa">
+						<div id="divMapa">
+							<img id="imgMapa" src="image/mapa.jpg">
+						</div>						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
