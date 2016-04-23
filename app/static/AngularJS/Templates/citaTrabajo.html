@@ -125,8 +125,8 @@
 							<tbody ng-repeat="t in trabajo">
 								<tr>
 									<td>{{t.trabajo.numeroTrabajo}}</td>
-									<td>{{t.trabajo.fechaInicio | date:"medium"}}</td>
-									<td>{{t.trabajo.fechaFin}}</td>
+									<td>{{t.trabajo.fechaInicio | date:'dd-MM-yyyy HH:mm'}}</td>
+									<td>{{t.trabajo.fechaFin | date:'dd-MM-yyyy HH:mm'}}</td>
 									<td>{{t.trabajo.trabajo}}</td>
 									<td>{{t.trabajo.estatus}}</td>				
 								</tr>
@@ -146,7 +146,7 @@
 													<td>{{c.idCotizacion}}</td>
 													<td>{{c.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
 													<td>{{c.nombreCompleto}}</td>
-													<td>{{c.total}}</td>
+													<td>{{c.total | currency}}</td>
 												</tr>
 												<tr class="sub">
 													<td></td>
@@ -165,9 +165,9 @@
 																	<td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>			
 																	<td>{{cd.tipoDescripcion}}</td>
 																	<td>{{cd.descripcion}}</td>
-																	<td>{{cd.precio}}</td>
+																	<td>{{cd.precio | currency}}</td>
 																	<td>{{cd.cantidad}}</td>
-																	<td>{{cd.subtotal}}</td>
+																	<td>{{cd.subtotal | currency}}</td>
 																</tr>
 																<tr class="sub">
 																	<td colspan="3"></td>

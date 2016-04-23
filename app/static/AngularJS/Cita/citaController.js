@@ -13,7 +13,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.init = function(){
 		$scope.idTaller = 0;
 		$scope.habilitaBtnBuscar = true;
-		$scope.existsTrabajo = false;
 	}
 
 	//init de la pantalla citaTrabajo
@@ -24,7 +23,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//init de la pantalla  nuevaCita
 	$scope.initNuevaCita = function(){
-		
+		$scope.selectedTaller = true;
 	}
 
 	//init de la pantalla tallerCita
@@ -39,7 +38,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
-				// localStorageService.set('datoUnidadFounded', datoUnidad);
 				alertFactory.success('Datos encontrados');
 				$('#btnBuscar').button('reset');
 			}
@@ -96,7 +94,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 				alertFactory.info('No se encontraron datos del trabajo');
 				$scope.trabajo = [];
 				$scope.cita = [];
-				$scope.existsTrabajo = false;
 			}
 
 		}, function(error){
@@ -252,7 +249,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	    var day = date.getDate();
 	    var dateString = '' + year + '-' + month + '-' + day;
 	    var combined = dateString+' '+timeString;
-	    //var combined = new Date(dateString + ' ' + timeString);
 
 	    return combined;
 	};
@@ -270,6 +266,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	//obtiene el taller seleccionado
 	$scope.getTaller = function(idTaller){
 		 $scope.idTaller = idTaller;
+		 $scope.selectedTaller = false;
 	}
 
 	//Redirige a pagina para nueva cotización
@@ -304,7 +301,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	}
 
 	//va a la pantalla de cotizacion
-	$scope.goToCotizacion = function(){
-		location.href = 'cotizacionNueva';
+	$scope.goToCitaServicio = function(){
+		localStorageService.set('idTaller', $scope.idTaller);
+		location.href = 'citaservicio';
 	}
 });
