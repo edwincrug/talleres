@@ -36,10 +36,11 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 method: "GET"
             });
         },
-        putCotizacionAprobacion: function (cotizacion, usuario) {
+        putCotizacionAprobacion: function (cotizacion, usuario, comentario) {
             var aprobacionObj = {
                 cotizacion: cotizacion,
-                usuario: usuario
+                usuario: usuario,
+                comentarios: comentario
             };
 
             return $http({
@@ -57,10 +58,11 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                 method: "GET"
             });
         },
-        putCotizacionRechazo: function (cotizacion, usuario) {
+        putCotizacionRechazo: function (cotizacion, usuario, comentario) {
             var rechazoObj = {
                 cotizacion: cotizacion,
-                usuario: usuario
+                usuario: usuario,
+                comentarios: comentario
             };
 
             return $http({

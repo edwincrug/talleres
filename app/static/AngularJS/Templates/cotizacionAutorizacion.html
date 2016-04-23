@@ -1,13 +1,17 @@
 <div ng-init="init()" class="contenedor">
-    <h3>Cotización</h3></br>
+    <div class="row">
+        <div class="col-md-3">
+            <h4><b>Cotización - {{descripcion}}</b></h4>
+        </div>
+    </div>
     </br>
     <div class="row" cg-busy="{promise:promise,message:message, minDuration: minDuration,
    delay:delay}">
-        <div class="col-md-7">
+        <div>
             <ul class="nav nav-tabs" id="myTabs">
                 <li role="presentation" class="active"><a href="#ficha">Ficha Técnica</a></li>
                 <li role="presentation"><a href="#trabajo">Trabajo</a></li>
-<!--                <li role="presentation"><a href="#documentos">Documentos</a></li>-->
+                <!--                <li role="presentation"><a href="#documentos">Documentos</a></li>-->
                 <li role="presentation"><a href="#evidencia">Evidencia</a></li>
             </ul>
 
@@ -144,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-               <!-- <div id="documentos" class="tab-pane fade">
+                <!-- <div id="documentos" class="tab-pane fade">
                     <h3>Menu 2</h3>
                     <p>Some content in menu 2.</p>
                 </div>-->
@@ -152,8 +156,8 @@
                     </br>
                     <div style="border:1">
                         <carousel interval="setInterval">
-                           <div ng-if="alerta == 1" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
-                            <slide ng-repeat="slide in slides" active="slide.active">                               
+                            <div ng-if="alerta == 1" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
+                            <slide ng-repeat="slide in slides" active="slide.active">
                                 <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
                                 <img style="height:380px; width:100%" class="carousel-image" ng-if="slide.tipoArchivo !== '.mp4'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}">
                             </slide>
@@ -164,47 +168,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Chat</div>
-                <div class="panel-body">
-                    <div id="chat">
-                        <div class="chatItem" ng-repeat="conversacion in chat">
-                            <img class="visto" src="image/chat/novisto.png" ng-hide="conversacion.chatVisto == 1 || conversacion.usrVisto != 1"></img>
-                            <img class="visto" src="image/chat/visto.png" ng-hide="conversacion.chatVisto == 0 || conversacion.usrVisto != 1"></img>
-                            <div class="sender" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"><span class="glyphicon glyphicon-user iconChat" aria-hidden="true"></span> {{ conversacion.idUsuario === 3 ? 'Yo' : conversacion.nombreCompleto }}</div>
-                            <div class="date" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"> {{ conversacion.fecha | date:"dd-MM-yy HH:mm" }} </div>
-                            <div class="text wordwrap" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }">
-                                {{ conversacion.mensaje }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-xs-9">
-                                <textarea class="form-control" rows="3" id="txtComentario" placeholder="Escriba un comentario" ng-model="comentarios"></textarea>
-
-                            </div>
-                            <button type="button" class="btn btn-primary" data-loading-text="Enviando..." id="btnEnviar" ng-click="EnviarComentario(comentarios)">Enviar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         </br>
-        </br>
-        </br>
-        <div class="row">
-            <div ng-hide="estado==2" class="col-md-offset-7 col-md-5">
-                <button type="button" class="btn btn-success glyphicon glyphicon-ok" ng-click="Autorizar()"></button>
-                 <button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="Rechazar()"></button>
-                 <button type="button" class="btn btn-primary glyphicon glyphicon-paperclip" ng-click="Adjuntar()"></button>
+    </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <div ng-hide="estado==2">
+                <textarea class="form-control" rows="2" cols="65" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
+                <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" tooltip="Autorizar Cotización" ng-click="Autorizar(comentario)">&nbsp;Autorizar</button>
+                <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" tooltip="Rechazar Cotización" ng-click="Rechazar(comentario)">&nbsp;Rechazar</button>
+                <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" tooltip="Editar Cotización" ng-click="Editar()">&nbsp;Editar</button>
+                <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()">&nbsp;Adjuntar</button>
             </div>
             <div ng-hide="estado==1" class="col-md-offset-7 col-md-5">
                 <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
             </div>
         </div>
-    </div>
+    </form>
+
     <div class="video-wrap">
         <div class="video-inner">
             <video id="video1" class="video-player" src="../../image/ES_818_01_01_XR25R.mp4" preload="auto">
@@ -217,20 +197,23 @@
     </div>
     <!-- /container -->
     <div id="modal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Adjuntar Archivo</h4>
-          </div>
-          <div class="modal-body">
-            <div>
-                <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Adjuntar Archivo</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
