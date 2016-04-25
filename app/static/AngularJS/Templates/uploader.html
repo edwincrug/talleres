@@ -1,6 +1,7 @@
 <link href="../../css/bootstrap.css" rel="stylesheet" />
-<!-- <link href="../../css/nodo.css" rel="stylesheet" /> -->
+<link rel="stylesheet" type="text/css" href="../../css/cotizacion.css">
  <script src="../../js/libs/jQuery/jquery-2.1.4.js"></script>
+
 <form 
   id        =  "uploadForm"
   enctype   =  "multipart/form-data"
@@ -12,7 +13,7 @@
       <div id="wrapper">
       <div id="contenedor">
         <div class="added">
-       	  <a id="agregarCampo" class="btn btn-info" style="margin-left: 74%;">+</a></br>
+       	  <a id="agregarCampo" class="btn btn-success glyphicon glyphicon-plus"></a></br></br>
           <span class="btn btn-primary btn-file">
             Adjuntar Archivo <input type="file" id="fileDoc" name="avatar">
           </span>
@@ -20,7 +21,7 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-info" type="submit" id="submit2" name="submit2">Cargar</button>
+  <button type="submit" id="submit2" name="submit2" hidden="true">Cargar</button>
 </form>
 <script type="text/javascript">
 	$(document).ready(function() {

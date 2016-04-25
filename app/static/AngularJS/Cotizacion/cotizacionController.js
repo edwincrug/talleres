@@ -6,8 +6,6 @@
 // -- Fecha: 
 // -- =============================================
 registrationModule.controller('cotizacionController', function($scope, $rootScope, alertFactory, localStorageService,cotizacionRepository){
-    var arrayDescripcion = []; 
-    $scope.arrayItem = [];
     var valor = '';
     var id = 0;
     var idItem = 0;
@@ -20,22 +18,25 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var idCotizacion = 0;
     var idTaller = 0;
     var idUnidad = 0;
+    var tipoEvidencia = 2;//Cotización
     $scope.total = 0;
     $scope.importe = 0; 
     $scope.idUsuario = 1;
     $scope.message = 'Buscando...';    
     $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita
     $scope.objCita = localStorageService.get('objCita');//Objeto de la pagina de cita
+    $scope.editCotizacion = localStorageService.get('objEditCotizacion');//objeto de la pagina autorizacion
     $scope.numEconomico = $scope.citaDatos.numEconomico;
     $scope.modeloMarca = $scope.citaDatos.modeloMarca;
     $scope.trabajo = $scope.citaDatos.trabajo;
 
     $scope.init = function(){
-        exist = false; 
-        var formArchivos2 = document.getElementById("uploader");
-        var contentForm2 = (formArchivos2.contentWindow || formArchivos2.contentDocument);
-        if (contentForm2.document)
-        var btnSubmit = contentForm2.document.getElementById("submit2");     
+        /*if($scope.editCotizacion != null){
+            editarCotizacion($scope.editCotizacion.idCotizacion,
+                                    $scope.editCotizacion.idTaller);
+        }*/
+        exist = false;
+        $scope.estado = 1;
     }
 
     //Busqueda de item (servicio/pieza/refacción)
@@ -51,12 +52,13 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
                 $scope.listaPiezas = result.data;             
             }, function (error){
+                alertFactory.error('Error');
             }); 
         }
         pieza = '';    
     }
 
-    //Calculo de la cotización
+    //Se agregan los items para el calculo de la cotización
     $scope.cotizacion = function(pieza){
         if($scope.arrayItem.length != 0){
             if(existsItem(pieza) == true){
@@ -71,26 +73,33 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 exist = false;
             }
             else{
+                 //Se agrega el item seleccionado al array
                  $scope.arrayItem.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
-                                       numeroParte:pieza.numeroParte,descripcion:pieza.descripcion,
-                                       precio:pieza.precio, cantidad:1, importe:pieza.precio*1, idTipoElemento:pieza.idTipoElemento});                
-                 $scope.total = parseInt($scope.importe) + parseInt(pieza.precio*1)
-                 $scope.importe = $scope.total;
-                 $scope.total = formatoMoneda($scope.total);
+                                       numeroParte:pieza.numeroParte,item:pieza.item,
+                                       precio:pieza.precio, cantidad:1, importe:pieza.precio*1, idTipoElemento:pieza.idTipoElemento, idEstatus: 9});
+                 $scope.arrayCambios.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
+                                       numeroParte:pieza.numeroParte,item:pieza.item,
+                                       precio:pieza.precio, cantidad:1, importe:pieza.precio*1, idTipoElemento:pieza.idTipoElemento, idEstatus: 9});
+                 calcularImporte();
+                 $scope.total = calculaTotal();
                  exist = false;
             }
         }
         else{
+            //Se agrega el item seleccionado al array
             $scope.arrayItem.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
-                                   numeroParte:pieza.numeroParte,descripcion:pieza.descripcion,
-                                   precio:pieza.precio, cantidad:1, importe:pieza.precio*1,idTipoElemento:pieza.idTipoElemento});
-            $scope.total = parseInt($scope.importe) + parseInt(pieza.precio*1)
-            $scope.importe = $scope.total;
-            $scope.total = formatoMoneda($scope.total);
+                                   numeroParte:pieza.numeroParte,item:pieza.item,
+                                   precio:pieza.precio, cantidad:1, importe:pieza.precio*1,idTipoElemento:pieza.idTipoElemento, idEstatus: 9});
+            $scope.arrayCambios.push({numeroPartida: pieza.numeroPartida,idItem: pieza.idItem,
+                                       numeroParte:pieza.numeroParte,item:pieza.item,
+                                       precio:pieza.precio, cantidad:1, importe:pieza.precio*1, idTipoElemento:pieza.idTipoElemento, idEstatus: 9});
+            calcularImporte();
+            $scope.total = calculaTotal(); 
             exist = false;
         }            
     };
 
+    //Valida si el item ya existe en la cotización
     var existsItem = function(pieza){
         $scope.arrayItem.forEach(function(item){
             if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento)
@@ -99,6 +108,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         return exist;
     };
 
+    //Calcula el total de la cotización
     var calculaTotal = function(){
         var total = 0;
         $scope.arrayItem.forEach(function(item){
@@ -106,12 +116,30 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         })
         return formatoMoneda(total);
     };
+
+    //Calcula el total de la cotización en modo editar
+    var calculaTotalEditar = function(){
+        var total = 0;
+        $scope.arrayItem.forEach(function(item){
+            total = total + item.precio;
+        })
+        return formatoMoneda(total);
+    };
+
+    //Calcula el importe de la cotización
+    var calcularImporte = function(){
+        var importe = 0;
+        $scope.arrayItem.forEach(function(item){
+            item.importe = parseFloat(item.precio) * parseFloat(item.cantidad);
+        })
+    }
     
+    //Da el formato de moneda
     var formatoMoneda = function(monto){
         return "$" + monto.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     };
 
-    //Eliminar la pieza de la cotizacion
+    //Eliminar la pieza de la cotización
     $scope.quitarPieza = function(pieza){
         $scope.arrayItem.forEach(function(item,i){
             if(item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento){
@@ -119,10 +147,12 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     $scope.arrayItem[i].cantidad = item.cantidad - 1;
                     $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)
                     $scope.total = calculaTotal();
+                    $scope.arrayCambios[i].cantidad = $scope.arrayItem[i].cantidad; 
                 } else{
-                    $scope.arrayItem.splice(i,1);
+                    $scope.arrayCambios[i].idEstatus = 10;//Estatus Eliminado                    
                     $scope.total = calculaTotal();
-                    $scope.importe = 0;               
+                    $scope.importe = 0;
+                    $scope.arrayItem.splice(i,1);                    
                 }
             }
         })
@@ -131,19 +161,17 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     //Envia la cotización para autorización
     $scope.enviarAutorizacion = function(observaciones){
         //$('#buttonEnviar').button('loading');
-        if(observaciones == null){
-            obs = '';
-        } else {
-            obs = observaciones;
-        }
-        if($scope.objCita == null){
+        if($scope.arrayItem.length == 0){
+            alertFactory.info('Debe seleccionar items para la cotización');
+        } else{
+            if($scope.objCita == null){
             idUnidad = $scope.citaDatos.idUnidad;
         }else{
             idUnidad = $scope.objCita.idUnidad;
         }
         cotizacionRepository.insertCotizacionMaestro($scope.citaDatos.idCita,
                                                     $scope.idUsuario,
-                                                    obs,
+                                                    observaciones,
                                                     idUnidad)
         .then(function(resultado){
            alertFactory.success('Guardando Cotización Maestro');
@@ -154,26 +182,27 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                                             item.idTipoElemento,
                                                             item.idItem,
                                                             item.precio,
-                                                            item.cantidad)
+                                                            item.cantidad,
+                                                            item.idEstatus)
                 .then(function(result){
                     alertFactory.success('Guardando Cotización Detalle');
+                    cargarArchivos($scope.idTrabajo,$scope.idCotizacion);
                     var formArchivos = document.getElementById("uploader");
                     var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
                     if (contentForm.document)
-                    var btnSubmit = contentForm.document.getElementById("submit2");                
-                    var elements = contentForm.document.getElementById("uploadForm").elements;
+                        var btnSubmit = contentForm.document.getElementById("submit2");                
+                        var elements = contentForm.document.getElementById("uploadForm").elements;
                     for(var i = 0; i < elements.length; i++)
                     {
                         if(elements[i].value != ""){
                             $scope.nombreArchivo = elements[i].value;
                             $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
-                            $scope.idTipoEvidencia = obtenerTipoEvidencia($scope.tipoArchivo);                            
-                            cotizacionRepository.insertEvidencia($scope.citaDatos.idCita,
+                            $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
+                            cotizacionRepository.insertEvidencia(tipoEvidencia,
+                                                                $scope.idTipoArchivo,
                                                                 $scope.idUsuario,
                                                                 $scope.idCotizacion,
-                                                                $scope.nombreArchivo,
-                                                                $scope.idTipoEvidencia,
-                                                                $scope.tipoArchivo)
+                                                                $scope.nombreArchivo)
                             .then(function(result){ 
                                 alertFactory.success('Evidencia Guardada Correctamente');  
                                 
@@ -182,12 +211,12 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                             });
                         }                        
                     }
-                    //Submit en botón del Form para subir los archivos
+                    //Submit del botón del Form para subir los archivos
                     idTrabajo = contentForm.document.getElementById("idTrabajo");
                     idCotizacion = contentForm.document.getElementById("idCotizacion");
                     idTrabajo.value = $scope.idTrabajo;
                     idCotizacion.value = $scope.idCotizacion;         
-                    btnSubmit.click();                                                            
+                    btnSubmit.click();                                                           
                 },function(error){
                     alertFactory.error('Error');
                 });             
@@ -195,6 +224,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         }, function (error){
             alertFactory.error('Error');
         });
+        }        
     };
 
     //Termina de guardar la información de los archivos
@@ -204,22 +234,86 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         location.href = '/cotizacionConsulta';
     }
 
-    //Método para obtener la extensión del archivo
+    //Se obtiene la extensión del archivo
     var obtenerExtArchivo = function(file){
         $scope.file = file;
         var res = $scope.file.substring($scope.file.length-4, $scope.file.length)
         return res;
     }
 
-    //Método para obtener el tipo de evidencia del archivo
-    var obtenerTipoEvidencia = function(ext){
-        if(ext == '.jpg'){
-            type = 4;
-        } else if(ext == '.png'){
-            type = 4;
-        } else if(ext == '.pdf'){
+    //Obtener el tipo de archivo
+    var obtenerTipoArchivo = function(ext){
+        if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx'){
             type = 1;
+        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp'){
+            type = 2;
+        } else {
+            type = 3;
         }
         return type;
+    }
+
+    //Carga los datos de la cotizacion a editar
+    $scope.editarCotizacion = function(){//idCotizacion,idTaller){
+        $scope.estado = 2;
+        cotizacionRepository.editarCotizacion(159,1)//$scope.editCotizacion.idCotizacion,
+                                              //$scope.editCotizacion.idTaller)
+        .then(function(result){
+            $scope.arrayItem = result.data;
+            $scope.arrayCambios = $scope.arrayItem.slice();
+            $scope.observaciones = result.data[0].observaciones;
+            $scope.total = calculaTotalEditar();
+            $scope.importe = calcularImporte();
+        },function(error){
+            alertFactory.error('Error');
+        }); 
+    }
+
+    //Actualización de la cotización
+    $scope.updateCotizacion =  function(observaciones){
+        $scope.arrayCambios.forEach(function(item,i){
+            cotizacionRepository.updateCotizacion(159,//$scope.editCotizacion.idCotizacion,
+                                                  item.idTipoElemento,
+                                                  item.idItem,
+                                                  item.precio,
+                                                  item.cantidad,
+                                                  observaciones,
+                                                  item.idEstatus)
+            .then(function(result){
+                alertFactory.success('Cotización Actualizada ');
+                var formArchivos = document.getElementById("uploader");
+                var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+                if (contentForm.document)
+                    var btnSubmit = contentForm.document.getElementById("submit2");                
+                    var elements = contentForm.document.getElementById("uploadForm").elements;
+                for(var i = 0; i < elements.length; i++)
+                {
+                    if(elements[i].value != ""){
+                        $scope.nombreArchivo = elements[i].value;
+                        $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
+                        $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
+                        cotizacionRepository.insertEvidencia(tipoEvidencia,
+                                                            $scope.idTipoArchivo,
+                                                            $scope.idUsuario,
+                                                            $scope.editCotizacion.idCotizacion,
+                                                            $scope.nombreArchivo)
+                        .then(function(result){ 
+                            alertFactory.success('Evidencia Guardada Correctamente');                              
+                        },function(error){
+                            alertFactory.error('Error');
+                        });
+                    }                        
+                }
+                //Submit del botón del Form para subir los archivos
+                idTrabajo = contentForm.document.getElementById("idTrabajo");
+                idCotizacion = contentForm.document.getElementById("idCotizacion");
+                idTrabajo.value = 3;//$scope.editCotizacion.idTrabajo;
+                idCotizacion.value = 159;//$scope.editCotizacion.idCotizacion;         
+                btnSubmit.click();
+                location.href = '/cotizacionConsulta';
+            },function(error){
+                alertFactory.error('Error');
+            });
+        })        
     }
 });

@@ -304,12 +304,11 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
 
     //Asigno a params el valor de mis variables
     var msgObj = {
-        idCita: req.body.idCita,  
+        idTipoEvidencia: req.body.idTipoEvidencia,  
+        idTipoArchivo: req.body.idTipoArchivo,
         idUsuario: req.body.idUsuario,
-        idCotizacion: req.body.idCotizacion,
-        nombreArchivo: req.body.nombreArchivo,
-        idTipoEvidencia: req.body.idTipoEvidencia,
-        tipoArchivo: req.body.tipoArchivo
+        idProcesoEvidencia: req.body.idProcesoEvidencia,
+        nombreArchivo: req.body.nombreArchivo
     }
 
     this.model.evidencia(msgObj, function (error, result) {
@@ -343,6 +342,35 @@ Cotizacion.prototype.post_cotizacionRechazo = function (req, res, next) {
         object.result = result;
 
         self.view.rechazoCotizacion(res, object);
+    });
+}
+
+//Método para insertar nueva cotización Detalle
+Cotizacion.prototype.post_updateCotizacion = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    //Asigno a params el valor de mis variables
+    var msgObj = {
+        idCotizacion: req.body.idCotizacion,
+        idTipoElemento: req.body.idTipoElemento,
+        idElemento: req.body.idElemento,
+        precio: req.body.precio,
+        cantidad: req.body.cantidad,
+        observaciones: req.body.observaciones,
+        idEstatus: req.body.idEstatus
+    }
+
+    this.model.updateCotizacion(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.updateCotizacion(res, object);
     });
 }
 

@@ -26,8 +26,9 @@
                     <td>{{ cita.trabajo }}</td> 
                     <td>{{ cita.nombreCompleto }} </td>
                     <td>
-                      <button class="btn btn-info" type="button" 
-                      	id="btnCotizar" ng-click="nuevaCotizacion(cita)">Cotizar
+                      <button class="btn btn-info" type="button" data-toggle="tooltip"
+                      	tooltip="Cotizar" id="btnCotizar" tooltip-placement="right" ng-click="nuevaCotizacion(cita)">                        
+                        <span class="glyphicon glyphicon-usd"></span>
                       </button>
                     </td>
                 </tr>                

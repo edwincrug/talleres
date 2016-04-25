@@ -224,12 +224,11 @@ Cotizacion.prototype.evidencia = function (msgObj, callback) {
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('idCita', sql.Numeric(18, 0), msgObj.idCita);
-        request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
-        request.input('idCotizacion', sql.Numeric(18, 0), msgObj.idCotizacion);
-        request.input('nombreArchivo', sql.VarChar(), msgObj.nombreArchivo);
         request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj.idTipoEvidencia);
-        request.input('tipoArchivo', sql.VarChar(), msgObj.tipoArchivo);
+        request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj.idTipoArchivo);
+        request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
+        request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj.idProcesoEvidencia);
+        request.input('nombreArchivo', sql.VarChar(100), msgObj.nombreArchivo);
         request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
@@ -277,5 +276,27 @@ Cotizacion.prototype.rechazoCotizacion = function (rechazoObj, callback) {
     });
 };
 
+Cotizacion.prototype.updateCotizacion = function (msgObj, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCotizacion', sql.Numeric(18, 0), msgObj.idCotizacion);
+        request.input('idTipoElemento', sql.Numeric(18, 0), msgObj.idTipoElemento);
+        request.input('idElemento', sql.Numeric(18, 0), msgObj.idElemento);
+        request.input('precio', sql.Decimal(18, 0), msgObj.precio);
+        request.input('cantidad', sql.Numeric(18, 0), msgObj.cantidad);
+        request.input('observaciones', sql.VarChar(300), msgObj.observaciones);
+        request.input('idEstatus', sql.Numeric(18, 0), msgObj.idEstatus);
+        request.execute('UPD_COTIZACION_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al rechazar la cotización: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
 
 module.exports = Cotizacion;

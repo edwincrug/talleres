@@ -51,14 +51,13 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 }
             });
         },
-        insertEvidencia: function(idCita,idUsuario,idCotizacion,nombreArchivo,idTipoEvidencia, tipoArchivo){
+        insertEvidencia: function(idTipoEvidencia,idTipoArchivo,idUsuario,idProcesoEvidencia,nombreArchivo){
             var msgObj = {
-                idCita: idCita,  
+                idTipoEvidencia: idTipoEvidencia,  
+                idTipoArchivo: idTipoArchivo,
                 idUsuario: idUsuario,
-                idCotizacion: idCotizacion,
-                nombreArchivo: nombreArchivo,
-                idTipoEvidencia: idTipoEvidencia,
-                tipoArchivo: tipoArchivo
+                idProcesoEvidencia: idProcesoEvidencia,
+                nombreArchivo: nombreArchivo
             }
             return $http({
                 url: searchUrl + 'evidencia',
@@ -68,6 +67,39 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
-        }  
+        },  
+        editarCotizacion: function(idCotizacion,idTaller){
+            var msgObj = {
+                idCotizacion: idCotizacion,  
+                idTaller: idTaller
+            }
+            return $http({
+                url: searchUrl + 'detail',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
+        updateCotizacion: function(idCotizacion,idTipoElemento,idElemento,precio,cantidad,observaciones,idEstatus){
+            var msgObj = {
+                idCotizacion: idCotizacion,  
+                idTipoElemento: idTipoElemento,
+                idElemento: idElemento,
+                precio: precio,
+                cantidad: cantidad,
+                observaciones: observaciones,
+                idEstatus: idEstatus
+            }
+            return $http({
+                url: searchUrl + 'updateCotizacion',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        }
     };
 });
