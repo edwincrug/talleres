@@ -432,7 +432,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			getHistorialUnidad(idCita);
 		}
 		//remueve la variable localStorage hIdCita
-		localStorageService.remove('hIdCita');
+		//localStorageService.remove('hIdCita');
 	}
 	//muestra el historial de la unidad (cita/trabajo y cotizaciones)
 	var getHistorialUnidad = function(idCita){
@@ -455,4 +455,5 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			alertFactory.error("Error al obtener historial cita");
 		})
 	}
+
 });
