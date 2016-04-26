@@ -37,12 +37,12 @@ a:focus {
 
 /* Container */
 .container {
-	width: 100vw;
+	/*width: 100vw;
 	height: 100vh;
 	border: 20px solid #fff;
 	position: relative;
 	display: -webkit-flex;
-	display: flex;
+	display: flex;*/
 	overflow: hidden;
 	-webkit-flex-direction: column;
 	flex-direction: column;
