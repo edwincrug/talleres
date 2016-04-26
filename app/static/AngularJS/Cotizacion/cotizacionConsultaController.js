@@ -46,12 +46,14 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
             });
     }
 
-    $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1, numeroCotizacion) {
+    $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1, numeroCotizacion, idTrabajo1, taller1) {
         localStorageService.set('cita', idCita1);
         localStorageService.set('cotizacion', idCotizacion1);
         localStorageService.set('unidad', idUnidad1);
         localStorageService.set('estado', 1);
         localStorageService.set('desc', numeroCotizacion)
+        localStorageService.set('work', idTrabajo1);
+        localStorageService.set('taller', taller1);
         location.href = '/cotizacionAutorizacion';
     }
 

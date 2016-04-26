@@ -73,6 +73,12 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                     'Content-Type': 'application/json'
                 }
             });
-        }
+        },
+        getDocs: function (idCotizacion) {
+           return $http({
+               url: searchUrl + 'docs/' + idCotizacion,
+               method: "GET"
+           });
+       }
     };
 });
