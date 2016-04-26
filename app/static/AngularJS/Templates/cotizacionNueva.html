@@ -1,5 +1,5 @@
 <div ng-init="init()">
-	<h1>Nueva Cotización</h1>
+	<h1>Cotización</h1>
 	<div id="contenedor" class="contenedor">              
         <div>
             <div>
@@ -17,9 +17,6 @@
                 <span>{{modeloMarca}}</span>
             </div>      
 		</div>
-        <button class="btn btn-success glyphicon glyphicon-add" type="button" 
-            ng-click="editarCotizacion()" >Editar
-        </button>
         <div class="formGroup">
             <input  class="rounded inputWidth" type="text" ng-model="pieza">
             <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary " ng-click="buscarPieza(pieza)" data-toggle="tooltip" tooltip="Buscar: Servicio/Paquete/Refacción" id="btnCotizar" tooltip-placement="right">
@@ -98,8 +95,7 @@
         <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
     </div>
     <div class="col-md-5">
-         <label class="col-md-3 control-label">Observaciones:</label>
-         <textarea id="observaciones" ng-model="observaciones"></textarea>
+         <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
     </div>
     <div class="col-md-3">
         <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">

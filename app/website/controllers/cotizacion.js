@@ -374,4 +374,20 @@ Cotizacion.prototype.post_updateCotizacion = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.get_docs_data = function (req, res, next) {
+   //Objeto que almacena la respuesta
+   var object = {};
+   //Objeto que envía los parámetros
+   var params = {};
+   //Referencia a la clase para callback
+   var self = this;    //Asigno a params el valor de mis variables
+   params = req.params.data;    
+
+   this.model.docs(params, function (error, result) {
+       //Callback
+       object.error = error;
+       object.result = result;        self.view.docs(res, object);
+   });
+}
+
 module.exports = Cotizacion;

@@ -1,14 +1,17 @@
-registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository) {
+registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
     var idCita = localStorageService.get('cita');
     var idCotizacion = localStorageService.get('cotizacion');
+    var idTrabajo = localStorageService.get('work');
+    var idTaller = localStorageService.get('taller');
     $scope.estado = localStorageService.get('estado');
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
     $scope.chat=[];
     $scope.descripcion =  localStorageService.get('desc');
+    var tipoEvidencia = 2;//Cotización
 
 
     $scope.init = function () {
@@ -17,6 +20,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         $scope.getCotizacionByTrabajo();
         $scope.lookUpTrabajo(idCita);
         $scope.cargaEvidencias();
+        $scope.cargaDocs(idCotizacion);
     }
 
     $scope.cargaChat = function () {
@@ -30,6 +34,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         $scope.promise =
             cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
                 $scope.ficha = result.data;
+                localStorageService.set('objFicha',$scope.ficha);
             }, function (error) {});
     }
 
@@ -189,7 +194,71 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.Editar = function(){
         var objEditCotizacion = {
             idCotizacion: idCotizacion,
-            idTaller: 1
+            idTaller: idTaller,
+            idTrabajo: idTrabajo
         };
+        localStorageService.set('objEditCotizacion',objEditCotizacion);
+        location.href = '/cotizacionNueva';
     }
+
+    //Actualización de la cotización
+    $scope.cargarEvidencia =  function(){//(idTrabajo, idCotizacion){
+        var formArchivos = document.getElementById("uploaderAutorizacion");
+        var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+        if (contentForm.document)
+            var btnSubmit = contentForm.document.getElementById("submit2");                
+            var elements = contentForm.document.getElementById("uploadForm").elements;
+        for(var i = 0; i < elements.length; i++)
+        {
+            if(elements[i].value != ""){
+                $scope.nombreArchivo = elements[i].value;
+                $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
+                $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
+                cotizacionRepository.insertEvidencia(tipoEvidencia,
+                                                    $scope.idTipoArchivo,
+                                                    1,//$scope.idUsuario,
+                                                    idCotizacion,
+                                                    $scope.nombreArchivo)
+                .then(function(result){ 
+                    alertFactory.success('Evidencia Guardada Correctamente');                              
+                },function(error){
+                    alertFactory.error('Error');
+                });
+            }                        
+        }
+        //Submit del botón del Form para subir los archivos
+        idTrabajo = contentForm.document.getElementById("idTrabajo");
+        idCotizacion = contentForm.document.getElementById("idCotizacion");
+        idTrabajo.value = idTrabajo;
+        idCotizacion.value = idCotizacion;         
+        btnSubmit.click();
+        $('#modal').modal('hide');      
+    }
+
+    //Se obtiene la extensión del archivo
+    var obtenerExtArchivo = function(file){
+        $scope.file = file;
+        var res = $scope.file.substring($scope.file.length-4, $scope.file.length)
+        return res;
+    }
+
+    //Obtener el tipo de archivo
+    var obtenerTipoArchivo = function(ext){
+        if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx'){
+            type = 1;
+        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp'){
+            type = 2;
+        } else {
+            type = 3;
+        }
+        return type;
+    }
+
+    //Se obtienen los archivos de la cotización
+    $scope.cargaDocs = function (idCotizacion) {
+       $scope.promise =
+           cotizacionAutorizacionRepository.getDocs(idCotizacion).then(function (result) {
+               $scope.docs = result.data;
+           }, function (error) {});
+   }
 });
