@@ -22,7 +22,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
                     $scope.total += (result.data[i].precio * result.data[i].cantidad)
                 }
 
-                $('#cotizacionDetalle').modal('show');
+                $('#cotizacionDetalle').appendTo('body').modal('show');
                 alertFactory.success('Datos cargados.');
             } else {
                 alertFactory.info('No se pudo obtener el detalle de esta cotización.');

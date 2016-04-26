@@ -1,3 +1,8 @@
+<!--Carrusel-->
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
+
 <div ng-init="init()" class="contenedor">
     <div class="row">
         <div class="col-md-3">
@@ -7,7 +12,7 @@
     </br>
     <div class="row" cg-busy="{promise:promise,message:message, minDuration: minDuration,
    delay:delay}">
-        <div>
+        <div class="col-md-7">
             <ul class="nav nav-tabs" id="myTabs">
                 <li role="presentation" class="active"><a href="#ficha">Ficha Técnica</a></li>
                 <li role="presentation"><a href="#trabajo">Trabajo</a></li>
@@ -16,58 +21,61 @@
             </ul>
 
             <div class="tab-content">
-                <div id="ficha" class="tab-pane fade in active">
-                    <div class="formGroup">
-					<div class="panel panel-info">
-				      	<div class="panel-heading"><h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
-				        <div class="panel-body">				      	
-							<table>
-								<thead>
-									<th></th>
-									<th></th>
-								</thead>
-								<tbody>
-									<tr>
-										<th id="ficha">			      	
-											<div>
-												<div>
-													<label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
-												</div>
-												<div>
-													<label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
-												</div>
-												<div>
-													<label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
-												</div>
-												<div>
-													<label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
-												</div>
-												<div>
-													<label>TAR:</label><span> {{unidadInfo.TAR}}</span>
-												</div>
-												<div>
-													<label>GAR:</label><span> {{unidadInfo.GAR}}</span>
-												</div>
-												<div>
-													<label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
-												</div>
-												<div>
-													<label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
-												</div>
-												<div>
-													<label>Motor:</label><span> {{unidadInfo.motor}}</span>
-												</div>
-											</div>
-										</th>
-										<th id="fotoFicha">
-											<img src="image/international.jpg" id="fotoUnidad">
-										</th>
-									</tr>
-								</tbody>
-							</table>	
-				        </div>
-				    </div>			
-				</div> 
+                <div id="ficha" class="tab-pane fade">
+                        </br>
+                        <div class="formGroup">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
+                                <div class="panel-body">
+                                    <table>
+                                        <thead>
+                                            <th></th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th id="ficha">
+                                                    <div>
+                                                        <div>
+                                                            <label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>TAR:</label><span> {{unidadInfo.TAR}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>GAR:</label><span> {{unidadInfo.GAR}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
+                                                        </div>
+                                                        <div>
+                                                            <label>Motor:</label><span> {{unidadInfo.motor}}</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <th id="fotoFicha">
+                                                    <img src="image/international.jpg" id="fotoUnidad">
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
                 </div>
                 <div id="trabajo" class="tab-pane fade">
                     <div class="panel panel-info">
@@ -192,6 +200,31 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-5 panel panel-primary">
+            <div class="panel-heading">Chat</div>
+            <div class="panel-body">
+                <div id="chat">
+                    <div class="chatItem" ng-repeat="conversacion in chat">
+                        <img class="visto" src="image/chat/novisto.png" ng-hide="conversacion.chatVisto == 1 || conversacion.usrVisto != 1"></img>
+                        <img class="visto" src="image/chat/visto.png" ng-hide="conversacion.chatVisto == 0 || conversacion.usrVisto != 1"></img>
+                        <div class="sender" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"><span class="glyphicon glyphicon-user iconChat" aria-hidden="true"></span> {{ conversacion.idUsuario === 3 ? 'Yo' : conversacion.nombreCompleto }}</div>
+                        <div class="date" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"> {{ conversacion.fecha | date:"dd-MM-yy HH:mm" }} </div>
+                        <div class="text wordwrap" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }">
+                            {{ conversacion.mensaje }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <textarea class="form-control" rows="3" id="txtComentario" placeholder="Escriba un comentario" ng-model="comentarios"></textarea>
+
+                        </div>
+                        <button type="button" class="btn btn-primary" data-loading-text="Enviando..." id="btnEnviar" ng-click="EnviarComentario(comentarios)">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </br>
     </div>
     <form class="form-inline">
@@ -209,7 +242,7 @@
         </div>
     </form>
 
-    <div class="video-wrap">
+    <!--<div class="video-wrap">
         <div class="video-inner">
             <video id="video1" class="video-player" src="../../image/ES_818_01_01_XR25R.mp4" preload="auto">
                 <source src="../../image/ES_818_01_01_XR25R.mp4" type='video/mp4; codecs="avc1.4D401E, mp4a.40.2"'>
@@ -217,8 +250,7 @@
             </video>
             <button class="action action--close"><i class="fa fa-close"></i><span class="action__label action__label--hidden">Close preview</span></button>
         </div>
-        <!-- /video-inner -->
-    </div>
+    </div>-->
     <!-- /container -->
     <div id="modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
