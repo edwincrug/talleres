@@ -1582,27 +1582,27 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-/*.container {
-  padding-right: 15px;
-  padding-left: 15px;
+.container {
+  /*padding-right: 15px;
+  padding-left: 15px;*/
   margin-right: auto;
   margin-left: auto;
-}*/
-/*@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
   .container {
-    width: 750px;
+    /*width: 750px;*/
   }
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    /*width: 970px;*/
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    /*width: 1170px;*/
   }
-}*/
+}
 .container-fluid {
   padding-right: 15px;
   padding-left: 15px;
@@ -5022,11 +5022,11 @@ a.badge:focus {
 .jumbotron > hr {
   border-top-color: #d5d5d5;
 }
-.jumbotron,
+.container .jumbotron,
 .container-fluid .jumbotron {
   border-radius: 6px;
 }
-.jumbotron {
+.jumbotron .container {
   max-width: 100%;
 }
 @media screen and (min-width: 768px) {
@@ -5034,7 +5034,7 @@ a.badge:focus {
     padding-top: 48px;
     padding-bottom: 48px;
   }
-  .jumbotron,
+  .container .jumbotron,
   .container-fluid .jumbotron {
     padding-right: 60px;
     padding-left: 60px;
@@ -5969,6 +5969,7 @@ button.close {
   z-index: 1040;
   background-color: #000;
 }
+
 .modal-backdrop.fade {
   filter: alpha(opacity=0);
   opacity: 0;

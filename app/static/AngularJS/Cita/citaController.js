@@ -331,7 +331,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.showCitaServicioModal = function(){
 		$scope.piezas = [];
 		$scope.pieza = "";
-		$('#citaServicioModal').modal('show');
+		//$('#citaServicioModal').modal('show');
+		$('#citaServicioModal').appendTo("body").modal('show');
 	}
 
 	//init de servicio controller
