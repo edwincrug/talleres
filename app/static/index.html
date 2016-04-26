@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
-    <title>Tittle project</title>
+    <title>Talleres Externos</title>
     <meta name="description" content="description project">
     <meta name="author" content="name" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,43 +17,57 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
     <link href="css/chat.css" rel="stylesheet" />
 
     <!--Loading-->
     <link href="css/toastr.css" rel="stylesheet" />
-    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <link href="css/angular-busy.css" rel="stylesheet" />
 
     <!--Carrusel-->
-    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+   <!--  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" /> -->
+
+    <!-- CSS Menú -->
+    <link rel="stylesheet" type="text/css" href="css/menu/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/menu/component.css" />
 
     <!--Librearias JQuery y Bootstrap-->
     <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
     <script src="js/libs/bootstrap/bootstrap.js"></script>
-    </script>
+
+    <!-- Menú -->
+    <script src="js/menu/modernizr.custom.25376.js"></script>
 
 </head>
 
 <body ng-app="registrationModule">
-    <div id="header" ng-hide="sesion == 0">
-        <img id="logo" src="image/profile/logoASE.png">
-            
-        </img>
-        <div id="title">
-            
-        </div>
-        <nav id="menu">
-            <a href="/#cita" tooltip="Agendar una cita">Nueva Cita</a> |
-            <a href="/#tallerCita" tooltip="Crear una nueva cotización">Cotizar</a> |
-            <a href="/#cotizacionConsulta" tooltip="Aprobar una cotización">Aprobación</a> |
-            <a href="/#trabajo" tooltip="Consultar trabajos">Trabajo</a> |
-            <a href="/#menu">Reportes</a> 
+
+    <div id="perspective" class="perspective effect-rotateleft">
+        <div class="container">
+            <div class="wrapper"><!-- wrapper needed for scroll -->
+                <span  id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" tooltip="Menú"></span>
+                <div id="user">
+                    
+                    <div id="profile">Taller</div>
+                    <div id="name">Edwin Cruz</div>
+                    <div id="avatar">
+                        <img id="imgAvatar"></img>
+                    </div>
+                </div>
+                <div ng-view></div>
+            </div><!-- wrapper -->
+        </div><!-- /container -->
+        <nav class="outer-nav right vertical">
+            <a href="#" class="icon-home">Home</a>
+            <a href="#" class="icon-news">News</a>
+            <a href="#" class="icon-image">Images</a>
+            <a href="#" class="icon-upload">Uploads</a>
+            <a href="#" class="icon-star">Favorites</a>
+            <a href="#" class="icon-mail">Messages</a>
+            <a href="#" class="icon-lock">Security</a>
         </nav>
-    </div>
-    <div ng-view></div>
+    </div><!-- /perspective -->
 
     <!--Interface de usuario-->
     <script src="js/libs/toastr/toastr.min.js"></script>
@@ -70,8 +83,9 @@
     <!--Funciones Comunes-->
     <script src="confront.js"></script>
 
-    <!--Angular NG-Grid-->
-    <!--<script src="js/libs/angular/ng-grid.js"></script>-->
+    <!-- Scripts de menú -->
+    <script src="js/menu/classie.js"></script>
+    <script src="js/menu/menu.js"></script>
 
     <!--Angular Busy-->
     <script src="js/libs/angular/angular-busy.js"></script>
@@ -98,7 +112,7 @@
     <script src="AngularJS/Login/loginController.js"></script>
     <script src="AngularJS/Trabajo/trabajoController.js"></script>
     <script src="AngularJS/Trabajo/trabajoRepository.js"></script>
-    
+
     <script src="AngularJS/Servicio/servicioController.js"></script>
 
 </body>
