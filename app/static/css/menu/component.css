@@ -46,6 +46,8 @@ html, body, .perspective {
 
 .wrapper {
 	position: relative;
+	overflow-y: auto;
+    height: 100%;
 }
 
 .component {
