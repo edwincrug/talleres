@@ -1,4 +1,4 @@
-<div class="contenedor">
+<div class="contenedor" ng-init="init()">
 	<div class="formGroup">
         <input  class="rounded inputWidth" type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza">
         <button id="btnBuscarPieza" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="getPieza(pieza)"></button>
@@ -51,7 +51,7 @@
             </tbody> 
         </table>
         <div>
-        	<button type="button" class="btn btn-primary glyphicon glyphicon-saved" data-toggle="tooltip" tooltip="Generar lista de servicios" tooltip-placement="top-right"></button>
+        	<button type="button" class="btn btn-primary glyphicon glyphicon-saved" data-toggle="tooltip" tooltip="Generar lista de servicios" tooltip-placement="top-right" ng-click="backToNuevaCita()"></button>
         </div> 
     </div>
 </div>

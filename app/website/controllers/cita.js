@@ -273,4 +273,29 @@ Cita.prototype.get_unidadtrabajo_data = function(req, res, next){
 	});
 }
 
+
+//inserta cita servicio detalles
+Cita.prototype.post_addCitaServicioDetalle = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    var msgObj = {
+        idCita: req.body.idCita,
+        idTipoElemento: req.body.idTipoElemento,
+        idElemento: req.body.idElemento,
+        cantidad: req.body.cantidad
+    }
+
+    this.model.postCitaServicioDetalle(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
 module.exports = Cita;

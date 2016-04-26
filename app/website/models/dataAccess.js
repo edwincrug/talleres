@@ -50,18 +50,40 @@ DataAccess.prototype.get = function(stored,params,callback){
 };
 
 //método post
-DataAccess.prototype.post = function (aprobacionObj, callback) {
+DataAccess.prototype.post = function (objParams, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('idUnidad', sql.Numeric(18, 0), aprobacionObj.idUnidad);
-        request.input('idTaller', sql.Numeric(18, 0), aprobacionObj.idTaller);
-        request.input('fecha', sql.VarChar(20), aprobacionObj.fecha);
-        request.input('observacion', sql.VarChar(250), aprobacionObj.observacion);
-        request.input('idUsuario', sql.Numeric(18, 0), aprobacionObj.idUsuario);
+        request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
+        request.input('idTaller', sql.Numeric(18, 0), objParams.idTaller);
+        request.input('fecha', sql.VarChar(20), objParams.fecha);
+        request.input('observacion', sql.VarChar(250), objParams.observacion);
+        request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
 
         request.execute('INS_CITA_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
+//método post
+DataAccess.prototype.postCitaServicioDetalle = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+        request.input('idTipoElemento', sql.Numeric(18, 0), objParams.idTipoElemento);
+        request.input('idElemento', sql.Numeric(18, 0), objParams.idElemento);
+        request.input('cantidad', sql.Numeric(18, 0), objParams.cantidad);
+
+        request.execute('INS_CITA_SERVICIO_DETALLE_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
             } else {

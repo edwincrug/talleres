@@ -19,7 +19,7 @@
 										<th>Seleccionar</th>
 									</thead>
 									<tbody>
-										<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
+										<tr dir-paginate="taller in talleres | itemsPerPage:5" pagination-id="listaTalleres">
 											<td>{{taller.razonSocial}}</td>		
 											<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
 											<td>{{taller.idTAR}}</td>
@@ -37,20 +37,20 @@
 								</div>
 							</div>
 							</br></br>
-							<div>
-								<button type="button" class="btn btn-primary" ng-click="goToCitaServicio()" data-toggle="tooltip" tooltip="Simular cotización" tooltip-placement="top-right" ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span></button>
+							<div id="mostrarServicioModal">
+								<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()" data-toggle="tooltip" tooltip="Simular cotización" tooltip-placement="top-right" ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span></button>
 							</div>
 							<div class="formGroup">
 								<label for="trabajo">Fecha:</label>
-						    	<input id="datepicker" class="rounded" type="date" ng-model="fechaCita">	
+						    	<input id="datepicker" class="rounded" type="date" ng-model="datosCita.fechaCita">	
 						    	<label for="trabajo">Hora:</label>
-						    	<input  class="rounded" type="time" ng-model="horaCita">
+						    	<input  class="rounded" type="time" ng-model="datosCita.horaCita">
 							</div>	
 							</br>
 							<div>
 								<label for="trabajo">Trabajo a realizar:</label>
-						    	<textarea rows="2" cols="40" ng-model="trabajoCita"></textarea>	
-						    	<button type="button" class="btn btn-primary" ng-click="addCita( fechaCita, horaCita, trabajoCita)" data-toggle="tooltip" tooltip="Agendar cita" tooltip-placement="top-right"><span class="glyphicon glyphicon-calendar"></span></button>		
+						    	<textarea rows="2" cols="40" ng-model="datosCita.trabajoCita"></textarea>	
+						    	<button id="bntAgendarCita" type="button" class="btn btn-primary" ng-click="addCita( datosCita.fechaCita, datosCita.horaCita, datosCita.trabajoCita)" data-toggle="tooltip" tooltip="Agendar cita" tooltip-placement="top-right"><span class="glyphicon glyphicon-calendar"></span></button>		
 							</div>	
 						</div>
 					</td>
@@ -63,4 +63,94 @@
 			</tbody>
 		</table>
 	</div>
+</div>
+<!-- Servicios Modal -->
+<div id="citaServicioModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Agregar servicios</h4>
+      </div>
+      <div class="modal-body">
+        <div class="contenedor" >
+			<div class="formGroup" ng-init="initCitaServicio()">
+		        <input  class="rounded inputWidth" type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza">
+		        <button id="btnBuscarPieza" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="getPieza(pieza)"></button>
+		    </div>       	
+		    <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
+		      	<table class="table table-condensed table-striped"> 
+			        <thead> 	 
+		                <th>No.Partida</th>
+		                <th>No.Parte</th>                        
+		                <th>Descripción</th>
+		                <th>Agregar</th>                    
+			        </thead> 
+			        <tbody> 
+			            <tr dir-paginate="pieza in piezas | itemsPerPage:4" pagination-id="listaPiezasDisponibles">
+			                <td>{{ pieza.numeroPartida }}</td> 
+			                <td>{{ pieza.numeroParte }}</td>
+			                <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+			                <td>
+			                  <button class="btn btn-success glyphicon glyphicon-plus" type="button" 
+			                  	id="btnCotizar" ng-click="addPieza(pieza)">
+			                  </button>
+			                </td>
+			            </tr>                
+			        </tbody> 
+		    	</table> 
+		    	<div id="paginationTaller">
+					<dir-pagination-controls
+				       	max-size="5"
+				        direction-links="true"
+				        boundary-links="true" 
+				        pagination-id="listaPiezasDisponibles">
+				    </dir-pagination-controls>
+				</div>
+			</div>
+		    </br>
+		    <div>
+		        <table class="table table-condensed table-striped"> 
+		            <thead>
+		                <th>No.Partida</th>
+		                <th>No.Parte</th>                        
+		                <th>Descripción</th>
+		                <th>Cantidad</th>
+		            </thead> 
+		            <tbody> 
+		                <tr dir-paginate="pieza in listaPiezas | itemsPerPage:3" pagination-id="listaPiezasSeleccionadas">
+		                    <td>{{pieza.numeroPartida }}</td> 
+		                    <td>{{pieza.numeroParte}}</td> 
+		                    <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+		                    <td>{{pieza.cantidad}}</td>                                
+		                    <td>
+		                      <button class="btn btn-danger glyphicon glyphicon-remove" type="button" 
+		                      	id="btnCotizar" ng-click="removePieza(pieza.idItem)">
+		                      </button>
+		                    </td>
+		                </tr>                
+		            </tbody> 
+		        </table>
+		        <div id="paginationTaller">
+					<dir-pagination-controls
+				       	max-size="5"
+				        direction-links="true"
+				        boundary-links="true" 
+				        pagination-id="listaPiezasSeleccionadas">
+				    </dir-pagination-controls>
+				</div>
+		        <div id="generarServicio">
+		        	<button type="button" class="btn btn-primary glyphicon glyphicon-saved" data-toggle="tooltip" tooltip="Generar lista de servicios" tooltip-placement="top-right" ng-click="generarCitaServicio()"></button>
+		        </div> 
+		    </div>
+		</div>
+      </div>
+     <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+
+  </div>
 </div>

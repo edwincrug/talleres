@@ -39,5 +39,15 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
+        addCitaServicioDetalle: function(item){
+            return $http({
+                url: citaUrl + 'addCitaServicioDetalle/',
+                method: "POST",
+                data: item,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        }
     };
 });

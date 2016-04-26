@@ -5,7 +5,7 @@
 // -- Modificó: V. Vladimir Juárez Juárez
 // -- Fecha: 30/03/2016
 // -- =============================================
-registrationModule.controller('citaController', function($scope, $rootScope, localStorageService, alertFactory,citaRepository){
+registrationModule.controller('citaController', function($scope, $rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository){
 	var cDetalles = [];
 	var cPaquetes = [];
 	$scope.message = 'Buscando...';
@@ -24,6 +24,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	//init de la pantalla  nuevaCita
 	$scope.initNuevaCita = function(){
 		$scope.selectedTaller = true;
+		$scope.datosCita = {};
 	}
 
 	//init de la pantalla tallerCita
@@ -211,24 +212,47 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     	else{
     		alertFactory.info('Llene el campo de búsqueda');
     	}
+    	inicializaListas();
     }
 
     //inserta una nueva cita
-    $scope.addCita = function(fechaCita, horaCita, trabajo){
-    	if(fechaCita !== undefined && horaCita !== undefined && trabajo !== undefined && $scope.idTaller > 0){
+    $scope.addCita = function(){
+  		
+    	if($scope.datosCita.fechaCita !== undefined && $scope.datosCita.horaCita !== undefined && $scope.datosCita.trabajoCita !== undefined && $scope.datosCita.idTaller != undefined){
+    		$scope.datosCita.pieza = "";
+    		if(localStorageService.get('stgListaPiezas', $scope.listaPiezas) != undefined){
+    			$scope.datosCita.pieza = localStorageService.get('stgListaPiezas', $scope.listaPiezas).slice(0);
+    		}
     		var citaTaller = {};
     		citaTaller.idCita = 0;
 			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
-			citaTaller.idTaller = $scope.idTaller;
-			citaTaller.fecha = combineDateAndTime(fechaCita, horaCita);
-			citaTaller.observacion = trabajo;
+			citaTaller.idTaller = $scope.datosCita.idTaller;//$scope.idTaller;
+			citaTaller.fecha = combineDateAndTime($scope.datosCita.fechaCita, $scope.datosCita.horaCita);
+			citaTaller.observacion = $scope.datosCita.trabajoCita;
 			citaTaller.idUsuario = 2;
 			
 			citaRepository.addCita(citaTaller).then(function(cita){
 				citaTaller.idCita = cita.data[0].idCita;
+
+				if($scope.datosCita.pieza != ""){
+					$scope.datosCita.pieza.forEach(function(pieza, i){
+						var item = {};
+						item.idCita = citaTaller.idCita;
+						item.idTipoElemento = pieza.idTipoElemento;
+						item.idElemento = pieza.idItem;
+						item.cantidad = pieza.cantidad;
+						citaRepository.addCitaServicioDetalle(item).then(function(piezaInserted){
+							if(piezaInserted.data.length > 0){
+								alertFactory.success("Se insertó correctamente");
+							}
+						},function(error){
+							alertFactory.error("Error al insertar servicios");
+						});
+					});
+				}
+				
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
-				//$('#addCita').modal('hide');
 				location.href = '/tallerCita';
 				localStorageService.set('objCita', citaTaller);
 			},function(error){
@@ -265,8 +289,11 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//obtiene el taller seleccionado
 	$scope.getTaller = function(idTaller){
-		 $scope.idTaller = idTaller;
-		 $scope.selectedTaller = false;
+		$scope.listaPiezas = [];
+    	$scope.piezas = [];
+    	$scope.datosCita.pieza = "";
+		$scope.selectedTaller = false;
+		$scope.datosCita.idTaller = idTaller;
 	}
 
 	//Redirige a pagina para nueva cotización
@@ -300,9 +327,95 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		location.href = '/nuevacita';
 	}
 
-	//va a la pantalla de cotizacion
-	$scope.goToCitaServicio = function(){
-		localStorageService.set('idTaller', $scope.idTaller);
-		location.href = 'citaservicio';
+	//visualiza la modal de servicioCita
+	$scope.showCitaServicioModal = function(){
+		$scope.piezas = [];
+		$scope.pieza = "";
+		$('#citaServicioModal').modal('show');
+	}
+
+	//init de servicio controller
+	$scope.initCitaServicio = function(){
+		$scope.listaPiezas = [];
+		// alStorageService.get('cita');
+	}
+
+	//obtiene servicios/items
+	$scope.getPieza = function(nombrePieza){
+		if(nombrePieza !== '' && nombrePieza !== undefined){
+			$('#btnBuscarPieza').button('Buscando...');
+			$scope.promise = cotizacionRepository.buscarPieza($scope.datosCita.idTaller, nombrePieza).then(function(pieza){
+				$scope.piezas = pieza.data;
+				if(pieza.data.length > 0){
+					alertFactory.success("Datos obtenidos");
+				}
+				else{
+					$scope.piezas = [];
+					alertFactory.info("No se encontraron piezas");
+				}
+			}, function(error){
+				alertFactory.error("Error al obtener piezas");
+				$('#btnBuscarPieza').button('reset');
+			});
+		}
+		else{
+			$scope.piezas = [];
+			alertFactory.info("Introduzca datos para buscar")
+		}
+		$('#btnBuscarPieza').button('reset');
+	}
+
+	//añade una pieza en la lista
+	$scope.addPieza = function(pieza){
+		if($scope.listaPiezas.length > 0){ //idItem
+			if(validaItemExists($scope.listaPiezas, pieza.idItem) == false){
+				pieza.cantidad = 1;
+				$scope.listaPiezas.push(pieza);
+			}
+		}
+		else{
+				pieza.cantidad = 1;
+				$scope.listaPiezas.push(pieza);
+		}
+	}
+
+	//valida si ya existe la pieza y aumenta la cantidad
+	var validaItemExists = function(piezas, idItem){
+		var exists = false;
+		piezas.forEach(function(p, i){
+			if(p.idItem == idItem){
+				$scope.listaPiezas[i].cantidad =  p.cantidad + 1;
+				exists = true;
+			}
+		});
+		return exists;
+	}
+
+	//quita piezas de la lista
+	$scope.removePieza = function(idItem){
+		$scope.listaPiezas.forEach(function(p, i){
+			if(p.idItem == idItem){
+				if(p.cantidad > 1){
+					$scope.listaPiezas[i].cantidad =  p.cantidad - 1;
+				}
+				else{
+					$scope.listaPiezas.splice(i,1);	
+				}
+			}	
+		})
+	}
+
+	//regresar a nueva cita
+	$scope.generarCitaServicio = function(){
+		$('#citaServicioModal').modal('hide');
+		localStorageService.set('stgListaPiezas', $scope.listaPiezas);
+	}
+
+	//inicializa valores
+	var inicializaListas = function(){
+		$scope.talleres = [];
+    	$scope.listaPiezas = [];
+    	$scope.piezas = [];
+    	$scope.datosCita.idTaller = undefined;
 	}
 });
