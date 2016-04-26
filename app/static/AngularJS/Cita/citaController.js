@@ -331,14 +331,12 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.showCitaServicioModal = function(){
 		$scope.piezas = [];
 		$scope.pieza = "";
-		//$('#citaServicioModal').modal('show');
 		$('#citaServicioModal').appendTo("body").modal('show');
 	}
 
 	//init de servicio controller
 	$scope.initCitaServicio = function(){
 		$scope.listaPiezas = [];
-		// alStorageService.get('cita');
 	}
 
 	//obtiene servicios/items
@@ -410,6 +408,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.generarCitaServicio = function(){
 		$('#citaServicioModal').modal('hide');
 		localStorageService.set('stgListaPiezas', $scope.listaPiezas);
+		$scope.labelItems = 'Items añadidas'+' '+$scope.listaPiezas.length;
 	}
 
 	//inicializa valores
