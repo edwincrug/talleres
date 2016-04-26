@@ -42,13 +42,13 @@
     <div id="perspective" class="perspective effect-rotateleft">
         <div class="container">
             <div class="wrapper"><!-- wrapper needed for scroll -->
-                <span  id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" tooltip="Menú"></span>
-                <div id="user">
+                <span  id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" tooltip="Menú" ng-hide="sesion == 0"></span>
+                <div id="user" ng-hide="sesion == 0">
                     
                     <div id="profile">Taller</div>
                     <div id="name">Edwin Cruz</div>
                     <div id="avatar">
-                        <img id="imgAvatar"></img>
+                        <img id="imgAvatar" src="image/profile/man.jpg"></img>
                     </div>
                 </div>
                 <div ng-view></div>

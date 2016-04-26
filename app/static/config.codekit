@@ -1591,6 +1591,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
+		},
+	"\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 65290,
+		"inputAbbreviatedPath": "\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg",
+		"outputAbbreviatedPath": "\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		}
 	},
 "hooks": [
