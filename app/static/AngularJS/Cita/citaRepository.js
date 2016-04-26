@@ -48,6 +48,15 @@ registrationModule.factory('citaRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        getHistorialCita: function (idCita) {
+            return $http.get(citaUrl +'historialcita/'+ idCita);
+        },
+        getHistorialTrabajo: function (idTrabajo) {
+            return $http.get(citaUrl +'historialtrabajo/'+ idTrabajo);
+        },
+        getHistorialCotizacion: function (idTrabajo) {
+            return $http.get(citaUrl +'historialcotizacion/'+ idTrabajo);
         }
     };
 });

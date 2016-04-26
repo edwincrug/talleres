@@ -60,6 +60,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
             controller: 'trabajoController'
         });
 
+        $routeProvider.when('/lineatiempo', {
+            templateUrl: 'AngularJS/Templates/lineaTiempo.html',
+            controller: 'citaController'
+        });
+
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false

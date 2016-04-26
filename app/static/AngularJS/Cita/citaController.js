@@ -418,4 +418,41 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
     	$scope.piezas = [];
     	$scope.datosCita.idTaller = undefined;
 	}
+
+	//muestra la pantalla de linea de tiempo
+	$scope.goToLineTime = function(idCita){
+		location.href = '/lineatiempo';
+		localStorageService.set('hIdCita', idCita);
+	}
+
+	//init de linea de tiempo
+	$scope.initLineTime = function(){
+		var idCita =  localStorageService.get('hIdCita');
+		if(idCita != undefined){
+			getHistorialUnidad(idCita);
+		}
+		//remueve la variable localStorage hIdCita
+		localStorageService.remove('hIdCita');
+	}
+	//muestra el historial de la unidad (cita/trabajo y cotizaciones)
+	var getHistorialUnidad = function(idCita){
+		citaRepository.getHistorialCita(idCita).then(function(hCita){
+			$scope.historialCita = hCita.data;
+			if(hCita.data.length > 0){
+				citaRepository.getHistorialTrabajo($scope.historialCita[0].idTrabajo).then(function(hTrabajo){
+					$scope.historialTrabajo = hTrabajo.data;
+					if(hTrabajo.data.length > 0){
+						citaRepository.getHistorialCotizacion($scope.historialTrabajo[0].idTrabajo).then(function(hCotizacion){
+							$scope.historialCotizacion = hCotizacion.data;
+						})
+					}
+				})
+			}
+			else{
+				alertFactory.info("No hay historial cita");
+			}
+		}, function(error){
+			alertFactory.error("Error al obtener historial cita");
+		})
+	}
 });

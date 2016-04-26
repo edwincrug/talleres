@@ -1,0 +1,49 @@
+<link rel="stylesheet" type="text/css" href="../../css/timeLine.css">
+<div class="contenedor">
+	<div ng-app="myApp" ng-controller="myCtrl">
+        <!-- <h1 style="text-align: center;">Cita No 102</h1> -->
+	      <div ng-show="mostrar"  >  
+	      	<label >Cita: 102</label>          
+	            <ol style="width: 450px;">
+	                <li ng-repeat="val in objCita"  >
+	                    {{val.fecha}}
+	                    <span class="details">
+	                     {{val.estatus}}
+	                    </span>
+	                    <span class="details2">
+	                            0 dias
+	                    </span>
+	                </li>
+	            </ol>
+	        </div>
+      <div ng-show="mostrar">            
+        <label>Trabajo: 2</label>          
+            <ol style="background:#eea236; width: 600px;">
+                <li ng-repeat="val in objTrabajo" >
+                    {{val.fecha}}
+                    <span class="details">
+                     {{val.estatus}}
+                    </span>
+                    <span class="details2">
+                            0 dias
+                    </span>
+                </li>
+            </ol>
+        </div>
+        <div ng-repeat="cotizacion in cotizaciones">     
+                <label>Cotización: {{cotizacion.idProceso}}</label>       
+            <ol style="background:#4cae4c;width: 800px;">
+                <li ng-repeat="val in objCotizacion" ng-if="cotizacion.idProceso == val.idProceso" >
+                    {{val.fecha}}
+                    <span class="details">
+                     {{val.estatus}}
+                    </span>
+                    <span class="details2">
+                            0 dias
+                    </span>
+                </li>
+            </ol>
+        </div>
+        <input type="button" ng-click="ordenar()" value="crear">
+    </div>
+</div>

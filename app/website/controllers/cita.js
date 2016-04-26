@@ -298,4 +298,74 @@ Cita.prototype.post_addCitaServicioDetalle = function (req, res, next) {
         self.view.post(res, object);
     });
 }
+
+//obtiene el historial de cita
+Cita.prototype.get_historialcita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_HISTORIAL_CITA_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
+//obtiene el historial de trabajo
+Cita.prototype.get_historialtrabajo_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idTrabajo';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_HISTORIAL_TRABAJO_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
+//obtiene el historial de cotizaciones
+Cita.prototype.get_historialcotizacion_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idTrabajo';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_HISTORIAL_COTIZACION_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
 module.exports = Cita;
