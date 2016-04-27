@@ -255,17 +255,11 @@ Cita.prototype.get_unidadtrabajo_data = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
-	var params = {}; 
 	//Referencia a la clase para callback
 	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idUnidad';
-	params.value = req.params.data;
-	params.type = 1;
 	
-	this.model.get( 'SEL_TRABAJO_SP',params,function(error,result){
-		//Callback
+	this.model.get2( 'SEL_TRABAJO_SP',function(error,result){
+		//callback
 		object.error = error;
 		object.result = result;
 		

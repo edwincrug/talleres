@@ -49,6 +49,24 @@ DataAccess.prototype.get = function(stored,params,callback){
     });
 };
 
+//HTTPSServer methods
+DataAccess.prototype.get2 = function(stored,callback){
+    
+    var self = this.connection;
+    this.connection.connect(function(err) {
+      // request.output('output_parameter', sql.VarChar(50));
+      request.execute(stored, function(err, recordsets, returnValue) {
+        if(recordsets != null){
+          callback(err, recordsets[0]);
+        }
+        else{
+          console.log('Error al obtener datos para el usuario: ' + ' mensaje: ' + err);
+        }
+      });
+
+    });
+};
+
 //método post
 DataAccess.prototype.post = function (objParams, callback) {
     var self = this.connection;
