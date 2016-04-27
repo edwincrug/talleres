@@ -26,6 +26,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 		$scope.selectedTaller = true;
 		$scope.datosCita = {};
 		$scope.unidadInfo = localStorageService.get('unidad');
+		$scope.labelItems = 0;
 	}
 
 	//init de la pantalla tallerCita
@@ -229,7 +230,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
 			citaTaller.idTaller = $scope.datosCita.idTaller;//$scope.idTaller;
 			citaTaller.fecha = combineDateAndTime($scope.datosCita.fechaCita, $scope.datosCita.horaCita);
-			citaTaller.observacion = $scope.datosCita.trabajoCita;
+			citaTaller.trabajo = $scope.datosCita.trabajoCita;
+			citaTaller.observacion = $scope.datosCita.observacionCita;
 			citaTaller.idUsuario = 2;
 			
 			citaRepository.addCita(citaTaller).then(function(cita){
@@ -256,6 +258,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 				$scope.clearInputs();
 				location.href = '/tallerCita';
 				localStorageService.set('objCita', citaTaller);
+				localStorageService.remove('stgListaPiezas');
 			},function(error){
 				alertFactory.error("Error al insertar la cita");
 			});
@@ -282,7 +285,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.clearInputs = function(){
 		$scope.talleres = [];
 		$scope.datoTaller = undefined;
-		$scope.idTaller = 0;
 		$scope.fechaCita = undefined;
 		$scope.horaCita = undefined;
 		$scope.trabajoCita = undefined;
@@ -371,11 +373,13 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			if(validaItemExists($scope.listaPiezas, pieza.idItem) == false){
 				pieza.cantidad = 1;
 				$scope.listaPiezas.push(pieza);
+				$scope.labelItems = $scope.listaPiezas.length;
 			}
 		}
 		else{
 				pieza.cantidad = 1;
 				$scope.listaPiezas.push(pieza);
+				$scope.labelItems = $scope.listaPiezas.length;
 		}
 	}
 
@@ -399,7 +403,8 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 					$scope.listaPiezas[i].cantidad =  p.cantidad - 1;
 				}
 				else{
-					$scope.listaPiezas.splice(i,1);	
+					$scope.listaPiezas.splice(i,1);
+					$scope.labelItems = $scope.listaPiezas.length;	
 				}
 			}	
 		})
@@ -409,7 +414,6 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.generarCitaServicio = function(){
 		$('#citaServicioModal').modal('hide');
 		localStorageService.set('stgListaPiezas', $scope.listaPiezas);
-		$scope.labelItems = 'Items añadidas'+' '+$scope.listaPiezas.length;
 	}
 
 	//inicializa valores

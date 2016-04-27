@@ -61,7 +61,8 @@ DataAccess.prototype.post = function (objParams, callback) {
         request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
         request.input('idTaller', sql.Numeric(18, 0), objParams.idTaller);
         request.input('fecha', sql.VarChar(20), objParams.fecha);
-        request.input('observacion', sql.VarChar(250), objParams.observacion);
+        request.input('trabajo', sql.VarChar(100), objParams.trabajo);
+        request.input('observacion', sql.VarChar(1000), objParams.observacion);
         request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
 
         request.execute('INS_CITA_SP', function (err, recordsets, returnValue) {

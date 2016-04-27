@@ -27,14 +27,12 @@
 									<thead>
 										<th>Taller</th>
 										<th>Dirección</th>
-										<!-- <th>Número de TAR</th> -->
 										<th>Seleccionar</th>
 									</thead>
 									<tbody>
 										<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
 											<td>{{taller.razonSocial}}</td>		
 											<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
-											<!-- <td>{{taller.idTAR}}</td> -->
 											<td><input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)"></input></td>
 										</tr>
 									</tbody>
@@ -49,31 +47,43 @@
 								</div>
 							</div>
 							</br></br>
-							<div class="formGroup">
-								<label for="activoFijo">Activo fijo:</label>
-						    	<input id="datepicker" class="rounded" type="text" ng-model="datosCita.activoFijo">	
-						    	<label for="numTAR">Número de TAR</label>
-						    	<input  class="rounded" type="text" ng-model="datosCita.numTAR">
+							<div class="row">
+							  	<div class="col-xs-6">
+							  		<label for="trabajo">Fecha:&nbsp;&nbsp;&nbsp;</label>
+						    		<input id="datepicker" class="rounded" type="date" ng-model="datosCita.fechaCita">
+							  	</div>
+							  	<div class="col-xs-6">
+							  		<label for="trabajo">Hora:</label>
+						    		<input  class="rounded" type="time" ng-model="datosCita.horaCita">
+							  	</div>
 							</div>
-							<div class="formGroup">
-								<label for="trabajo">Fecha:</label>
-						    	<input id="datepicker" class="rounded" type="date" ng-model="datosCita.fechaCita">	
-						    	<label for="trabajo">Hora:</label>
-						    	<input  class="rounded" type="time" ng-model="datosCita.horaCita">
-							</div>	
+							<div class="row">
+							  	<div class="col-xs-6">
+							  		<label for="trabajo">Trabajo:</label>
+							  		<input type="text" class="rounded" ng-model="datosCita.trabajoCita">
+							  	</div>
+							  	<div class="col-xs-6">
+							  		<label for="numTAR">#TAR:</label>
+						    		<input  class="rounded" type="text" ng-model="datosCita.numTAR">
+							  	</div>
+							</div>
 							</br>
-							<div>
-								<label for="trabajo">Trabajo a realizar:</label>
-						    	<textarea rows="4" cols="50" ng-model="datosCita.trabajoCita"></textarea>	
+							<div class="row">
+							  	<div class="col-xs-3">
+							  		<label for="observacion">Observaciones:</label>
+							  	</div>
+							  	<div class="col-xs-9">
+							  		<textarea rows="4" cols="50" ng-model="datosCita.observacionCita"></textarea>
+							  	</div>
 							</div>	
 							</br>
 							<div id="labelNumItems">
-								<span>{{labelItems}}</span>
+								<p>Items añadidas: {{labelItems}}</p>
 							</div>
 							<div id="bntAgendarCita">
 					    		<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()"  ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span>Orden de servicio</button>
 					    		
-					    		<button type="button" class="btn btn-primary" ng-click="addCita( datosCita.fechaCita, datosCita.horaCita, datosCita.trabajoCita)" ><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>	
+					    		<button type="button" class="btn btn-primary" ng-click="addCita()" ><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>	
 					    	</div>
 						</div>
 					</td>

@@ -205,26 +205,19 @@ Cita.prototype.get_taller_data = function(req, res, next){
 }
 
 //insertar nueva cita para una unidad
-Cita.prototype.post_addcita_data = function (req, res, next) {
+Cita.prototype.post_addcita = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-
-    //Asigno a params el valor de mis variables
-    //var fecha = new Date(req.body.fecha);
-
-    //var fecha = moment(req.body.fecha).format();
-
-    //var fecha = new Date(req.body.fecha);
-
     //Asigno a params el valor de mis variables
     var msgObj = {
         idUnidad: req.body.idUnidad,
         idTaller: req.body.idTaller,
         fecha: req.body.fecha,
+        trabajo: req.body.trabajo,
         observacion: req.body.observacion,
         idUsuario: req.body.idUsuario
     }
