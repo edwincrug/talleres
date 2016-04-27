@@ -251,14 +251,15 @@ Cita.prototype.get_del = function(req,res,next){
 }
 
 //obtiene el trabajo de la Trabajo
-Cita.prototype.get_unidadtrabajo_data = function(req, res, next){
+Cita.prototype.get_unidadtrabajo = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
+	var params = [];
 	//Referencia a la clase para callback
 	var self = this;
 	
-	this.model.get2( 'SEL_TRABAJO_SP',function(error,result){
+	this.model.get( 'SEL_TRABAJO_SP', params,function(error,result){
 		//callback
 		object.error = error;
 		object.result = result;

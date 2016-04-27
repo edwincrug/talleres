@@ -23,19 +23,22 @@ DataAccess.prototype.get = function(stored,params,callback){
     
     var self = this.connection;
     this.connection.connect(function(err) {
-      // Stored Procedure   
       var request = new sql.Request(self);
-      var dataType = null;
-      if(params.type === 1){
-        dataType = sql.Int;
-      }else if(params.type === 2){
-        dataType = sql.Decimal(18, 2);
-      }else if(params.type === 3){
-        dataType = sql.VarChar(8000);
-      }else if(params.type === 4){
-        dataType = sql.DateTime;
+      if(params.length > 0){
+         // Stored Procedure   
+          var dataType = null;
+          if(params.type === 1){
+            dataType = sql.Int;
+          }else if(params.type === 2){
+            dataType = sql.Decimal(18, 2);
+          }else if(params.type === 3){
+            dataType = sql.VarChar(8000);
+          }else if(params.type === 4){
+            dataType = sql.DateTime;
+          }
+          request.input(params.name, dataType, params.value);
       }
-      request.input(params.name, dataType, params.value);
+  
       // request.output('output_parameter', sql.VarChar(50));
       request.execute(stored, function(err, recordsets, returnValue) {
         if(recordsets != null){
@@ -43,24 +46,6 @@ DataAccess.prototype.get = function(stored,params,callback){
         }
         else{
           console.log('Error al obtener datos para el usuario: ' + params + ' mensaje: ' + err);
-        }
-      });
-
-    });
-};
-
-//HTTPSServer methods
-DataAccess.prototype.get2 = function(stored,callback){
-    
-    var self = this.connection;
-    this.connection.connect(function(err) {
-      // request.output('output_parameter', sql.VarChar(50));
-      request.execute(stored, function(err, recordsets, returnValue) {
-        if(recordsets != null){
-          callback(err, recordsets[0]);
-        }
-        else{
-          console.log('Error al obtener datos para el usuario: ' + ' mensaje: ' + err);
         }
       });
 
