@@ -137,8 +137,10 @@
 										<table class="tableData">
 											<thead>
 												<th></th>
-												<th>Número de cotización</th>	 <th>Fecha</th>
+												<th>Número de cotización</th>	 
+												<th>Fecha</th>
 												<th>Cotizó</th>
+												<th>Estatus</th>
 												<th>Total</th>
 											</thead>
 											<tbody ng-repeat="c in t.trabajo.cotizacion">
@@ -147,6 +149,7 @@
 													<td>{{c.idCotizacion}}</td>
 													<td>{{c.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
 													<td>{{c.nombreCompleto}}</td>
+													<td>{{c.estatus}}</td>
 													<td>{{c.total | currency}}</td>
 												</tr>
 												<tr class="sub">
@@ -204,7 +207,7 @@
 			</tab>	    	      		
 		</tabset>
 		<div id="btnAgendar">
-			<button type="button" class="btn btn-success" data-toggle="tooltip" tooltip="Agendar nueva cita" tooltip-placement="left" ng-click="goNewCita()"><span class="glyphicon glyphicon-calendar"></span></button>
+			<button type="button" class="btn btn-success" ng-click="goNewCita()"><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>
 		</div>
     </div>
 </div>

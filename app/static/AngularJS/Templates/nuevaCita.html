@@ -49,7 +49,6 @@
 								</div>
 							</div>
 							</br></br>
-							<span id="labelNumItems">{{labelItems}}</span>
 							<div class="formGroup">
 								<label for="activoFijo">Activo fijo:</label>
 						    	<input id="datepicker" class="rounded" type="text" ng-model="datosCita.activoFijo">	
@@ -68,6 +67,9 @@
 						    	<textarea rows="2" cols="40" ng-model="datosCita.trabajoCita"></textarea>	
 							</div>	
 							</br>
+							<div id="labelNumItems">
+								<span>{{labelItems}}</span>
+							</div>
 							<div id="bntAgendarCita">
 					    		<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()"  ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span>Orden de servicio</button>
 					    		
