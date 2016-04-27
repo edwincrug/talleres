@@ -314,4 +314,21 @@ Cotizacion.prototype.docs = function (params, callback) {
        });    });
 };
 
+Cotizacion.prototype.servicioDetalle = function (params, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), params);
+        request.execute('SEL_SERVICIO_DETALLE_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener el servicio de la cotización: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = Cotizacion;
