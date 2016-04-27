@@ -24,7 +24,7 @@ DataAccess.prototype.get = function(stored,params,callback){
     var self = this.connection;
     this.connection.connect(function(err) {
       var request = new sql.Request(self);
-      if(params.length > 0){
+      if(params != null){
          // Stored Procedure   
           var dataType = null;
           if(params.type === 1){

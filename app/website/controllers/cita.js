@@ -255,7 +255,7 @@ Cita.prototype.get_unidadtrabajo = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
-	var params = [];
+	var params = null;
 	//Referencia a la clase para callback
 	var self = this;
 	
