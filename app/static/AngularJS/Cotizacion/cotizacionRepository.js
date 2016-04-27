@@ -100,6 +100,12 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        busquedaServicioDetalle: function(idCita){
+            return $http({
+                url: searchUrl + 'servicioDetalle/' + idCita,
+                method: "GET"
+            });
         }
     };
 });
