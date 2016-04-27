@@ -1,12 +1,12 @@
 <div ng-init="init()">
-	<h1>Cotización</h1>
-	<div id="contenedor" class="contenedor">              
+    <div class="headTitle">
+        <span class="title"> Cotización<span class="subtitle">Taller</span> </span>
+    </div>
+    <div id="contenedor" class="contenedor">              
         <div>
             <div>
                 <label>Trabajo:</label>
                 <span>{{trabajo}}</span>
-
-                
             </div> 
             <div>
                 <label>Número Economico:</label>
@@ -16,7 +16,7 @@
                 <label>Marca-Modelo:</label>
                 <span>{{modeloMarca}}</span>
             </div>      
-		</div>
+        </div>
         <div class="formGroup">
             <input  class="rounded inputWidth" type="text" ng-model="pieza">
             <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary " ng-click="buscarPieza(pieza)" data-toggle="tooltip" tooltip="Buscar: Servicio/Paquete/Refacción" id="btnCotizar" tooltip-placement="right">
@@ -41,50 +41,50 @@
                     <td>{{ piezas.precio | currency}}</td>
                     <td>
                       <button class="btn btn-success" type="button" id="btnCotizar" ng-click="cotizacion(piezas)" data-toggle="tooltip" tooltip-placement="top" tooltip="Agregar">
-                      <span class="glyphicon glyphicon-plus"></span>
+                          <span class="glyphicon glyphicon-plus"></span>
                       </button>                      
-                    </td>
-                </tr>                
-            </tbody> 
-        </table> 
-        </div>
-		</br>
-        </br>
-		</br>
-        <div class="row tablaBusqueda tablaAlign">
-          <table class="table table-striped"> 
-            <thead> 
-                <tr> 
-                    <th>No.Partida</th>
-                    <th>No.Parte</th>                        
-                    <th>Descripción</th>
-                    <th>Cantidad</th>  
-                    <th>Precio Unitario</th>
-                    <th>Importe</th> 
-                </tr> 
-            </thead> 
-            <tbody> 
-                <tr ng-repeat="piezas in arrayItem">
-                    <td>{{piezas.numeroPartida }}</td> 
-                    <td>{{piezas.numeroParte}}</td> 
-                    <td>{{piezas.item}}</td>
-                    <td>{{piezas.cantidad}}</td>
-                    <td>{{piezas.precio | currency}}</td>
-                    <td>{{piezas.importe | currency}}</td>                    
-                    <td>
-                      <button class="btn btn-danger" type="button" id="btnCotizar" ng-click="quitarPieza(piezas)" data-toggle="tooltip" tooltip-placement="top" tooltip="Quitar">
-                      <span class="glyphicon glyphicon-remove"></span>
-                      </button>
-                    </td>
-                </tr>                
-            </tbody> 
-        </table> 
-        </div>
-            <div id="total">
-                <label class="col-md-2 control-label">Total:</label> 
-                <label id="totalInput"ng-model="total" class="col-md-2 control-label">{{total}}</label>    
-            </div>
-    </div>
+                  </td>
+              </tr>                
+          </tbody> 
+      </table> 
+  </div>
+</br>
+</br>
+</br>
+<div class="row tablaBusqueda tablaAlign">
+  <table class="table table-striped"> 
+    <thead> 
+        <tr> 
+            <th>No.Partida</th>
+            <th>No.Parte</th>                        
+            <th>Descripción</th>
+            <th>Cantidad</th>  
+            <th>Precio Unitario</th>
+            <th>Importe</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        <tr ng-repeat="piezas in arrayItem">
+            <td>{{piezas.numeroPartida }}</td> 
+            <td>{{piezas.numeroParte}}</td> 
+            <td>{{piezas.item}}</td>
+            <td>{{piezas.cantidad}}</td>
+            <td>{{piezas.precio | currency}}</td>
+            <td>{{piezas.importe | currency}}</td>                    
+            <td>
+              <button class="btn btn-danger" type="button" id="btnCotizar" ng-click="quitarPieza(piezas)" data-toggle="tooltip" tooltip-placement="top" tooltip="Quitar">
+                  <span class="glyphicon glyphicon-remove"></span>
+              </button>
+          </td>
+      </tr>                
+  </tbody> 
+</table> 
+</div>
+<div id="total">
+    <label class="col-md-2 control-label">Total:</label> 
+    <label id="totalInput"ng-model="total" class="col-md-2 control-label">{{total}}</label>    
+</div>
+</div>
 </div>
 </br>
 </br>
@@ -95,25 +95,25 @@
         <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
     </div>
     <div class="col-md-5">
-         <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
-    </div>
-    <div class="col-md-3">
-        <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
+       <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
+   </div>
+   <div class="col-md-3">
+    <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
         <span class="glyphicon glyphicon-saved"></span>
-        </button>
-    </div>
-    <div class="col-md-3">
-        <button ng-hide="estado==1" id="buttonEnviar" type="button" 
-        data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)">
-        <span class="glyphicon glyphicon-floppy-saved"></span>
-        </button>
-    </div>  
+    </button>
+</div>
+<div class="col-md-3">
+    <button ng-hide="estado==1" id="buttonEnviar" type="button" 
+    data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)">
+    <span class="glyphicon glyphicon-floppy-saved"></span>
+</button>
+</div>  
 </div>
 <script type="text/javascript">
     function buttonReset() {
         var scope = angular.element($("#contenedor")).scope();
         scope.$apply(function(){
-        scope.FinishSave();
-      })
+            scope.FinishSave();
+        })
     }
 </script>

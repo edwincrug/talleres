@@ -138,7 +138,8 @@ html, body, .perspective {
 }
 
 .outer-nav a:hover {
-	color: #ffdccd;
+	color: gray;
+	text-decoration: none;
 }
 
 .outer-nav.vertical a {
@@ -317,7 +318,7 @@ html, body, .perspective {
 
 /* Effect Rotate Left */
 .effect-rotateleft {
-	background: rgb(26, 45, 90);
+	background: #1B3D5A;
 }
 
 .effect-rotateleft .container {
