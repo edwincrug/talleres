@@ -188,7 +188,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         location.href = '/cotizacionNueva';
     }
 
-    $scope.Adjuntar = function () {
+    $scope.Adjuntar = function(){
         $('#modal').appendTo('body').modal('show');
     }
 

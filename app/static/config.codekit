@@ -209,6 +209,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Menu\/menuController.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Menu\/menuController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Menu\/min\/menuController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Menu\/min\/menuController-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Menu\/min\/menuController-min.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Menu\/min\/min\/menuController-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/min\/registrationModule-min.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -1122,7 +1144,7 @@
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 89156,
+		"initialSize": 133590,
 		"inputAbbreviatedPath": "\/image\/international.jpg",
 		"outputAbbreviatedPath": "\/image\/international.jpg",
 		"outputPathIsOutsideProject": 0,
@@ -1147,6 +1169,17 @@
 		"initialSize": 15371,
 		"inputAbbreviatedPath": "\/image\/profile\/logoASE.png",
 		"outputAbbreviatedPath": "\/image\/profile\/logoASE.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/image\/profile\/man.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 4672,
+		"inputAbbreviatedPath": "\/image\/profile\/man.jpg",
+		"outputAbbreviatedPath": "\/image\/profile\/man.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1588,6 +1621,17 @@
 		"initialSize": 9576,
 		"inputAbbreviatedPath": "\/uploads\/Files\/10\/30\/Multimedia\/auto_delantera.jpg",
 		"outputAbbreviatedPath": "\/uploads\/Files\/10\/30\/Multimedia\/auto_delantera.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 65290,
+		"inputAbbreviatedPath": "\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg",
+		"outputAbbreviatedPath": "\/uploads\/Files\/13\/176\/multimedia\/frente-jetta.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

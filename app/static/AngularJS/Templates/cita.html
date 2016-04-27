@@ -1,5 +1,8 @@
 <div class="contenedor" ng-init="init()"> 
 	<div>
+	<div class="headTitle">
+		<span class="title"> Buscar Unidad<span class="subtitle">Call Center</span> </span>
+	</div>
 		<div class="formGroup">
 			<input  class="rounded inputWidth" type="text" placeholder="Buscar datos de la unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" data-toggle="tooltip" tooltip="Busque por Número de unidad/ Número inventario/ Número de TAR/ Marca/ Modelo al menos 4 caracateres" tooltip-placement="bottom-right">
 	    	<button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>

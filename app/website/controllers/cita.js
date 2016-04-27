@@ -251,21 +251,16 @@ Cita.prototype.get_del = function(req,res,next){
 }
 
 //obtiene el trabajo de la Trabajo
-Cita.prototype.get_unidadtrabajo_data = function(req, res, next){
+Cita.prototype.get_unidadtrabajo = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
-	var params = {}; 
+	var params = null;
 	//Referencia a la clase para callback
 	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idUnidad';
-	params.value = req.params.data;
-	params.type = 1;
 	
-	this.model.get( 'SEL_TRABAJO_SP',params,function(error,result){
-		//Callback
+	this.model.get( 'SEL_TRABAJO_SP', params,function(error,result){
+		//callback
 		object.error = error;
 		object.result = result;
 		

@@ -1,4 +1,7 @@
 <div class="contenedor" ng-init="initNuevaCita()">
+	<div class="headTitle">
+		<span class="title"> Nueva cita<span class="subtitle">Call Center</span> </span>
+	</div>
 	<div class="formGroup">
 		<table>
 			<thead>
@@ -6,7 +9,16 @@
 			<tbody>
 				<tr>
 					<td id="tdFicha">
-						<div id="divNuevaCita">
+							<div id="divNuevaCita">
+								<div id="id="ficha"">
+									<div>
+										<label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
+									</div>
+									<div>
+										<label>Marca- modelo:</label><span> {{unidadInfo.marca}}-{{unidadInfo.modelo}}</span>
+									</div>
+								</div>
+								</br>
 							<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" Datos del taller"> 
 			    			<button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)" data-toggle="tooltip" tooltip="Buscar taller" tooltip-placement="right"><span class="glyphicon glyphicon-search"></span></button>
 			    			</br></br>
@@ -15,14 +27,14 @@
 									<thead>
 										<th>Taller</th>
 										<th>Dirección</th>
-										<th>Número de TAR</th>
+										<!-- <th>Número de TAR</th> -->
 										<th>Seleccionar</th>
 									</thead>
 									<tbody>
-										<tr dir-paginate="taller in talleres | itemsPerPage:5" pagination-id="listaTalleres">
+										<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
 											<td>{{taller.razonSocial}}</td>		
 											<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
-											<td>{{taller.idTAR}}</td>
+											<!-- <td>{{taller.idTAR}}</td> -->
 											<td><input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)"></input></td>
 										</tr>
 									</tbody>
@@ -38,8 +50,11 @@
 							</div>
 							</br></br>
 							<span id="labelNumItems">{{labelItems}}</span>
-							<div id="mostrarServicioModal">
-								<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()" data-toggle="tooltip" tooltip="Simular cotización" tooltip-placement="top-right" ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span></button>
+							<div class="formGroup">
+								<label for="activoFijo">Activo fijo:</label>
+						    	<input id="datepicker" class="rounded" type="text" ng-model="datosCita.activoFijo">	
+						    	<label for="numTAR">Número de TAR</label>
+						    	<input  class="rounded" type="text" ng-model="datosCita.numTAR">
 							</div>
 							<div class="formGroup">
 								<label for="trabajo">Fecha:</label>
@@ -51,8 +66,13 @@
 							<div>
 								<label for="trabajo">Trabajo a realizar:</label>
 						    	<textarea rows="2" cols="40" ng-model="datosCita.trabajoCita"></textarea>	
-						    	<button id="bntAgendarCita" type="button" class="btn btn-primary" ng-click="addCita( datosCita.fechaCita, datosCita.horaCita, datosCita.trabajoCita)" data-toggle="tooltip" tooltip="Agendar cita" tooltip-placement="top-right"><span class="glyphicon glyphicon-calendar"></span></button>		
 							</div>	
+							</br>
+							<div id="bntAgendarCita">
+					    		<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()"  ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span>Orden de servicio</button>
+					    		
+					    		<button type="button" class="btn btn-primary" ng-click="addCita( datosCita.fechaCita, datosCita.horaCita, datosCita.trabajoCita)" ><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>	
+					    	</div>
 						</div>
 					</td>
 					<td id="tdMapa">
@@ -73,7 +93,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agregar servicios</h4>
+        <h4 class="modal-title">Orden de servicios</h4>
       </div>
       <div class="modal-body">
         <div class="contenedor" >
@@ -143,7 +163,7 @@
 				    </dir-pagination-controls>
 				</div>
 		        <div id="generarServicio">
-		        	<button type="button" class="btn btn-primary glyphicon glyphicon-saved" data-toggle="tooltip" tooltip="Generar lista de servicios" tooltip-placement="top-right" ng-click="generarCitaServicio()"></button>
+		        	<button type="button" class="btn btn-primary" ng-click="generarCitaServicio()" ><span class="glyphicon glyphicon-saved"></span>Generar orden</button>
 		        </div> 
 		    </div>
 		</div>

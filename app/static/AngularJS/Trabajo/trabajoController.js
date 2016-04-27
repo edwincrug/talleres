@@ -7,15 +7,12 @@
 // -- =============================================
 registrationModule.controller('trabajoController', function($scope, localStorageService, alertFactory, trabajoRepository){
 	//this is the first method executed in the view
-    
-    var idUnidad = localStorageService.get('unidad');
-    
-	$scope.init = function(){	
-		getTrabajo(idUnidad);
+	$scope.init = function(){
+		getTrabajo();
 	}
 
-	var getTrabajo = function(idUnidad){
-		trabajoRepository.getTrabajo(idUnidad).then(function(trabajo){
+	var getTrabajo = function(){
+		trabajoRepository.getTrabajo().then(function(trabajo){
 			$scope.trabajos = trabajo.data;
 			if(trabajo.data.length > 0){
 				alertFactory.success("Trabajos cargados");
