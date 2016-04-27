@@ -52,7 +52,7 @@
                         <img id="imgAvatar" src="image/profile/man.jpg"></img>
                     </div>
                 </div>
-                <div id="divisor"></div>
+                <div id="divisor" ng-hide="sesion == 0"></div>
                 <div ng-view></div>
             </div><!-- wrapper -->
         </div><!-- /container -->
@@ -60,7 +60,7 @@
             <a href="/cita" ng-click="Cerrar()" class="icon-home">Nueva Cita</a>
             <a href="/tallerCita" ng-click="Cerrar()" class="icon-news">Citas</a>
             <a href="/cotizacionConsulta" ng-click="Cerrar()" class="icon-image">Aprobaciones</a>
-            <a href="/trabajo" ng-click="Cerrar()" class="icon-upload">Trabajos</a>
+            <a href="/trabajo" ng-click="Cerrar()" class="icon-upload">Órdenes de Servicio</a>
          <!--    <a href="#" class="icon-star">Favorites</a>
             <a href="#" class="icon-mail">Messages</a>
             <a href="#" class="icon-lock">Security</a> -->
