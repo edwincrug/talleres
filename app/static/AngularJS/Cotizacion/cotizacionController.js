@@ -28,7 +28,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.message = 'Buscando...';  
     $scope.numEconomico = '';
     $scope.modeloMarca = '';
-    $scope.trabajo = '';     
+    $scope.trabajo = '';
+    $scope.idCita = '';   
 
     $scope.init = function(){
         datosCita();
@@ -43,7 +44,10 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             $scope.estado = 2;
             $scope.editarCotizacion($scope.editCotizacion.idCotizacion,
                              $scope.editCotizacion.idTaller);
-        } else{   
+        } else if(localStorageService.get('cita') != null){
+            $scope.estado = 1;
+            busquedaServicioDetalle($scope.idCita);
+        } else {
             $scope.estado = 1;
         }
     }
@@ -134,8 +138,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var calculaTotalEditar = function(){
         var total = 0;
         $scope.arrayItem.forEach(function(item){
-            total = total + item.precio;
-        })
+            total = total + item.importe;
+        })         
         return formatoMoneda(total);
     };
 
@@ -261,7 +265,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var obtenerTipoArchivo = function(ext){
         if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx'){
             type = 1;
-        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp'){
+        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP'){
             type = 2;
         } else {
             type = 3;
@@ -337,9 +341,9 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var datosFicha = function(){
         if(localStorageService.get('objFicha') != null){
             $scope.objFicha = localStorageService.get('objFicha');
-            $scope.numEconomico = $scope.objFicha[0].clienteNumEconomico;
-            $scope.modeloMarca = $scope.objFicha[0].marca + '  ' + $scope.objFicha[0].modelo;
-            $scope.trabajo = $scope.objFicha[0].trabajo; 
+            $scope.numEconomico = $scope.objFicha.numEconomico;
+            $scope.modeloMarca = $scope.objFicha.marca + '  ' + $scope.objFicha.modelo;
+            $scope.trabajo = $scope.objFicha.trabajo; 
         }        
     }
 
@@ -349,7 +353,21 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
            $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita 
            $scope.numEconomico = $scope.citaDatos.numEconomico;
            $scope.modeloMarca = $scope.citaDatos.modeloMarca;
-           $scope.trabajo = $scope.citaDatos.trabajo;     
+           $scope.trabajo = $scope.citaDatos.trabajo;
+           $scope.idCita = $scope.citaDatos.idCita;     
         }       
+    }
+
+    //Cargar datos de la cotizacion desde la cita
+    var busquedaServicioDetalle = function(idCita){
+        cotizacionRepository.busquedaServicioDetalle(idCita)
+        .then(function(result){
+            $scope.arrayItem = result.data;
+            $scope.arrayCambios = $scope.arrayItem.slice();
+            $scope.importe = calcularImporte();
+            $scope.total = calculaTotalEditar();            
+        },function(error){
+            alertFactory.error('Error');
+        }); 
     }
 });
