@@ -25,6 +25,7 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 	$scope.initNuevaCita = function(){
 		$scope.selectedTaller = true;
 		$scope.datosCita = {};
+		$scope.unidadInfo = localStorageService.get('unidad');
 	}
 
 	//init de la pantalla tallerCita
