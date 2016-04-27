@@ -188,7 +188,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.Adjuntar = function(){
-        $('#modal').modal('show');
+        $('#modal').appendTo('body').modal('show');
     }
     
     $scope.Editar = function(){
