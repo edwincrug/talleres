@@ -341,9 +341,9 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     var datosFicha = function(){
         if(localStorageService.get('objFicha') != null){
             $scope.objFicha = localStorageService.get('objFicha');
-            $scope.numEconomico = $scope.objFicha[0].clienteNumEconomico;
-            $scope.modeloMarca = $scope.objFicha[0].marca + '  ' + $scope.objFicha[0].modelo;
-            $scope.trabajo = $scope.objFicha[0].trabajo; 
+            $scope.numEconomico = $scope.objFicha.numEconomico;
+            $scope.modeloMarca = $scope.objFicha.marca + '  ' + $scope.objFicha.modelo;
+            $scope.trabajo = $scope.objFicha.trabajo; 
         }        
     }
 
