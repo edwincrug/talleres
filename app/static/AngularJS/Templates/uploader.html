@@ -15,7 +15,7 @@
         <div class="added">
        	  <a id="agregarCampo" class="btn btn-success glyphicon glyphicon-plus"></a></br></br>
           <span class="btn btn-primary btn-file">
-            Adjuntar Archivo <input type="file" id="fileDoc" name="avatar">
+            Adjuntar Archivo <input type="file" class="files" id="fileDoc_1" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4">
           </span>
         </div>
       </div>
@@ -37,7 +37,7 @@
 			if(x <= MaxInputs)
 			{
 				FieldCount++; 
-				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" id="fileDoc" name="avatar"></span><a href="#" class="eliminar">X</a></div>');
+				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar"></span><a href="#" class="eliminar">X</a></div>');
 				x++;
 			}
 		return false;
@@ -53,7 +53,7 @@
 
 		$(document).ready(function() {
 			if(getParameterByName('response') != null){
-				window.parent.buttonReset();
+				//window.parent.buttonReset();
 			}		    	
 		});
 
@@ -66,6 +66,29 @@
 		    if (!results[2]) return '';
 		    return decodeURIComponent(results[2].replace(/\+/g, " "));
 		}
-
 	});
+
+	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+		numFiles = input.get(0).files ? input.get(0).files.length : 1,
+		label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [numFiles, label]);
+		var id = $(this).attr("id");
+		var valida = ValidarExtension(label);
+		if(valida == false){
+			alert("Extensión de documento no valido");
+			$('#' + id).val('');
+		}
+	});
+
+	function ValidarExtension(v)
+	{
+	  var extensionesPermitidas = new Array("jpg","JPG","png","PNG","pdf","PDF","bmp","BMP","docx","DOCX","xls","XLSX", "doc", "DOC", "ppt", "PPT", "mp4");
+	  for(var ct=0;ct<extensionesPermitidas.length;ct++)
+	  {
+	      sample = v.lastIndexOf(extensionesPermitidas[ct]);
+	      if(sample != -1){return true;}
+	  }
+	  return false;
+	}
 </script>

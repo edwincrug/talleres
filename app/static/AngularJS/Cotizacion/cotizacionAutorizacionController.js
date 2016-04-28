@@ -6,6 +6,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     var idCotizacion = localStorageService.get('cotizacion');
     var idTrabajo = localStorageService.get('work');
     var idTaller = localStorageService.get('taller');
+    $scope.idTrabajoOrden = localStorageService.get('objTrabajo'); 
     $scope.estado = localStorageService.get('estado');
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
@@ -202,37 +203,50 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         location.href = '/cotizacionNueva';
     }
 
-    //Actualización de la cotización
-    $scope.cargarEvidencia = function () { //(idTrabajo, idCotizacion){
-        var formArchivos = document.getElementById("uploaderAutorizacion");
-        var contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+    //Se realiza la carga de archivos
+    $scope.cargarArchivos = function(){
+        //Se obtienen los datos de los archivos a subir
+        formArchivos = document.getElementById("uploader");
+        contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
         if (contentForm.document)
-            var btnSubmit = contentForm.document.getElementById("submit2");
-        var elements = contentForm.document.getElementById("uploadForm").elements;
-        for (var i = 0; i < elements.length; i++) {
-            if (elements[i].value != "") {
-                $scope.nombreArchivo = elements[i].value;
-                $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
-                $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);
-                cotizacionRepository.insertEvidencia(tipoEvidencia,
-                        $scope.idTipoArchivo,
-                        1, //$scope.idUsuario,
-                        idCotizacion,
-                        $scope.nombreArchivo)
-                    .then(function (result) {
-                        alertFactory.success('Evidencia Guardada Correctamente');
-                    }, function (error) {
+            btnSubmit = contentForm.document.getElementById("submit2");                
+            elements = contentForm.document.getElementById("uploadForm").elements;
+            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+            idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+            //Se valida si el id viene de la pantalla de Ordenes de servicio en proceso
+            if($scope.idTrabajoOrden.idTrabajo != null)
+            {
+                idTrabajoEdit.value = $scope.idTrabajoOrden.idTrabajo;    
+            } else{
+                idTrabajoEdit.value = idTrabajo;
+            }
+            if($scope.idTrabajoOrden.idCotizacion != null)
+            {
+                idCotizacionEdit.value = $scope.idTrabajoOrden.idCotizacion;    
+            } else{
+                idCotizacionEdit.value = idCotizacion;
+            }
+            for(var i = 0; i < elements.length; i++)
+            {
+                if(elements[i].value.lastIndexOf(".") > 0){
+                    $scope.nombreArchivo = elements[i].value;
+                    $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
+                    $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
+                    cotizacionRepository.insertEvidencia(tipoEvidencia,
+                                                        $scope.idTipoArchivo,
+                                                        1,//$scope.idUsuario,
+                                                        idCotizacion,
+                                                        $scope.nombreArchivo)
+                    .then(function(result){ 
+                        alertFactory.success('Evidencia Guardada Correctamente');                              
+                    },function(error){
                         alertFactory.error('Error');
                     });
+                }                        
             }
-        }
-        //Submit del botón del Form para subir los archivos
-        idTrabajo = contentForm.document.getElementById("idTrabajo");
-        idCotizacion = contentForm.document.getElementById("idCotizacion");
-        idTrabajo.value = idTrabajo;
-        idCotizacion.value = idCotizacion;
-        btnSubmit.click();
-        $('#modal').modal('hide');
+            //Submit del botón del Form para subir los archivos        
+            btnSubmit.click();
+            $('#modal').modal('hide');
     }
 
     //Se obtiene la extensión del archivo
@@ -243,12 +257,14 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     //Obtener el tipo de archivo
-    var obtenerTipoArchivo = function (ext) {
-        if (ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx') {
+    var obtenerTipoArchivo = function(ext){
+        if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
+            ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX'
+            || ext == '.ppt' || ext == '.PPT'){
             type = 1;
-        } else if (ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp') {
+        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP'){
             type = 2;
-        } else {
+        } else if(ext == '.mp4'){
             type = 3;
         }
         return type;

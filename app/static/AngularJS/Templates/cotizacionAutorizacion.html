@@ -254,6 +254,7 @@
         </div>
         <div ng-hide="estado==1" class="btnNueva">
             <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
+            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
         </div>
     </div>
 </form>
@@ -277,8 +278,8 @@
                 <h4 class="modal-title">Adjuntar Evidencia</h4>
             </div>
             <div class="modal-body">
-                <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploaderAutorizacion"></iframe>
-                <button id="btnUploadAut" type="button" class="btn btn-info" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarEvidencia()">
+                <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+                <button id="btnUploadAut" type="button" class="btn btn-info" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
                     <span class="glyphicon glyphicon-cloud-upload"></span>
                 </button>
             </div>
