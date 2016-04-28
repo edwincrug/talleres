@@ -412,4 +412,30 @@ Cotizacion.prototype.get_servicioDetalle_data = function (req, res, next) {
     });
 }
 
+//Proceso que envia correo de cotizaciones (nueva, aprobación, rechazo)
+Cotizacion.prototype.post_mail = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    var objMail = {
+        idCotizacion: req.body.cotizacion,
+        idTaller: req.body.taller,
+        idOperacion: req.body.operacion,
+        comentarios: req.body.comentario
+    };
+
+    //Asigno a params el valor de mis variables
+    this.model.mail(objMail, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.mail(res, object);
+    });
+}
+
 module.exports = Cotizacion;

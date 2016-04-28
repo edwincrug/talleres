@@ -191,9 +191,9 @@
                             </tr>
                         </thead>
                         <tr ng-repeat="doc in docs ">
-                            <td>{{doc.tipoArchivo}}</td>
-                            <td>{{doc.Usuario}}</td>
-                            <td>{{doc.nombreArchico}}</td>
+                            <td>{{doc.descripcionTipo}}</td>
+                            <td>{{doc.nombreCompleto}}</td>
+                            <td>{{doc.NombreArchivo}}</td>
                             <td>{{doc.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
                             <td><a href="uploads/files/{{doc.idTrabajo}}/{{doc.idCotizacion}}/documentos/{{doc.NombreArchivo}}" download="" target="_blank">{{doc.NombreArchivo}}</a>
                             </td>

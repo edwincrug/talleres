@@ -1,4 +1,4 @@
-registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository) {
+registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
@@ -56,14 +56,16 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 function (error) {});
     }
 
+    //Autoriza una cotización
     $scope.Autorizar = function (comentario) {
         cotizacionAutorizacionRepository.putCotizacionAprobacion(idCotizacion, 1, comentario).then(function (result) {
             if (result.data.length > 0) {
+                cotizacionMailRepository.postMail(idCotizacion, 1, 2, comentario);
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
             }
         }, function (error) {
-
+            alertFactory.error('No se pudo autorizar la cotización, inténtelo más tarde');
         });
     }
 
@@ -176,6 +178,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.Rechazar = function (comentario) {
         cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, 1, comentario).then(function (result) {
             if (result.data.length > 0) {
+                cotizacionMailRepository.postMail(idCotizacion, 1, 3, comentario);
                 alertFactory.success('Cotización Rechazada correctamente');
                 location.href = '/trabajo';
             }
@@ -270,7 +273,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         return type;
     }
 
-    //Se obtienen los archivos de la cotización
+    //Se obtienen los archivos de la cotización (documentos)
     $scope.cargaDocs = function (idCotizacion) {
         $scope.promise =
             cotizacionAutorizacionRepository.getDocs(idCotizacion).then(function (result) {
