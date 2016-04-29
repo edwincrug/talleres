@@ -37,7 +37,7 @@
 			if(x <= MaxInputs)
 			{
 				FieldCount++; 
-				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar"></span><a href="#" class="eliminar">X</a></div>');
+				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4"></span><a href="#" class="eliminar">X</a></div>');
 				x++;
 			}
 		return false;
@@ -51,9 +51,9 @@
 		return false;
 		});
 
-		$(document).ready(function() {
+		/*$(document).ready(function() {
 			if(getParameterByName('response') != null){
-				//window.parent.buttonReset();
+				window.parent.buttonReset();
 			}		    	
 		});
 
@@ -65,7 +65,7 @@
 		    if (!results) return null;
 		    if (!results[2]) return '';
 		    return decodeURIComponent(results[2].replace(/\+/g, " "));
-		}
+		}*/
 	});
 
 	$(document).on('change', '.btn-file :file', function() {

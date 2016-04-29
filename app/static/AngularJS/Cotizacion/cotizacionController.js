@@ -31,7 +31,6 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idCita = '';
 
     $scope.init = function(){
-        //var idCita = $route.current.params;
         datosCita();
         exist = false;
         $scope.objCita = localStorageService.get('objCita');//Objeto de la pagina de cita
@@ -181,7 +180,6 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     //Envia la cotización para autorización
     $scope.enviarAutorizacion = function(observaciones){
-        //$('#buttonEnviar').button('loading');
         if($scope.arrayItem.length == 0){
             alertFactory.info('Debe seleccionar items para la cotización');
         } else{
@@ -213,7 +211,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 });             
             });
             cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
-            cotizacionMailRepository($scope.idCotizacion,$scope.citaDatos.idTaller,1,'');                  
+            cotizacionMailRepository.postMail($scope.idCotizacion,$scope.editCotizacion.idTaller, 1,'');
+            location.href = '/cotizacionConsulta';                 
         }, function (error){
             alertFactory.error('Error');
         });         
@@ -221,9 +220,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     //Termina de guardar la información de los archivos
     $scope.FinishSave = function(){
-        //$('#buttonEnviar').button('reset');
         alertFactory.success('Guardando Archivos');
-        location.href = '/cotizacionConsulta';
+        location.href = '/cotizacionConsulta'; 
     }
 
     //Se obtiene la extensión del archivo
@@ -283,6 +281,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             });
         })
         cargarArchivos($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTrabajo);
+        cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion,$scope.citaDatos.idTaller, 1,'');
+        location.href = '/cotizacionConsulta'; 
     }
 
     //Se realiza la carga de archivos
