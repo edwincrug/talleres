@@ -137,5 +137,4 @@ DataAccess.prototype.postBuscaCita = function (objParams, callback) {
     });
 };
 
-
 module.exports = DataAccess; 

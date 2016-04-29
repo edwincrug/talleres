@@ -282,6 +282,18 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 							alertFactory.error("Error al insertar servicios");
 						});
 					});
+
+					//envío de correo electrónico
+					citaRepository.enviarMailConfirmacion(citaTaller.idCita).then(function(enviado){
+						if(enviado.data.length > 0){
+							alertFactory.success("e-mail enviado");
+						}
+						else{
+							alertFactory.info("No se envío el e-mail");
+						}
+					},function(error){
+						alertFactory.error("Error al enviar el e-mail")
+					});
 				}
 				
 				alertFactory.success("Se agendó correctamente");

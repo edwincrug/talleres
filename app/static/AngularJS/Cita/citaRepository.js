@@ -78,6 +78,9 @@ registrationModule.factory('citaRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        enviarMailConfirmacion: function (idCita) {
+            return $http.get(citaUrl +'enviaremailcita/'+ idCita);
         }
     };
 });

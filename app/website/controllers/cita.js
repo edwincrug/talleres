@@ -374,4 +374,49 @@ Cita.prototype.post_citaconfirmada = function(req, res, next){
     });
 }
 
+//realiza el envío de email para la confimación de la cita
+Cita.prototype.get_enviaremailcita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idCita: req.body.idCita
+    }
+	
+	this.model.postEnviaremailcita(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
+//obtiene el trabajo de la cita
+Cita.prototype.get_enviaremailcita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_NOTIFICACION_CITA_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
 module.exports = Cita;
