@@ -196,7 +196,14 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	var getCitaTaller = function(fecha, idCita){
 		if(idCita != 0){
-			confirmarCita(idCita);
+			citaRepository.validaConfirmacionCita(idCita).then(function(exists){
+				if(exists.data[0].confirmada == 1){
+					alertFactory.success("La cita ya ha sido confirmada");
+				}
+				else{
+					confirmarCita(idCita);
+				}
+			});
 		}
 
 		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
@@ -292,7 +299,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 							alertFactory.info("No se envío el e-mail");
 						}
 					},function(error){
-						alertFactory.error("Error al enviar el e-mail")
+							alertFactory.error("Error al enviar el e-mail")
 					});
 				}
 				

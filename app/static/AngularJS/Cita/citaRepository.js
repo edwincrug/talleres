@@ -81,6 +81,9 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         enviarMailConfirmacion: function (idCita) {
             return $http.get(citaUrl +'enviaremailcita/'+ idCita);
+        },
+        validaConfirmacionCita: function(idCita){
+            return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
         }
     };
 });
