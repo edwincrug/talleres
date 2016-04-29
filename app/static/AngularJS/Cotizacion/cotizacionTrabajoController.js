@@ -1,4 +1,4 @@
-registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository) {
+registrationModule.controller('cotizacionTrabajoController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];

@@ -205,9 +205,9 @@
                     </br>
                     <div style="border:1">
                         <carousel interval="setInterval">
-                            <div ng-if="alerta == 1" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
+                            <div ng-if="alerta == 1" ng-model="alerta" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
                             <slide ng-repeat="slide in slides" active="slide.active">
-                                <img class="carousel-image" ng-if="slide.tipoArchivo == '.mp4'" ng ng-src="uploads/files/videoRep.jpg">
+                                <img class="carousel-image" ng-if="slide.tipoArchivo == '3'" ng ng-src="uploads/files/video.jpg">
                                 <img style="height:380px; width:100%" class="carousel-image" ng-if="slide.tipoArchivo !== '1'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}">
                             </slide>
                         </carousel>
