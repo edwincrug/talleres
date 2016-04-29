@@ -11,7 +11,21 @@ var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     var idTrabajo = req.body.idTrabajo;
     var idCotizacion = req.body.idCotizacion;
-    mkdirp(__dirname + '/static/uploads/files/' + idTrabajo, function (err) {
+    if(idCotizacion == ''){
+      mkdirp(__dirname + '/static/uploads/files/' + idTrabajo, function (err) {
+           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' 
+                || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4'){
+              mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
+                cb(null, __dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
+              });
+           } else{
+              mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/documentos', function (err) {
+                  cb(null, __dirname + '/static/uploads/files/' + idTrabajo + '/documentos')
+              });
+           }
+    });
+    }else{
+      mkdirp(__dirname + '/static/uploads/files/' + idTrabajo, function (err) {
          mkdirp(__dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion, function (err) {
            if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' 
                 || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4'){
@@ -24,7 +38,8 @@ var storage = multer.diskStorage({
               });
            }
          });
-    });    
+    }); 
+    }       
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
