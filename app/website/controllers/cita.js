@@ -40,30 +40,26 @@ Cita.prototype.get_trabajo_data = function(req, res, next){
 	});
 }
 
-Cita.prototype.get_buscaCita_data = function(req,res,next){
+Cita.prototype.post_buscaCita = function(req,res,next){
 	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+    //Asigno a params el valor de mis variables
+    var msgObj = {
+        fecha: req.body.fecha,
+        idCita: req.body.idCita
+    }
 
-	//Asigno a params el valor de mis variables
-	/*var responseDate = moment(req.params.data).format('YYYY-MM-DD HH:mm Z');
-    var fecha = new Date(responseDate); 
-    fecha.setHours(12);*/
+    this.model.postBuscaCita(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
 
-    params.name = 'fecha';
-    params.value = req.params.data;    
-	params.type = 3;
-
-	this.model.get( 'SEL_CITA_TALLER_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+        self.view.post(res, object);
+    });
 }
 
 //obtiene datos de la unidad
@@ -356,4 +352,93 @@ Cita.prototype.get_historialcotizacion_data = function(req, res, next){
 	});
 }
 
+//devuelve la cita confirmada
+Cita.prototype.post_citaconfirmada = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idCita: req.body.idCita
+    }
+	
+	this.model.postConfirmarCita(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
+//realiza el envío de email para la confimación de la cita
+Cita.prototype.get_enviaremailcita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idCita: req.body.idCita
+    }
+	
+	this.model.postEnviaremailcita(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
+//obtiene el trabajo de la cita
+Cita.prototype.get_enviaremailcita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get( 'SEL_NOTIFICACION_CITA_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
+//obtiene el trabajo de la cita
+Cita.prototype.get_validaconfirmacioncita_data = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
+	
+	this.model.get('SEL_VALIDA_CONIFIRMACION_CITA_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
 module.exports = Cita;

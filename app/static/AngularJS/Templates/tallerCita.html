@@ -16,7 +16,9 @@
                     <th>Fecha</th> 
                     <th>Num.Economico</th>                        
                     <th>Marca-Modelo</th>
-                    <th>Trabajo</th>     
+                    <th>Trabajo</th>
+                    <th>Observaciones</th>
+                    <th>Estatus</th>     
                     <th>Agendó</th> 
                 </tr> 
             </thead> 
@@ -26,6 +28,8 @@
                     <td>{{ cita.numEconomico }}</td> 
                     <td>{{ cita.modeloMarca }}</td>
                     <td>{{ cita.trabajo }}</td> 
+                    <td>{{ cita.observacion}}</td>
+                    <td>{{ cita.estatus}}</td>
                     <td>{{ cita.nombreCompleto }} </td>
                     <td>
                       <button class="btn btn-info" type="button" data-toggle="tooltip"

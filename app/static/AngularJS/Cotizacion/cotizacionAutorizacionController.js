@@ -13,6 +13,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.chat = [];
     $scope.descripcion = localStorageService.get('desc');
     var tipoEvidencia = 2; //Cotización
+    var idCotizacionEdita = 0;
 
 
     $scope.init = function () {
@@ -216,17 +217,19 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
             idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
             //Se valida si el id viene de la pantalla de Ordenes de servicio en proceso
-            if($scope.idTrabajoOrden.idTrabajo != null)
+            if($scope.idTrabajoOrden != null)
             {
                 idTrabajoEdit.value = $scope.idTrabajoOrden.idTrabajo;    
             } else{
                 idTrabajoEdit.value = idTrabajo;
             }
-            if($scope.idTrabajoOrden.idCotizacion != null)
+            if($scope.idTrabajoOrden != null)
             {
-                idCotizacionEdit.value = $scope.idTrabajoOrden.idCotizacion;    
+                idCotizacionEdit.value = $scope.idTrabajoOrden.idCotizacion;
+                idCotizacionEdita =  $scope.idTrabajoOrden.idCotizacion;   
             } else{
                 idCotizacionEdit.value = idCotizacion;
+                idCotizacionEdita = idCotizacion;
             }
             for(var i = 0; i < elements.length; i++)
             {
@@ -237,7 +240,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                     cotizacionRepository.insertEvidencia(tipoEvidencia,
                                                         $scope.idTipoArchivo,
                                                         1,//$scope.idUsuario,
-                                                        idCotizacion,
+                                                        idCotizacionEdita,
                                                         $scope.nombreArchivo)
                     .then(function(result){ 
                         alertFactory.success('Evidencia Guardada Correctamente');                              
@@ -249,6 +252,10 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
             $scope.cargaEvidencias();
+<<<<<<< HEAD
+=======
+            $scope.cargaDocs(idCotizacionEdita);
+>>>>>>> origin/master
             $('#modal').modal('hide');
     }
 
@@ -279,5 +286,10 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             cotizacionAutorizacionRepository.getDocs(idCotizacion).then(function (result) {
                 $scope.docs = result.data;
             }, function (error) {});
+    }
+
+    //Termina de guardar la información de los archivos
+    $scope.FinishSave = function(){
+        alertFactory.success('Guardando Archivos'); 
     }
 });
