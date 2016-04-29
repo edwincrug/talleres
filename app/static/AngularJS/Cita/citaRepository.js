@@ -2,10 +2,18 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
 
 registrationModule.factory('citaRepository', function ($http) {
     return {
-        getCitaTaller: function (fecha) {
-        	return $http({
-                url: citaUrl + 'buscaCita/' + fecha,
-                method: "GET"
+        getCitaTaller: function(fecha, idCita){
+        var msgObj = {
+                fecha: fecha,
+                idCita: idCita
+        }
+            return $http({
+                url: citaUrl + 'buscaCita/',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
             });
         },
         getUnidadInformation: function (datoUnidad) {
@@ -57,6 +65,19 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         getHistorialCotizacion: function (idTrabajo) {
             return $http.get(citaUrl +'historialcotizacion/'+ idTrabajo);
+        },
+        confirmarCita: function(idCita){
+            var msgObj = {
+                idCita: idCita
+            }
+            return $http({
+                url: citaUrl + 'citaconfirmada/',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

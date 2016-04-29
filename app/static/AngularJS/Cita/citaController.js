@@ -5,7 +5,7 @@
 // -- Modificó: V. Vladimir Juárez Juárez
 // -- Fecha: 30/03/2016
 // -- =============================================
-registrationModule.controller('citaController', function($scope, $rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository){
+registrationModule.controller('citaController', function($scope, $route,$rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository){
 	var cDetalles = [];
 	var cPaquetes = [];
 	$scope.message = 'Buscando...';
@@ -31,8 +31,15 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 
 	//init de la pantalla tallerCita
 	$scope.initTallerCita = function(){
-		$scope.fecha = new Date();
-		$scope.busquedaCita($scope.fecha);
+		if($route.current.params.confCita != undefined){
+			var idConfCita = Number($route.current.params.confCita);
+			var fecha = $route.current.params.fecha;
+			getCitaTaller(fecha, idConfCita);
+		}
+		else{
+			$scope.fecha = new Date();
+			$scope.busquedaCita($scope.fecha);
+		}
 	}
 
 	//obtiene la unidad mediante el dato buscado
@@ -182,18 +189,41 @@ registrationModule.controller('citaController', function($scope, $rootScope, loc
 			mes = ''+'0'+mes 
 		}
 		var anio = fecha.getFullYear();
-		var date = anio +'-'+ mes +'-'+ dia;
-		$scope.promise = citaRepository.getCitaTaller(date).then(function(cita){			
+		var date = anio +''+ mes +''+ dia;
+					
+		getCitaTaller(date, 0);
+	}
+
+	var getCitaTaller = function(fecha, idCita){
+		if(idCita != 0){
+			confirmarCita(idCita);
+		}
+
+		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
 			if(cita.data.length > 0){
-				$scope.listaCitas = cita.data;			
-	    		alertFactory.success('Datos de citas cargados.');
-			} else{		
+				$scope.listaCitas = cita.data;
+				alertFactory.success('Datos de citas cargados.');
+			}			
+			else{		
 				$scope.listaCitas = '';
 	    		alertFactory.info('No hay citas en la fecha seleccionada.');
-			}			
+			}	
 		},function(error){
-	        alert("error");
-	    });				
+			alertFactory.error("Error al obtener citas");
+		});	
+	}
+	//realiza el cambio de estatus de la cita en CONFIRMADA
+	var confirmarCita = function(confCita){
+		citaRepository.confirmarCita(confCita).then(function(citaConfirmada){
+			if(citaConfirmada.data.length > 0){
+				alertFactory.success("Cita confirmada");
+			}	
+			else{
+				alertFactory.info("No se encontró la cita");
+			}
+		},function(error){
+			alertFactory.error("Error al confirmar la cita");
+		});
 	}
 
     //obtiene los talleres con su especialidad

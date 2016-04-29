@@ -31,6 +31,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idCita = '';
 
     $scope.init = function(){
+        //var idCita = $route.current.params;
         datosCita();
         exist = false;
         $scope.objCita = localStorageService.get('objCita');//Objeto de la pagina de cita

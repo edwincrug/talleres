@@ -61,7 +61,7 @@ DataAccess.prototype.post = function (objParams, callback) {
         request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
         request.input('idTaller', sql.Numeric(18, 0), objParams.idTaller);
         request.input('fecha', sql.VarChar(20), objParams.fecha);
-        request.input('trabajo', sql.VarChar(100), objParams.trabajo);
+        request.input('trabajo', sql.VarChar(500), objParams.trabajo);
         request.input('observacion', sql.VarChar(1000), objParams.observacion);
         request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
 
@@ -97,5 +97,45 @@ DataAccess.prototype.postCitaServicioDetalle = function (objParams, callback) {
 
     });
 };
+
+//método post
+DataAccess.prototype.postConfirmarCita = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+
+        request.execute('INS_CONFIRMACION_CITA_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al realizacion la insercción: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
+//método post
+DataAccess.prototype.postBuscaCita = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('fecha', sql.VarChar(10), objParams.fecha);
+        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+
+        request.execute('SEL_CITA_TALLER_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al realizacion la insercción: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 
 module.exports = DataAccess; 
