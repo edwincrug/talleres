@@ -5,7 +5,7 @@
 // -- Modificó: Mario Mejía
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('cotizacionController', function($scope, $rootScope, alertFactory, localStorageService,cotizacionRepository){
+registrationModule.controller('cotizacionController', function($scope, $rootScope, alertFactory, localStorageService,cotizacionRepository,cotizacionMailRepository){
     $scope.arrayItem = [];
     $scope.arrayCambios = [];
     var valor = '';
@@ -212,7 +212,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     alertFactory.error('Error');
                 });             
             });
-            cargarArchivos($scope.idCotizacion,$scope.idTrabajo);                   
+            cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
+            cotizacionMailRepository($scope.idCotizacion,$scope.citaDatos.idTaller,1,'');                  
         }, function (error){
             alertFactory.error('Error');
         });         
