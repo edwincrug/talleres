@@ -34,7 +34,18 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		if($route.current.params.confCita != undefined){
 			var idConfCita = Number($route.current.params.confCita);
 			var fecha = $route.current.params.fecha;
-			getCitaTaller(fecha, idConfCita);
+			if(idConfCita != 0){
+				citaRepository.validaConfirmacionCita(idConfCita).then(function(exists){
+					if(exists.data[0].confirmada == 1){
+						alertFactory.success("La cita ya ha sido confirmada");
+						getCitaTaller(fecha, idConfCita);
+					}
+					else{
+						confirmarCita(idConfCita);
+						getCitaTaller(fecha, idConfCita);
+					}
+				});
+			}
 		}
 		else{
 			$scope.fecha = new Date();
@@ -195,17 +206,6 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	}
 
 	var getCitaTaller = function(fecha, idCita){
-		if(idCita != 0){
-			citaRepository.validaConfirmacionCita(idCita).then(function(exists){
-				if(exists.data[0].confirmada == 1){
-					alertFactory.success("La cita ya ha sido confirmada");
-				}
-				else{
-					confirmarCita(idCita);
-				}
-			});
-		}
-
 		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
 			if(cita.data.length > 0){
 				$scope.listaCitas = cita.data;
@@ -289,22 +289,21 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 							alertFactory.error("Error al insertar servicios");
 						});
 					});
-
-					//envío de correo electrónico
-					citaRepository.enviarMailConfirmacion(citaTaller.idCita).then(function(enviado){
-						if(enviado.data.length > 0){
-							alertFactory.success("e-mail enviado");
-						}
-						else{
-							alertFactory.info("No se envío el e-mail");
-						}
-					},function(error){
-							alertFactory.error("Error al enviar el e-mail")
-					});
 				}
 				
 				alertFactory.success("Se agendó correctamente");
 				$scope.clearInputs();
+				//envío de correo electrónico
+				citaRepository.enviarMailConfirmacion(citaTaller.idCita).then(function(enviado){
+					if(enviado.data.length > 0){
+						alertFactory.success("e-mail enviado");
+					}
+					else{
+						alertFactory.info("No se envío el e-mail");
+					}
+				},function(error){
+						alertFactory.error("Error al enviar el e-mail")
+				});
 				location.href = '/tallerCita';
 				localStorageService.set('objCita', citaTaller);
 				localStorageService.remove('stgListaPiezas');
