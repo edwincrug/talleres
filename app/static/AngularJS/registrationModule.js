@@ -65,6 +65,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
             controller: 'citaController'
         });
 
+        $routeProvider.when('/cotizacionTrabajo', {
+           templateUrl: 'AngularJS/Templates/cotizacionTrabajo.html',
+           controller: 'cotizacionTrabajoController'
+       });
+
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false

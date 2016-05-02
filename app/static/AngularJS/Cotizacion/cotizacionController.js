@@ -31,10 +31,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idCita = '';
 
     $scope.init = function(){
-        datosCita();
         exist = false;
-        $scope.objCita = localStorageService.get('objCita');//Objeto de la pagina de cita
-        
         //Se valida si la cotización es para editar
         if(localStorageService.get('objEditCotizacion') != null){
             $scope.editCotizacion = localStorageService.get('objEditCotizacion');//objeto de la pagina autorizacion
@@ -43,11 +40,17 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             $scope.estado = 2;
             $scope.editarCotizacion($scope.editCotizacion.idCotizacion,
                              $scope.editCotizacion.idTaller);
-        } else if(localStorageService.get('cita') != null){
+        } else{
+            $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita 
             $scope.estado = 1;
-            busquedaServicioDetalle($scope.idCita);
-        } else {
-            $scope.estado = 1;
+            datosCita();
+            busquedaServicioDetalle($scope.citaDatos.idCita);            
+            localStorageService.remove('objEditCotizacion');
+            localStorageService.remove('objFicha');
+        }
+
+        if(localStorageService.get('objCita') != null){//Objeto de la pagina de cita
+            $scope.objCita = localStorageService.get('objCita');
         }
     }
 
@@ -211,8 +214,10 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 });             
             });
             cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
-            cotizacionMailRepository.postMail($scope.idCotizacion,$scope.editCotizacion.idTaller, 1,'');
-            location.href = '/cotizacionConsulta';                 
+            cotizacionMailRepository.postMail($scope.idCotizacion,$scope.citaDatos.idTaller, 1,'');
+            location.href = '/cotizacionConsulta';
+            localStorageService.remove('objCita');
+            localStorageService.remove('cita');          
         }, function (error){
             alertFactory.error('Error');
         });         
@@ -281,8 +286,10 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             });
         })
         cargarArchivos($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTrabajo);
-        cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion,$scope.citaDatos.idTaller, 1,'');
-        location.href = '/cotizacionConsulta'; 
+        cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTaller, 1,'');
+        localStorageService.remove('objEditCotizacion');
+        localStorageService.remove('objFicha');
+        location.href = '/cotizacionConsulta';        
     }
 
     //Se realiza la carga de archivos
@@ -317,9 +324,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             }
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
-            localStorageService.remove('objEditCotizacion');
     }
-
     //Se obtienen datos de la unidad a editar
     var datosFicha = function(){
         if(localStorageService.get('objFicha') != null){
@@ -332,13 +337,11 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
     //Se obtienen datos de la cita para generar la cotización
     var datosCita = function(){
-        if(localStorageService.get('cita') != null){
-           $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita 
-           $scope.numEconomico = $scope.citaDatos.numEconomico;
-           $scope.modeloMarca = $scope.citaDatos.modeloMarca;
-           $scope.trabajo = $scope.citaDatos.trabajo;
-           $scope.idCita = $scope.citaDatos.idCita;     
-        }       
+       if(localStorageService.get('cita') != null){
+            $scope.numEconomico = $scope.citaDatos.numEconomico;
+            $scope.modeloMarca = $scope.citaDatos.modeloMarca;
+            $scope.trabajo = $scope.citaDatos.trabajo;  
+       }       
     }
 
     //Cargar datos de la cotizacion desde la cita
