@@ -6,7 +6,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     var idCotizacion = localStorageService.get('cotizacion');
     var idTrabajo = localStorageService.get('work');
     var idTaller = localStorageService.get('taller');
-    $scope.idTrabajoOrden = localStorageService.get('objTrabajo'); 
+    $scope.idTrabajoOrden = localStorageService.get('objTrabajo');
     $scope.estado = localStorageService.get('estado');
     $scope.setInterval = 5000;
     $scope.message = "Obteniendo información ...";
@@ -33,12 +33,12 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.cargaFicha = function () {
-            cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.unidadInfo = result.data[0];
-                    localStorageService.set('objFicha', $scope.unidadInfo);
-                }
-            }, function (error) {});
+        cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.unidadInfo = result.data[0];
+                localStorageService.set('objFicha', $scope.unidadInfo);
+            }
+        }, function (error) {});
     }
 
     $scope.EnviarComentario = function (comentarios) {
@@ -166,13 +166,13 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     });
 
     $scope.cargaEvidencias = function () {
-            cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.slides = result.data;
-                } else {
-                    $scope.alerta = 1;
-                }
-            }, function (error) {});
+        cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.slides = result.data;
+            } else {
+                $scope.alerta = 1;
+            }
+        }, function (error) {});
     }
 
     $scope.Rechazar = function (comentario) {
@@ -192,7 +192,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         location.href = '/cotizacionNueva';
     }
 
-    $scope.Adjuntar = function(){
+    $scope.Adjuntar = function () {
         $('#modal').appendTo('body').modal('show');
     }
 
@@ -207,56 +207,51 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     //Se realiza la carga de archivos
-    $scope.cargarArchivos = function(){
+    $scope.cargarArchivos = function () {
         //Se obtienen los datos de los archivos a subir
         formArchivos = document.getElementById("uploader");
         contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
         if (contentForm.document)
-            btnSubmit = contentForm.document.getElementById("submit2");                
-            elements = contentForm.document.getElementById("uploadForm").elements;
-            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-            idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
-            //Se valida si el id viene de la pantalla de Ordenes de servicio en proceso
-            if($scope.idTrabajoOrden != null)
-            {
-                idTrabajoEdit.value = $scope.idTrabajoOrden.idTrabajo;    
-            } else{
-                idTrabajoEdit.value = idTrabajo;
-            }
-            if($scope.idTrabajoOrden != null)
-            {
-                idCotizacionEdit.value = $scope.idTrabajoOrden.idCotizacion;
-                idCotizacionEdita =  $scope.idTrabajoOrden.idCotizacion;   
-            } else{
-                idCotizacionEdit.value = idCotizacion;
-                idCotizacionEdita = idCotizacion;
-            }
-            for(var i = 0; i < elements.length; i++)
-            {
-                if(elements[i].value.lastIndexOf(".") > 0){
-                    $scope.nombreArchivo = elements[i].value;
-                    $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
-                    $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
-                    cotizacionRepository.insertEvidencia(tipoEvidencia,
-                                                        $scope.idTipoArchivo,
-                                                        1,//$scope.idUsuario,
-                                                        idCotizacionEdita,
-                                                        $scope.nombreArchivo)
-                    .then(function(result){ 
-                        alertFactory.success('Evidencia Guardada Correctamente');                              
-                    },function(error){
+            btnSubmit = contentForm.document.getElementById("submit2");
+        elements = contentForm.document.getElementById("uploadForm").elements;
+        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+        idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+        //Se valida si el id viene de la pantalla de Ordenes de servicio en proceso
+        if ($scope.idTrabajoOrden != null) {
+            idTrabajoEdit.value = $scope.idTrabajoOrden.idTrabajo;
+        } else {
+            idTrabajoEdit.value = idTrabajo;
+        }
+        if ($scope.idTrabajoOrden != null) {
+            idCotizacionEdit.value = $scope.idTrabajoOrden.idCotizacion;
+            idCotizacionEdita = $scope.idTrabajoOrden.idCotizacion;
+        } else {
+            idCotizacionEdit.value = idCotizacion;
+            idCotizacionEdita = idCotizacion;
+        }
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].value.lastIndexOf(".") > 0) {
+                $scope.nombreArchivo = elements[i].value;
+                $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
+                $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);
+                cotizacionRepository.insertEvidencia(tipoEvidencia,
+                        $scope.idTipoArchivo,
+                        1, //$scope.idUsuario,
+                        idCotizacionEdita,
+                        $scope.nombreArchivo)
+                    .then(function (result) {
+                        alertFactory.success('Evidencia Guardada Correctamente');
+                    }, function (error) {
                         alertFactory.error('Error');
                     });
-                }                        
             }
-            //Submit del botón del Form para subir los archivos        
-            btnSubmit.click();
-            $scope.cargaEvidencias();
-<<<<<<< HEAD
-=======
-            $scope.cargaDocs(idCotizacionEdita);
->>>>>>> origin/master
-            $('#modal').modal('hide');
+        }
+        //Submit del botón del Form para subir los archivos        
+        btnSubmit.click();
+        $scope.cargaEvidencias();
+
+        $scope.cargaDocs(idCotizacionEdita);
+        $('#modal').modal('hide');
     }
 
     //Se obtiene la extensión del archivo
@@ -267,14 +262,13 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     //Obtener el tipo de archivo
-    var obtenerTipoArchivo = function(ext){
-        if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
-            ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX'
-            || ext == '.ppt' || ext == '.PPT'){
+    var obtenerTipoArchivo = function (ext) {
+        if (ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
+            ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX' || ext == '.ppt' || ext == '.PPT') {
             type = 1;
-        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP'){
+        } else if (ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP') {
             type = 2;
-        } else if(ext == '.mp4'){
+        } else if (ext == '.mp4') {
             type = 3;
         }
         return type;
@@ -289,7 +283,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     //Termina de guardar la información de los archivos
-    $scope.FinishSave = function(){
-        alertFactory.success('Guardando Archivos'); 
+    $scope.FinishSave = function () {
+        alertFactory.success('Guardando Archivos');
     }
 });
