@@ -1,4 +1,4 @@
-registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository) {
+registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, cotizacionConsultaRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
@@ -20,7 +20,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         $scope.cargaFicha();
         $scope.cargaChat();
         $scope.getCotizacionByTrabajo();
-        $scope.lookUpTrabajo(idCita);
+        $scope.Detalle(idCotizacion, idTaller);
+        //$scope.lookUpTrabajo(idCita);
         $scope.cargaEvidencias();
         $scope.cargaDocs(idCotizacion);
     }
@@ -216,7 +217,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         elements = contentForm.document.getElementById("uploadForm").elements;
         idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
         idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
-        
+
         idTrabajoEdit.value = idTrabajo;
         idCotizacionEdit.value = idCotizacion;
         idCotizacionEdita = idCotizacion;
@@ -277,5 +278,24 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     //Termina de guardar la información de los archivos
     $scope.FinishSave = function () {
         alertFactory.success('Guardando Archivos');
+    }
+
+    $scope.Detalle = function (idCotizacion, idTaller) {
+        cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.total = 0;
+                $scope.articulos = result.data;
+                for (var i = 0; i < result.data.length; i++) {
+                    $scope.total += (result.data[i].precio * result.data[i].cantidad)
+                }
+
+                alertFactory.success('Datos cargados.');
+            } else {
+                alertFactory.info('No se pudo obtener el detalle de esta cotización.');
+            }
+        }, function (error) {
+            alertFactory.info('No se pudo obtener el detalle de esta cotización.');
+        });
+
     }
 });

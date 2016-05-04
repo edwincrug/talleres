@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,8 +19,8 @@
     <link rel="stylesheet" type="text/css" href="css/cita.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
     <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
-   
-    <link href="css/chat.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/precios.css">
+
 
     <!--Loading-->
     <link href="css/toastr.css" rel="stylesheet" />
@@ -42,10 +43,11 @@
 
     <div id="perspective" class="perspective effect-rotateleft">
         <div class="container">
-            <div class="wrapper"><!-- wrapper needed for scroll -->
-                <span  id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" ng-hide="sesion == 0"> <span id="menuTitle">Menú</span> </span>
+            <div class="wrapper">
+                <!-- wrapper needed for scroll -->
+                <span id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" ng-hide="sesion == 0"> <span id="menuTitle">Menú</span> </span>
                 <div id="user" ng-hide="sesion == 0">
-                    
+
                     <div id="profile">Taller</div>
                     <div id="name">Edwin Cruz</div>
                     <div id="avatar">
@@ -54,18 +56,21 @@
                 </div>
                 <div id="divisor" ng-hide="sesion == 0"></div>
                 <div ng-view></div>
-            </div><!-- wrapper -->
-        </div><!-- /container -->
+            </div>
+            <!-- wrapper -->
+        </div>
+        <!-- /container -->
         <nav class="outer-nav right vertical" ng-controller="menuController">
             <a href="/cita" ng-click="Cerrar()" class="icon-home">Nueva Cita</a>
             <a href="/tallerCita" ng-click="Cerrar()" class="icon-news">Citas</a>
             <a href="/cotizacionConsulta" ng-click="Cerrar()" class="icon-image">Aprobaciones</a>
             <a href="/trabajo" ng-click="Cerrar()" class="icon-upload">Órdenes de Servicio</a>
-         <!--    <a href="#" class="icon-star">Favorites</a>
+            <!--    <a href="#" class="icon-star">Favorites</a>
             <a href="#" class="icon-mail">Messages</a>
             <a href="#" class="icon-lock">Security</a> -->
         </nav>
-    </div><!-- /perspective -->
+    </div>
+    <!-- /perspective -->
 
     <!--Interface de usuario-->
     <script src="js/libs/toastr/toastr.min.js"></script>

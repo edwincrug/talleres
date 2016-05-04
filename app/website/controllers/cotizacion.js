@@ -139,16 +139,6 @@ Cotizacion.prototype.post_detail = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-   /* params = req.params.data;
-
-    this.model.detail(params, function (error, result) {
-        object.error = error;
-        object.result = result;
-
-        self.view.detail(res, object);
-    });*/
-
     var objCotizacion = {
         idCotizacion: req.body.idCotizacion,
         idTaller: req.body.idTaller

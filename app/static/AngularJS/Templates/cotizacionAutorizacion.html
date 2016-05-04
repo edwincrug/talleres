@@ -1,3 +1,5 @@
+<link href="css/chat.css" rel="stylesheet" />
+
 <!--Carrusel-->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -5,182 +7,59 @@
 
 <div ng-init="init()" class="contenedor">
     <div class="row">
-    <div class="headTitle">
-        <span class="title"> Cotización - {{descripcion}}<span class="subtitle">Call Center</span> </span>
+        <div class="headTitle">
+            <span class="title"> Cotización - {{descripcion}}<span class="subtitle">Call Center</span> </span>
+        </div>
     </div>
-    </div>
-    </br>
+    <br>
     <div class="row" cg-busy="{promise:promise,message:message, minDuration: minDuration,
    delay:delay}">
         <div class="col-md-7">
             <ul class="nav nav-tabs" id="myTabs">
-                <li role="presentation" class="active"><a href="#fich">Ficha Técnica</a></li>
-                <li role="presentation"><a href="#trabajo">Órden de Servicio</a></li>
+                <!--<li role="presentation" class="active"><a href="#fich">Ficha Técnica</a></li>-->
+                <li role="presentation" class="active"><a href="#trabajo">Cotización</a></li>
                 <li role="presentation"><a href="#documentos">Documentos</a></li>
                 <li role="presentation"><a href="#evidencia">Evidencia</a></li>
             </ul>
             <div class="tab-content">
-                <div id="fich" class="tab-pane fade in active">
+                <div id="trabajo" class="tab-pane fade in active">
                     <br>
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
-                        <div class="panel-body">
-                            <table>
-                                <thead>
-                                    <th></th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>
-                                            <div>
-                                                <div>
-                                                    <label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>TAR:</label><span> {{unidadInfo.TAR}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>GAR:</label><span> {{unidadInfo.GAR}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
-                                                </div>
-                                                <div>
-                                                    <label>Motor:</label><span> {{unidadInfo.motor}}</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th id="fotoFicha">
-                                            <img src="image/international.jpg" id="fotoUnidad">
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <div id="trabajo" class="tab-pane fade">
-                    <div class="panel panel-info">
-                        </br>
-                        <div class="panel-heading"></div>
-                        <div class="panel-body" style=" height:300px; overflow-y: scroll">
-                            <div>
-                                <table class="table table-condensed table-striped">
-                                    <thead>
-                                        <!-- <th></th> -->
-                                        <!-- <th>Número de cita</th> -->
-                                        <th>Número de trabajo</th>
-                                        <th>Fecha inicio</th>
-                                        <th>Fecha fin</th>
-                                        <th>Trabajo</th>
-                                        <th>Estatus</th>
-                                    </thead>
-                                    <tbody ng-repeat="t in trabajo">
-                                        <tr>
-                                            <!-- <td class="CX"><button type="button">+</button> -->
-                                            <!-- <td>{{t.trabajo.idCita}}</td> -->
-                                            <td>{{t.trabajo.numeroTrabajo}}</td>
-                                            <td>{{t.trabajo.fechaInicio | date:'dd-MM-yyyy HH:mm'}}</td>
-                                            <td>{{t.trabajo.fechaFin}}</td>
-                                            <td>{{t.trabajo.descripcion}}</td>
-                                            <td>{{t.trabajo.estatus}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="5">
-                                                <table class="tableData">
-                                                    <thead>
-                                                        <th></th>
-                                                        <th>Número de cotización</th>
-                                                        <th>Estatus</th>
-                                                        <th>Fecha</th>
-                                                        <th>Cotizó</th>
-                                                        <th>Total</th>
-                                                    </thead>
-                                                    <tbody ng-repeat="c in t.trabajo.cotizacion">
-                                                        <tr>
-                                                            <td class="CX">
-                                                                <button type="button">+</button>
-                                                            </td>
-                                                            <td>{{c.numeroCotizacion}}</td>
-                                                            <td>{{c.estatus}}</td>
-                                                            <td>{{c.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
-                                                            <td>{{c.nombreCompleto}}</td>
-                                                            <td>{{c.total | currency}}</td>
-                                                        </tr>
-                                                        <tr class="sub">
-                                                            <td></td>
-                                                            <td colspan="5">
-                                                                <table class="tableData">
-                                                                    <thead>
-                                                                        <th></th>
-                                                                        <th>Tipo de artículo</th>
-                                                                        <th>Descripción</th>
-                                                                        <th>Precio</th>
-                                                                        <th>Cantidad</th>
-                                                                        <th>Subtotal</th>
-                                                                    </thead>
-                                                                    <tbody ng-repeat="cd in c.cotizacionDetalle">
-                                                                        <tr>
-                                                                            <td class="CX">
-                                                                                <button ng-if="cd.idTipoElemento == 1" type="button">+</button>
-                                                                            </td>
-                                                                            <td>{{cd.tipoDescripcion}}</td>
-                                                                            <td>{{cd.descripcion}}</td>
-                                                                            <td>{{cd.precio | currency}}</td>
-                                                                            <td>{{cd.cantidad}}</td>
-                                                                            <td>{{cd.subtotal | currency}}</td>
-                                                                        </tr>
-                                                                        <tr class="sub">
-                                                                            <td colspan="3"></td>
-                                                                            <td colspan="3">
-                                                                                <table class="tableData">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Descripción</th>
-                                                                                            <th>Número de parte</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <tr ng-repeat="p in cd.paquete">
-                                                                                            <td>{{p.item}}</td>
-                                                                                            <td>{{p.numeroParte}}</td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>No.Partida</th>
+                                    <th>Descripción</th>
+                                    <th>Cant.</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="articulo in articulos">
+                                    <td>{{ articulo.numeroPartida }}</td>
+                                    <td>{{articulo.item}}</td>
+                                    <td>{{articulo.cantidad}}</td>
+                                    <td style="text-align:right;">{{ articulo.precio | currency }}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align:right;" class="text-precio">
+                                        <h3>Total:</h3></td>
+                                    <td class="text-precio">
+                                        <h3>{{total | currency}}</h3>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>
                     </div>
                 </div>
                 <div id="documentos" class="tab-pane fade">
-                    <table id="tblPersonas" class="table ">
+                    <table id="tblPersonas" class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Tipo Archivo</th>
@@ -190,19 +69,20 @@
                                 <th>Documentos</th>
                             </tr>
                         </thead>
-                        <tr ng-repeat="doc in docs ">
-                            <td>{{doc.descripcionTipo}}</td>
-                            <td>{{doc.nombreCompleto}}</td>
-                            <td>{{doc.NombreArchivo}}</td>
-                            <td>{{doc.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
-                            <td><a href="uploads/files/{{doc.idTrabajo}}/{{doc.idCotizacion}}/documentos/{{doc.NombreArchivo}}" download="" target="_blank">{{doc.NombreArchivo}}</a>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr ng-repeat="doc in docs ">
+                                <td>{{doc.descripcionTipo}}</td>
+                                <td>{{doc.nombreCompleto}}</td>
+                                <td>{{doc.NombreArchivo}}</td>
+                                <td>{{doc.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                                <td><a href="uploads/files/{{doc.idTrabajo}}/{{doc.idCotizacion}}/documentos/{{doc.NombreArchivo}}" download="" target="_blank">{{doc.NombreArchivo}}</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div id="evidencia" class="tab-pane fade">
-                    </br>
+                    <br>
                     <div style="border:1">
                         <carousel interval="setInterval">
                             <div ng-if="alerta == 1" ng-model="alerta" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
@@ -215,7 +95,60 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 panel panel-primary">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
+                <div class="panel-body">
+                    <table>
+                        <thead>
+                            <th></th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <div>
+                                        <div>
+                                            <label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
+                                        </div>
+                                        <div>
+                                            <label>TAR:</label><span> {{unidadInfo.TAR}}</span>
+                                        </div>
+                                        <div>
+                                            <label>GAR:</label><span> {{unidadInfo.GAR}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
+                                        </div>
+                                        <div>
+                                            <label>Motor:</label><span> {{unidadInfo.motor}}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th id="fotoFicha">
+                                    <img src="image/international.jpg" id="fotoUnidad">
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!--  <div class="col-md-5 panel panel-primary">
             <div class="panel-heading">Chat</div>
             <div class="panel-body">
                 <div id="chat">
@@ -239,25 +172,45 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
-    </br>
 </div>
-<form class="form-inline" style="float: right;">
+<div class="row">
+    <div class="col-md-offset-5 col-md-7">
+        <form class="form-inline">
+            <div class="form-group">
+                <div ng-hide="estado==2">
+                    <textarea class="form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
+                    <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" ng-click="Autorizar(comentario)">Autorizar</button>
+                    <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" ng-click="Rechazar(comentario)">Rechazar</button>
+                    <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" ng-click="Editar()">Editar</button>
+                    <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" ng-click="Adjuntar()">Adjuntar</button>
+                </div>
+                <div ng-hide="estado==1" class="btnNueva">
+                    <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
+                    <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<!--<form class="form-inline" style="float: right;">
     <div class="form-group">
         <div ng-hide="estado==2">
             <textarea class="form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
-            <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" tooltip="Autorizar Cotización" ng-click="Autorizar(comentario)"></button>
-            <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" tooltip="Rechazar Cotización" ng-click="Rechazar(comentario)"></button>
-            <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" tooltip="Editar Cotización" ng-click="Editar()"></button>
-            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
+            <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" ng-click="Autorizar(comentario)">Autorizar</button>
+            <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" ng-click="Rechazar(comentario)">Rechazar</button>
+            <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" ng-click="Editar()">Editar</button>
+            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" ng-click="Adjuntar()">Adjuntar</button>
         </div>
         <div ng-hide="estado==1" class="btnNueva">
             <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
             <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
         </div>
     </div>
-</form>
+</form>-->
 
 <!--<div class="video-wrap">
         <div class="video-inner">
