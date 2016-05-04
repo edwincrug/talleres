@@ -245,8 +245,13 @@
 <form class="form-inline" style="float: right;">
     <div class="form-group">
         <div class="btnNueva">
-            <button type="button" class="btn btn-success" ng-click="Cotizacion()">Nueva Cotización</button>
-            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
+            <button type="button" class="btn btn-success" data-toggle="tooltip" tooltip="Nueva Cotización" tooltip-placement="top" 
+            ng-click="Cotizacion()">
+                    <span class="glyphicon glyphicon-usd"> Nueva Cotización</span>
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="tooltip" tooltip="Adjuntar Evidencia" tooltip-placement="top" ng-click="Adjuntar()">
+                    <span class="glyphicon glyphicon-paperclip"> Adjuntar</span>
+            </button>
         </div>
     </div>
 </form>

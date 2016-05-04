@@ -37,7 +37,7 @@
 			if(x <= MaxInputs)
 			{
 				FieldCount++; 
-				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4"></span><a href="#" class="eliminar">X</a></div>');
+				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4"></span><a href="#" class="btn btn-danger glyphicon glyphicon-remove eliminar"></a></div>');
 				x++;
 			}
 		return false;
